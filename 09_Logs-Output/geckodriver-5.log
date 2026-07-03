@@ -1,0 +1,18 @@
+1745570449609	geckodriver	INFO	Listening on 127.0.0.1:54556
+1745570452712	mozrunner::runner	INFO	Running command: "C:\\Users\\newty\\.cache\\selenium\\firefox\\win64\\137.0.2\\firefox.exe" "--marionette" "--remote-debuggin ... 7" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\newty\\AppData\\Local\\Temp\\rust_mozprofileh2EZiA"
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+Dynamically enable window occlusion 0
+1745570453642	Marionette	INFO	Marionette enabled
+1745570453901	Marionette	INFO	Listening on port 54570
+WebDriver BiDi listening on ws://127.0.0.1:54557
+Read port: 54570
+1745570454091	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+DevTools listening on ws://127.0.0.1:54557/devtools/browser/8ea6c0a6-5654-466e-a58b-508164609391
+JavaScript warning: https://static.xx.fbcdn.net/rsrc.php/v4iwDz4/y6/l/th_TH/sNCj47iafWW.js, line 36: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.facebook.com."
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.facebook.com."
+JavaScript warning: https://static.xx.fbcdn.net/rsrc.php/v4i9wo4/yx/l/en_GB/jAGR9l0AJsj.js, line 104: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+1745570564737	Marionette	INFO	Stopped listening on port 54570
+Dynamically enable window occlusion 1
+!!! error running onStopped callback: TypeError: callback is not a function

@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.0 (Python 3.11.9 on win32)" generated="2026-05-19T20:28:10.266128" rpa="false" schemaversion="5">
+<suite id="s1" name="TestWiki" source="C:\Users\newty\OneDrive\Desktop\Cowork\Practice writing code for beginner\06_Robot-Framework\FirstRobot.robot\TestWiki.robot">
+<test id="s1-t1" name="TC-001 Search on Wikipedia" line="9">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-05-19T20:28:10.664827" level="INFO">Opening browser 'chrome' to base url 'https://th.wikipedia.org/wiki/หน้าหลัก'.</msg>
+<arg>${URL}</arg>
+<arg>chrome</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-05-19T20:28:10.664827" elapsed="49.062674"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-05-19T20:28:59.730517" elapsed="0.228107"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=searchInput</arg>
+<arg>15s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-05-19T20:28:59.966628" elapsed="0.291278"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-05-19T20:29:00.264919" level="INFO">Typing text 'Robot Framework' into text field 'id=searchInput'.</msg>
+<arg>id=searchInput</arg>
+<arg>${SEARCH}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-05-19T20:29:00.262931" elapsed="0.387223"/>
+</kw>
+<kw name="Press Keys" owner="SeleniumLibrary">
+<msg time="2026-05-19T20:29:00.652161" level="INFO">Sending key(s) ('RETURN',) to id=searchInput element.</msg>
+<msg time="2026-05-19T20:29:01.002854" level="INFO">Pressing special key RETURN to element.</msg>
+<msg time="2026-05-19T20:29:01.003844" level="INFO">Releasing special key RETURN.</msg>
+<arg>id=searchInput</arg>
+<arg>RETURN</arg>
+<doc>Simulates the user pressing key(s) to an element or on the active browser.</doc>
+<status status="PASS" start="2026-05-19T20:29:00.651167" elapsed="3.349899"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id=firstHeading</arg>
+<arg>15s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-05-19T20:29:04.003094" elapsed="0.081067"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<msg time="2026-05-19T20:29:07.094222" level="INFO">Slept 3 seconds.</msg>
+<arg>3s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="PASS" start="2026-05-19T20:29:04.088793" elapsed="3.011428"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-05-19T20:29:07.123222" elapsed="2.295864"/>
+</kw>
+<status status="PASS" start="2026-05-19T20:28:10.663824" elapsed="58.757261"/>
+</test>
+<status status="PASS" start="2026-05-19T20:28:10.267114" elapsed="59.155971"/>
+</suite>
+<statistics>
+<total>
+<stat pass="1" fail="0" skip="0">All Tests</stat>
+</total>
+<tag>
+</tag>
+<suite>
+<stat pass="1" fail="0" skip="0" id="s1" name="TestWiki">TestWiki</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>

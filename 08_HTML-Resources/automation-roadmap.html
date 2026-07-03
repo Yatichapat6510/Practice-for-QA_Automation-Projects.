@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Learning Roadmap — QA to Full Stack</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Sarabun:wght@300;400;600;700;800&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Sarabun', sans-serif;
+    background: #0f0f1a;
+    color: #fff;
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  /* Header */
+  .header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .header .badge {
+    display: inline-block;
+    background: linear-gradient(135deg, #6c63ff, #a78bfa);
+    color: #fff;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 18px;
+    border-radius: 99px;
+    margin-bottom: 16px;
+  }
+  .header h1 {
+    font-size: 36px;
+    font-weight: 800;
+    line-height: 1.2;
+    background: linear-gradient(135deg, #fff 0%, #a78bfa 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 10px;
+  }
+  .header p {
+    color: #94a3b8;
+    font-size: 16px;
+  }
+
+  /* Timeline */
+  .timeline {
+    position: relative;
+    padding-left: 0;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(to bottom, #6c63ff, #06b6d4, #22c55e, #f59e0b);
+    transform: translateX(-50%);
+    border-radius: 4px;
+  }
+
+  .phase {
+    display: flex;
+    margin-bottom: 48px;
+    position: relative;
+    align-items: flex-start;
+  }
+
+  .phase:nth-child(odd) {
+    flex-direction: row;
+  }
+  .phase:nth-child(even) {
+    flex-direction: row-reverse;
+  }
+
+  .phase-content {
+    width: calc(50% - 40px);
+    background: #1e1e2e;
+    border-radius: 20px;
+    padding: 28px;
+    position: relative;
+    border: 1px solid rgba(255,255,255,0.07);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+  .phase-content:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 16px 48px rgba(0,0,0,0.4);
+  }
+
+  /* Arrow */
+  .phase:nth-child(odd) .phase-content::after {
+    content: '';
+    position: absolute;
+    right: -12px;
+    top: 30px;
+    border: 12px solid transparent;
+    border-left-color: #1e1e2e;
+  }
+  .phase:nth-child(even) .phase-content::after {
+    content: '';
+    position: absolute;
+    left: -12px;
+    top: 30px;
+    border: 12px solid transparent;
+    border-right-color: #1e1e2e;
+  }
+
+  .phase-dot {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 24px;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    z-index: 2;
+    border: 3px solid #0f0f1a;
+  }
+
+  /* Phase Colors */
+  .phase-1 .phase-dot { background: linear-gradient(135deg, #6c63ff, #a78bfa); }
+  .phase-1 .phase-content { border-top: 3px solid #6c63ff; }
+  .phase-1 .phase-label { color: #a78bfa; }
+  .phase-1 .tag { background: rgba(108,99,255,0.15); color: #a78bfa; border: 1px solid rgba(108,99,255,0.3); }
+
+  .phase-2 .phase-dot { background: linear-gradient(135deg, #06b6d4, #67e8f9); }
+  .phase-2 .phase-content { border-top: 3px solid #06b6d4; }
+  .phase-2 .phase-label { color: #67e8f9; }
+  .phase-2 .tag { background: rgba(6,182,212,0.15); color: #67e8f9; border: 1px solid rgba(6,182,212,0.3); }
+
+  .phase-3 .phase-dot { background: linear-gradient(135deg, #22c55e, #86efac); }
+  .phase-3 .phase-content { border-top: 3px solid #22c55e; }
+  .phase-3 .phase-label { color: #86efac; }
+  .phase-3 .tag { background: rgba(34,197,94,0.15); color: #86efac; border: 1px solid rgba(34,197,94,0.3); }
+
+  .phase-4 .phase-dot { background: linear-gradient(135deg, #f59e0b, #fcd34d); }
+  .phase-4 .phase-content { border-top: 3px solid #f59e0b; }
+  .phase-4 .phase-label { color: #fcd34d; }
+  .phase-4 .tag { background: rgba(245,158,11,0.15); color: #fcd34d; border: 1px solid rgba(245,158,11,0.3); }
+
+  .phase-label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+
+  .phase-content h2 {
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #f1f5f9;
+  }
+
+  .phase-content .duration {
+    font-size: 13px;
+    color: #64748b;
+    margin-bottom: 16px;
+  }
+
+  .tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-bottom: 16px;
+  }
+
+  .tag {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 99px;
+  }
+
+  .checklist {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .checklist li {
+    font-size: 14px;
+    color: #cbd5e1;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    line-height: 1.5;
+  }
+
+  .checklist li::before {
+    content: '✓';
+    font-size: 13px;
+    font-weight: 700;
+    flex-shrink: 0;
+    margin-top: 1px;
+    opacity: 0.7;
+  }
+
+  .phase-1 .checklist li::before { color: #a78bfa; }
+  .phase-2 .checklist li::before { color: #67e8f9; }
+  .phase-3 .checklist li::before { color: #86efac; }
+  .phase-4 .checklist li::before { color: #fcd34d; }
+
+  .advantage-box {
+    margin-top: 14px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-size: 13px;
+    color: #94a3b8;
+    border-left: 3px solid;
+  }
+  .phase-1 .advantage-box { border-color: #6c63ff; }
+  .phase-2 .advantage-box { border-color: #06b6d4; }
+  .phase-3 .advantage-box { border-color: #22c55e; }
+  .phase-4 .advantage-box { border-color: #f59e0b; }
+
+  .advantage-box strong { color: #e2e8f0; }
+
+  /* Weekly Checklist */
+  .checklist-section {
+    background: #1e1e2e;
+    border-radius: 24px;
+    padding: 36px;
+    margin-top: 48px;
+    border: 1px solid rgba(255,255,255,0.07);
+  }
+
+  .checklist-section h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    color: #f1f5f9;
+  }
+  .checklist-section .sub {
+    color: #64748b;
+    font-size: 14px;
+    margin-bottom: 28px;
+  }
+
+  .weeks-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+
+  .week-card {
+    background: #13131f;
+    border-radius: 16px;
+    padding: 20px;
+    border: 1px solid rgba(255,255,255,0.05);
+  }
+
+  .week-card h3 {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .week-1 h3 { color: #a78bfa; }
+  .week-2 h3 { color: #67e8f9; }
+  .week-3 h3 { color: #86efac; }
+  .week-4 h3 { color: #fcd34d; }
+
+  .week-card ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .week-card ul li {
+    font-size: 13px;
+    color: #94a3b8;
+    display: flex;
+    gap: 10px;
+    line-height: 1.5;
+  }
+
+  .week-card ul li span.icon {
+    flex-shrink: 0;
+    font-size: 14px;
+  }
+
+  /* Footer */
+  .footer {
+    margin-top: 48px;
+    text-align: center;
+    color: #334155;
+    font-size: 13px;
+  }
+
+  @media (max-width: 680px) {
+    .timeline::before { left: 24px; }
+    .phase { flex-direction: column !important; padding-left: 64px; }
+    .phase-content { width: 100% !important; }
+    .phase-dot { left: 24px; top: 0; }
+    .phase:nth-child(odd) .phase-content::after,
+    .phase:nth-child(even) .phase-content::after { display: none; }
+    .weeks-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <div class="badge">🗺️ Learning Roadmap</div>
+    <h1>จาก QA Tester<br>สู่ Full Stack + Automation</h1>
+    <p>แผนการเรียนรู้ 6 เดือน สำหรับ QA ที่อยากก้าวข้ามขีดจำกัด</p>
+  </div>
+
+  <!-- Timeline -->
+  <div class="timeline">
+
+    <!-- Phase 1 -->
+    <div class="phase phase-1">
+      <div class="phase-content">
+        <div class="phase-label">ระยะที่ 1</div>
+        <h2>Foundation</h2>
+        <div class="duration">⏱ เดือน 1–2</div>
+        <div class="tags">
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">JavaScript</span>
+        </div>
+        <ul class="checklist">
+          <li>เรียน HTML/CSS พื้นฐาน จาก freeCodeCamp.org (ฟรี)</li>
+          <li>เรียน JavaScript พื้นฐาน: variables, functions, DOM</li>
+          <li>ทำ Landing Page ด้วย HTML/CSS ได้โดยไม่ใช้ Framework</li>
+        </ul>
+        <div class="advantage-box">
+          <strong>🎯 เป้าหมาย:</strong> สร้างหน้าเว็บ Static ได้เองโดยไม่ต้องพึ่ง Framework
+        </div>
+      </div>
+      <div class="phase-dot">🔮</div>
+    </div>
+
+    <!-- Phase 2 -->
+    <div class="phase phase-2">
+      <div class="phase-content">
+        <div class="phase-label">ระยะที่ 2</div>
+        <h2>Framework</h2>
+        <div class="duration">⏱ เดือน 2–3</div>
+        <div class="tags">
+          <span class="tag">React</span>
+          <span class="tag">Next.js</span>
+          <span class="tag">Tailwind CSS</span>
+        </div>
+        <ul class="checklist">
+          <li>เรียน Next.js จาก docs.nextjs.org (ครบและฟรี)</li>
+          <li>เรียน Tailwind CSS — ทำ Component 5 ชิ้น</li>
+          <li>สร้าง Multi-page Website และ Deploy บน Vercel</li>
+        </ul>
+        <div class="advantage-box">
+          <strong>🤖 AI ช่วย:</strong> Vibe Coding — บอก Claude ว่าต้องการอะไร แล้ว Refine Code ทีละขั้น
+        </div>
+      </div>
+      <div class="phase-dot">⚡</div>
+    </div>
+
+    <!-- Phase 3 -->
+    <div class="phase phase-3">
+      <div class="phase-content">
+        <div class="phase-label">ระยะที่ 3</div>
+        <h2>Full Stack + Automation</h2>
+        <div class="duration">⏱ เดือน 4–6</div>
+        <div class="tags">
+          <span class="tag">Supabase</span>
+          <span class="tag">Playwright</span>
+          <span class="tag">E2E Testing</span>
+          <span class="tag">CI/CD</span>
+        </div>
+        <ul class="checklist">
+          <li>เรียน Supabase Docs — ทำ Form ส่ง Email ได้</li>
+          <li>เขียน E2E Test ด้วย Playwright อย่างน้อย 3 Test Case</li>
+          <li>ออกแบบ Test Pipeline integrate กับ CI/CD</li>
+        </ul>
+        <div class="advantage-box">
+          <strong>🏆 QA Advantage:</strong> ใช้ความรู้ Testing เดิมเขียน Test Script — ได้เปรียบ Developer ทั่วไปมาก!
+        </div>
+      </div>
+      <div class="phase-dot">🚀</div>
+    </div>
+
+    <!-- Phase 4 -->
+    <div class="phase phase-4">
+      <div class="phase-content">
+        <div class="phase-label">เป้าหมาย</div>
+        <h2>รับงาน Freelance</h2>
+        <div class="duration">⏱ เดือน 6+</div>
+        <div class="tags">
+          <span class="tag">Portfolio</span>
+          <span class="tag">Freelance</span>
+          <span class="tag">Income</span>
+        </div>
+        <ul class="checklist">
+          <li>Portfolio 2–3 ชิ้น (โปรเจกต์สมมติ)</li>
+          <li>รับงานแรกจากเพื่อน/คนรู้จัก</li>
+          <li>เป้าหมาย: 1–2 งาน/เดือน + Maintenance Package</li>
+        </ul>
+        <div class="advantage-box">
+          <strong>💰 รายได้เพิ่ม:</strong> Basic 3,000–8,000 บาท / Premium 25,000–40,000+ บาท
+        </div>
+      </div>
+      <div class="phase-dot">💰</div>
+    </div>
+
+  </div>
+
+  <!-- 30-Day Checklist -->
+  <div class="checklist-section">
+    <h2>✅ Checklist 30 วันแรก</h2>
+    <div class="sub">แผนทำทีละสัปดาห์ — เริ่มได้เลยวันนี้</div>
+
+    <div class="weeks-grid">
+
+      <div class="week-card week-1">
+        <h3>📅 สัปดาห์ที่ 1</h3>
+        <ul>
+          <li><span class="icon">🛠</span> ติดตั้ง VS Code, Node.js, Git</li>
+          <li><span class="icon">☁️</span> สมัคร GitHub, Vercel, Figma (ฟรีทั้งหมด)</li>
+          <li><span class="icon">🤖</span> สมัคร Claude Pro (฿600) — ทดลองให้ช่วยเขียนโค้ด</li>
+          <li><span class="icon">📚</span> เรียน HTML/CSS จาก freeCodeCamp 2 ชั่วโมง/วัน</li>
+        </ul>
+      </div>
+
+      <div class="week-card week-2">
+        <h3>📅 สัปดาห์ที่ 2</h3>
+        <ul>
+          <li><span class="icon">⚛️</span> สร้าง Next.js Project แรก</li>
+          <li><span class="icon">🎨</span> ทำ Landing Page ส่วนตัว (Portfolio)</li>
+          <li><span class="icon">💨</span> เรียน Tailwind CSS Basics</li>
+          <li><span class="icon">🧩</span> ทำ Component 5 ชิ้น</li>
+        </ul>
+      </div>
+
+      <div class="week-card week-3">
+        <h3>📅 สัปดาห์ที่ 3</h3>
+        <ul>
+          <li><span class="icon">🚀</span> Deploy Portfolio บน Vercel</li>
+          <li><span class="icon">🌐</span> เชื่อม Custom Domain (ถ้ามี)</li>
+          <li><span class="icon">🎨</span> ทำ Wireframe ใน Figma 1 โปรเจกต์สมมติ</li>
+          <li><span class="icon">📐</span> ออกแบบ Layout สำหรับเว็บธุรกิจ</li>
+        </ul>
+      </div>
+
+      <div class="week-card week-4">
+        <h3>📅 สัปดาห์ที่ 4</h3>
+        <ul>
+          <li><span class="icon">🏗</span> สร้าง Demo Project: Landing Page ธุรกิจ</li>
+          <li><span class="icon">💡</span> รัน Lighthouse Test — ทำคะแนน &gt; 85</li>
+          <li><span class="icon">🧪</span> เขียน Playwright Test อย่างน้อย 3 Test Case</li>
+          <li><span class="icon">🎯</span> ส่ง Portfolio ให้เพื่อน Review</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="footer">
+    <p>สร้างด้วย Claude • QA to Full Stack Roadmap 2026</p>
+  </div>
+
+</div>
+</body>
+</html>

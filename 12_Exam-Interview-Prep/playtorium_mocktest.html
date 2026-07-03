@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playtorium Full Mock Test Simulator (150 Mins)</title>
+    <style>
+        :root {
+            --primary: #d32f2f;
+            --secondary: #1976d2;
+            --bg: #f4f6f9;
+            --text: #333;
+        }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, sans-serif; background: var(--bg); color: var(--text); margin: 0; padding: 20px; }
+        .container { max-width: 900px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #eee; padding-bottom: 15px; margin-bottom: 25px; position: sticky; top: 0; background: white; z-index: 100; padding-top: 10px;}
+        .header h1 { color: var(--primary); margin: 0; font-size: 1.5em; }
+        .timer-box { font-size: 1.5em; font-weight: bold; color: white; background: var(--primary); padding: 10px 20px; border-radius: 8px; box-shadow: 0 4px 6px rgba(211,47,47,0.3); }
+        .section-title { color: var(--secondary); border-left: 5px solid var(--secondary); padding-left: 15px; font-size: 1.3em; background: #e3f2fd; padding: 12px; margin: 40px 0 20px 0; border-radius: 0 8px 8px 0; }
+        .question-card { margin-bottom: 25px; padding: 20px; border: 1px solid #e0e0e0; border-radius: 8px; background: #fafafa; }
+        .question-text { font-weight: 600; font-size: 1.1em; margin-bottom: 15px; }
+        .options label { display: block; margin-bottom: 10px; cursor: pointer; padding: 12px; background: white; border-radius: 6px; border: 1px solid #ccc; transition: 0.2s; }
+        .options label:hover { border-color: var(--secondary); background: #f0f8ff; }
+        .options input[type="radio"] { margin-right: 10px; transform: scale(1.2); }
+        textarea { width: 100%; height: 250px; padding: 15px; border-radius: 8px; border: 1px solid #ccc; font-family: inherit; font-size: 1em; box-sizing: border-box; resize: vertical; line-height: 1.5; }
+        button.submit-btn { background: var(--primary); color: white; border: none; padding: 15px; font-size: 1.2em; font-weight: bold; border-radius: 8px; cursor: pointer; width: 100%; margin-top: 30px; transition: 0.3s; }
+        button.submit-btn:hover { background: #b71c1c; }
+        .result-box { display: none; margin-top: 40px; padding: 30px; background: #e8f5e9; border: 2px solid #81c784; border-radius: 12px; }
+        .result-box h2 { color: #2e7d32; margin-top: 0; }
+        .explanation { background: white; padding: 15px; margin-top: 10px; border-left: 4px solid #4caf50; border-radius: 4px; font-size: 0.95em; }
+        .code-block { background: #2d2d2d; color: #f8f8f2; padding: 10px; border-radius: 6px; font-family: monospace; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <h1>Playtorium QA Assessment</h1>
+        <div class="timer-box" id="timer">150:00</div>
+    </div>
+    
+    <p style="color: #666;">⚠️ <strong>คำแนะนำ:</strong> แบบทดสอบนี้จำลองสัดส่วนคำถามตามเวลาจริง (150 นาที) ห้ามใช้เครื่องคิดเลข ห้ามเปิดแท็บอื่น ให้กระดาษทดได้</p>
+
+    <div id="quiz-container"></div>
+
+    <!-- ส่วนของ Test Case Assignment (เขียนตอบ) -->
+    <div class="section-title">Part 5: Test Case Assignment (30 Minutes)</div>
+    <div class="question-card">
+        <div class="question-text">
+            <strong>Scenario:</strong> คุณได้รับมอบหมายให้ทดสอบระบบ "การโอนเงินข้ามธนาคาร (Interbank Transfer)" ผ่าน Mobile App มี Business Rules ดังนี้:<br>
+            1. ผู้โอนต้องมียอดเงินในบัญชี (Available Balance) มากกว่าหรือเท่ากับ 'ยอดเงินที่ต้องการโอน' + 'ค่าธรรมเนียม'<br>
+            2. ค่าธรรมเนียมการโอนคือ 15 บาทต่อรายการ<br>
+            3. โอนได้ขั้นต่ำ 100 บาท และสูงสุดไม่เกิน 50,000 บาทต่อครั้ง<br>
+            4. หากทำรายการหลังเวลา 23:00 น. ถึง 02:00 น. ระบบจะไม่อนุญาตให้ทำรายการ (System Maintenance)<br><br>
+            <strong>Task:</strong> จงเขียน Test Case ในรูปแบบตาราง (หรือ Bullet) อย่างน้อย 3 Cases ครอบคลุม Positive Case, Negative Case และ Boundary Value / Edge Case
+        </div>
+        <textarea id="essay-answer" placeholder="เขียน Test Case ของคุณที่นี่ (ระบุ TC ID, Scenario, Steps, Expected Result)..."></textarea>
+    </div>
+
+    <button class="submit-btn" onclick="submitExam()" id="submitBtn">Submit Exam</button>
+
+    <div class="result-box" id="result-box">
+        <h2>📊 สรุปผลการทดสอบของคุณ</h2>
+        <h3 id="score-text"></h3>
+        <hr style="border:0; border-top:1px solid #ccc; margin: 20px 0;">
+        <div id="explanations"></div>
+    </div>
+</div>
+
+<script>
+    // --- ฐานข้อมูลคำถาม ---
+    const quizData = [
+        // PART 1: Aptitude (45 mins) - เน้นคณิตศาสตร์และการคิดวิเคราะห์
+        { section: "Part 1: Aptitude (45 Minutes)", id: 1, type: "mc",
+          question: "โปรแกรมเมอร์ 4 คน ช่วยกันพัฒนาระบบเสร็จในเวลา 15 วัน หากบริษัทต้องการให้ระบบเสร็จภายใน 10 วัน จะต้องใช้โปรแกรมเมอร์ทั้งหมดกี่คน? (สมมติทุกคนความสามารถเท่ากัน)",
+          options: ["5 คน", "6 คน", "7 คน", "8 คน"], answer: 1,
+          explain: "ตอบ 6 คน (วิธีคิด: งานทั้งหมด = 4 คน × 15 วัน = 60 man-days. ถ้าต้องการให้เสร็จใน 10 วัน ต้องใช้คน = 60 / 10 = 6 คน)" },
+        { section: "Part 1: Aptitude (45 Minutes)", id: 2, type: "mc",
+          question: "ระบบเก็บ Log File มีขนาดเพิ่มขึ้น 1.5 MB ทุกๆ 10 นาที หากเซิร์ฟเวอร์มีพื้นที่ว่าง 500 MB ระบบนี้จะทำงานได้ต่อเนื่องกี่ชั่วโมงก่อนพื้นที่เต็ม?",
+          options: ["48 ชั่วโมง", "55.5 ชั่วโมง", "72 ชั่วโมง", "80 ชั่วโมง"], answer: 1,
+          explain: "ตอบ 55.5 ชั่วโมง (วิธีคิด: 1 ชั่วโมงมี 60 นาที = สร้าง Log 6 ครั้ง × 1.5MB = 9 MB/ชั่วโมง. พื้นที่ 500 MB / 9 MB = 55.55 ชั่วโมง)" },
+        { section: "Part 1: Aptitude (45 Minutes)", id: 3, type: "mc",
+          question: "สินค้า A ราคาป้าย 1,200 บาท ลดราคา 20% จากนั้นใช้คูปองลด On-top อีก 10% ลูกค้าต้องจ่ายเงินเท่าไหร่?",
+          options: ["840 บาท", "864 บาท", "880 บาท", "900 บาท"], answer: 1,
+          explain: "ตอบ 864 บาท (วิธีคิด: ลด 20% เหลือ 80% = 1200 × 0.8 = 960 บาท. ลด On-top 10% จาก 960 = ลบไป 96 บาท. 960 - 96 = 864 บาท)" },
+        { section: "Part 1: Aptitude (45 Minutes)", id: 4, type: "mc",
+          question: "นาย A ขับรถด้วยความเร็ว 80 กม./ชม. ออกเดินทางล่วงหน้าไปก่อน 1 ชั่วโมงครึ่ง นาย B ขับรถตามมาด้วยความเร็ว 120 กม./ชม. นาย B จะใช้เวลาเท่าไหร่จึงจะตามทันนาย A?",
+          options: ["2 ชั่วโมง", "2.5 ชั่วโมง", "3 ชั่วโมง", "4 ชั่วโมง"], answer: 2,
+          explain: "ตอบ 3 ชั่วโมง (วิธีคิด: A นำไปก่อน 80 × 1.5 = 120 กม. ความเร็วสัมพัทธ์ (B ตาม A) = 120 - 80 = 40 กม./ชม. เวลาตามทัน = ระยะทางห่าง / ความเร็วสัมพัทธ์ = 120 / 40 = 3 ชั่วโมง)" },
+
+        // PART 2: Aptitude 2 (15 mins) - เน้นความเร็ว เชาวน์ อนุกรม
+        { section: "Part 2: Aptitude 2 (15 Minutes)", id: 5, type: "mc",
+          question: "อนุกรม: 2, 5, 11, 23, 47, ... ตัวเลขถัดไปคืออะไร?",
+          options: ["94", "95", "96", "97"], answer: 1,
+          explain: "ตอบ 95 (วิธีคิด: คูณ 2 แล้วบวก 1 -> 47 × 2 + 1 = 95)" },
+        { section: "Part 2: Aptitude 2 (15 Minutes)", id: 6, type: "mc",
+          question: "วันพรุ่งนี้ของเมื่อวานคือวันพฤหัสบดี วันมะรืนนี้ของเมื่อวานซืนคือวันอะไร?",
+          options: ["วันพุธ", "วันพฤหัสบดี", "วันศุกร์", "วันเสาร์"], answer: 1,
+          explain: "ตอบ วันพฤหัสบดี (วิธีคิด: 'พรุ่งนี้ของเมื่อวาน' คือ 'วันนี้' ดังนั้นวันนี้=วันพฤหัส. 'มะรืนนี้ของเมื่อวานซืน' หักล้างกันก็คือ 'วันนี้' เช่นกัน จึงเป็นวันพฤหัสบดี)" },
+
+        // PART 3: English (30 mins) - เน้นศัพท์ QA และ Grammar ในการทำงาน
+        { section: "Part 3: English (30 Minutes)", id: 7, type: "mc",
+          question: "Which of the following describes a situation where a software defect cannot be produced again by the developer?",
+          options: ["The bug is resolved.", "The bug is irreproducible.", "The bug is validated.", "The bug is escalated."], answer: 1,
+          explain: "Answer: The bug is irreproducible (หมายถึง ไม่สามารถทำให้เกิดบั๊กซ้ำได้ ทำให้แก้ไขยาก)" },
+        { section: "Part 3: English (30 Minutes)", id: 8, type: "mc",
+          question: "Select the correct sentence to report an issue:",
+          options: ["When I clicked the button, the system crash.", "When I click the button, the system crashed.", "When I clicked the button, the system crashed.", "When clicking button, system is crash."], answer: 2,
+          explain: "Answer: When I clicked the button, the system crashed. (ใช้ Past Tense ทั้งคู่เพื่อบอกเหตุการณ์ที่เกิดขึ้นแล้วในอดีตตอนเทสต์)" },
+        { section: "Part 3: English (30 Minutes)", id: 9, type: "mc",
+          question: "The QA team needs to ensure that the new update is completely ________ with older versions of the operating system.",
+          options: ["compare", "compatible", "complaint", "compiling"], answer: 1,
+          explain: "Answer: compatible (เข้ากันได้, รองรับการทำงานร่วมกัน)" },
+
+        // PART 4: Logic (30 mins) - ตรรกะโปรแกรมเมอร์ เงื่อนไข
+        { section: "Part 4: Logic (30 Minutes)", id: 10, type: "mc",
+          question: "เงื่อนไข: หากระบบพบ Error 500 ระบบจะส่ง Alert เข้า Slack. หากมีคน Login ผ่าน ระบบจะไม่พบ Error 500. <br>สถานการณ์: วันนี้ไม่มี Alert ส่งเข้า Slack เลย ข้อสรุปใดเป็นจริงแน่นอน?",
+          options: ["มีคน Login ผ่านแน่นอน", "ไม่มีคน Login ผ่าน", "ระบบอาจจะไม่พบ Error 500", "Slack เซิร์ฟเวอร์ล่ม"], answer: 2,
+          explain: "ตอบ ระบบอาจจะไม่พบ Error 500 (วิธีคิด: การไม่มี Alert หมายถึง ไม่มี Error 500 (A -> B, Not B -> Not A) แต่เราไม่สามารถสรุปได้ว่ามีคน Login ผ่านหรือไม่ เพราะอาจจะไม่มีใครเข้าใช้งานระบบเลยก็ได้)" },
+        { section: "Part 4: Logic (30 Minutes)", id: 11, type: "mc",
+          question: "พิจารณาโค้ดจำลองต่อไปนี้:<br><div class='code-block'>x = 5<br>y = 10<br>if (x > 3 AND y < 20) then<br>  x = x + y<br>else<br>  x = x - y<br>end if<br>y = y + x</div> ค่าของ y ในตอนท้ายคือเท่าไหร่?",
+          options: ["15", "20", "25", "30"], answer: 2,
+          explain: "ตอบ 25 (วิธีคิด: เงื่อนไข if เป็น True (5>3 AND 10<20). จะได้ x = 5+10 = 15. จากนั้นบรรทัดสุดท้าย y = 10 + 15 = 25)" },
+        { section: "Part 4: Logic (30 Minutes)", id: 12, type: "mc",
+          question: "คุณกำลังทดสอบฟังก์ชัน 'กรอกรหัสผ่านผ่านตู้เซฟ' รหัสที่ถูกต้องคือ '7492' หากตู้เซฟรับ input เป็น A=1, B=2, C=3...Z=26 คุณต้องกดปุ่มตัวอักษรใดตามลำดับเพื่อให้ตู้เซฟเปิด?",
+          options: ["G, D, I, B", "F, D, H, B", "G, E, I, C", "H, D, J, B"], answer: 0,
+          explain: "ตอบ G, D, I, B (วิธีคิด: เทียบตัวอักษรภาษาอังกฤษ ตัวที่ 7=G, 4=D, 9=I, 2=B)" }
+    ];
+
+    // --- Render คำถาม ---
+    const quizContainer = document.getElementById('quiz-container');
+    let currentSection = "";
+
+    quizData.forEach((q, index) => {
+        if(q.section !== currentSection) {
+            quizContainer.innerHTML += `<div class="section-title">${q.section}</div>`;
+            currentSection = q.section;
+        }
+
+        let optionsHTML = "";
+        q.options.forEach((opt, optIndex) => {
+            optionsHTML += `
+                <label>
+                    <input type="radio" name="q${q.id}" value="${optIndex}"> 
+                    ${opt}
+                </label>`;
+        });
+
+        const qCard = `
+            <div class="question-card">
+                <div class="question-text">${index + 1}. ${q.question}</div>
+                <div class="options">${optionsHTML}</div>
+            </div>
+        `;
+        quizContainer.innerHTML += qCard;
+    });
+
+    // --- ระบบ Timer ---
+    let timeInSeconds = 150 * 60; 
+    const timerElement = document.getElementById('timer');
+    
+    let timerInterval = setInterval(() => {
+        let hours = Math.floor(timeInSeconds / 3600);
+        let minutes = Math.floor((timeInSeconds % 3600) / 60);
+        let seconds = timeInSeconds % 60;
+        
+        let mStr = minutes < 10 ? "0" + minutes : minutes;
+        let sStr = seconds < 10 ? "0" + seconds : seconds;
+        let hStr = hours > 0 ? hours + ":" : "";
+        
+        timerElement.textContent = hStr + mStr + ":" + sStr;
+
+        if (timeInSeconds <= 300) { timerElement.style.background = "#b71c1c"; } // แดงเข้มเมื่อเหลือ 5 นาที
+
+        if (timeInSeconds <= 0) {
+            clearInterval(timerInterval);
+            alert("⏳ หมดเวลา! ระบบกำลังส่งคำตอบอัตโนมัติ");
+            submitExam();
+        }
+        timeInSeconds--;
+    }, 1000);
+
+    // --- ระบบส่งคำตอบและตรวจ ---
+    function submitExam() {
+        clearInterval(timerInterval);
+        document.getElementById('submitBtn').disabled = true;
+        document.getElementById('submitBtn').style.background = '#9e9e9e';
+        
+        let score = 0;
+        let explanationsHTML = "<h3>เฉลยและวิธีคิด (Answer Key)</h3>";
+
+        // ตรวจ Multiple Choice
+        quizData.forEach(q => {
+            const selected = document.querySelector(`input[name="q${q.id}"]:checked`);
+            let isCorrect = false;
+            
+            if (selected && parseInt(selected.value) === q.answer) {
+                score++;
+                isCorrect = true;
+            }
+
+            explanationsHTML += `
+                <div class="explanation" style="border-left-color: ${isCorrect ? '#4caf50' : '#f44336'}">
+                    <strong>ข้อ ${q.id}:</strong> ${q.explain} 
+                    <span style="color: ${isCorrect ? '#2e7d32' : '#c62828'}">
+                        (${isCorrect ? '✔ ถูกต้อง' : '❌ ผิด / ไม่ได้ตอบ'})
+                    </span>
+                </div>`;
+        });
+
+        // เพิ่มคำแนะนำสำหรับ Essay
+        const essayAns = document.getElementById('essay-answer').value;
+        explanationsHTML += `
+            <h3 style="margin-top:30px;">แนวทางการตรวจ Part 5: Test Case Assignment</h3>
+            <div class="explanation" style="border-left-color: var(--secondary)">
+                <strong>สิ่งที่คุณเขียน:</strong><br>
+                <pre style="white-space: pre-wrap; color: #555;">${essayAns ? essayAns : 'คุณไม่ได้เขียนคำตอบ'}</pre>
+                <hr>
+                <strong>จุดที่กรรมการ (Senior QA) จะมองหาในคำตอบของคุณ:</strong><br>
+                <ul>
+                    <li><strong>Positive Case:</strong> โอนเงิน 1,000 บาท, มีเงินในบัญชี 2,000 บาท (ทำรายการสำเร็จ ยอดเงินหัก 1,015 บาท)</li>
+                    <li><strong>BVA (Boundary Value):</strong> 
+                        <ul>
+                            <li>โอนขั้นต่ำพอดี: 100 บาท (ต้องผ่าน)</li>
+                            <li>โอนต่ำกว่าขั้นต่ำ: 99 บาท (ระบบต้องแสดง Error)</li>
+                            <li>โอนสูงสุดพอดี: 50,000 บาท (ต้องผ่าน)</li>
+                            <li>โอนเกินเพดาน: 50,001 บาท (ระบบต้องแสดง Error)</li>
+                        </ul>
+                    </li>
+                    <li><strong>Negative Case (Fee Logic):</strong> มีเงินในบัญชี 1,000 บาท ถ้วน แต่กดโอน 1,000 บาท (รวมค่าธรรมเนียมจะเป็น 1,015 บาท ซึ่งยอดเงินไม่พอ ระบบต้องแจ้งเตือน Insufficient Balance)</li>
+                    <li><strong>Time Condition (Edge Case):</strong> โอนเงินเวลา 23:01 น. ระบบต้อง Reject และแสดงข้อความเรื่อง System Maintenance</li>
+                </ul>
+            </div>`;
+
+        // แสดงผล
+        const resBox = document.getElementById('result-box');
+        resBox.style.display = 'block';
+        document.getElementById('score-text').innerHTML = `คุณทำคะแนนในส่วนปรนัยได้: <span style="font-size:1.5em; color:var(--primary);">${score} / ${quizData.length}</span>`;
+        document.getElementById('explanations').innerHTML = explanationsHTML;
+        
+        resBox.scrollIntoView({ behavior: 'smooth' });
+    }
+</script>
+
+</body>
+</html>

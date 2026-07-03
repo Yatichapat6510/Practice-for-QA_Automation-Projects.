@@ -1,0 +1,5 @@
+results/
+*.log
+geckodriver*.log
+__pycache__/
+*.pyc

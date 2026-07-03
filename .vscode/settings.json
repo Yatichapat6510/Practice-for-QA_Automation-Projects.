@@ -1,0 +1,15 @@
+{
+    "python.defaultInterpreterPath": "python",
+    "editor.toolbarLocation": "top",
+    "[python]": {
+        "editor.defaultFormatter": "ms-python.python"
+    },
+    "files.associations": {
+        "*.py": "python",
+        "*.PY": "python",
+        "*.robot": "robotframework",
+        "*.resource": "robotframework"
+    },
+    "python-envs.defaultEnvManager": "ms-python.python:system",
+    "robot.language-server.python": "python"
+}

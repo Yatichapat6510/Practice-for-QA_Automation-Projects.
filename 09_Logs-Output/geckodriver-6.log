@@ -1,0 +1,32 @@
+1745570626026	geckodriver	INFO	Listening on 127.0.0.1:54714
+1745570629082	mozrunner::runner	INFO	Running command: "C:\\Users\\newty\\.cache\\selenium\\firefox\\win64\\137.0.2\\firefox.exe" "--marionette" "--remote-debuggin ... 5" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\newty\\AppData\\Local\\Temp\\rust_mozprofileQ1VD5F"
+console.warn: services.settings: Ignoring preference override of remote settings server
+console.warn: services.settings: Allow by setting MOZ_REMOTE_SETTINGS_DEVTOOLS=1 in the environment
+Dynamically enable window occlusion 0
+1745570629989	Marionette	INFO	Marionette enabled
+1745570630296	Marionette	INFO	Listening on port 54733
+WebDriver BiDi listening on ws://127.0.0.1:54715
+Read port: 54733
+1745570630488	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+DevTools listening on ws://127.0.0.1:54715/devtools/browser/61eb7de0-cfd7-4f68-9931-e9567910f61a
+JavaScript warning: https://static.xx.fbcdn.net/rsrc.php/v4iwDz4/y6/l/th_TH/sNCj47iafWW.js, line 36: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.facebook.com."
+console.warn: LoginRecipes: "Falling back to a synchronous message for: https://www.facebook.com."
+JavaScript warning: https://static.xx.fbcdn.net/rsrc.php/v4i9wo4/yx/l/en_GB/jAGR9l0AJsj.js, line 104: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://static.xx.fbcdn.net/rsrc.php/v4iLkl4/yE/l/th_TH-j/CeM6HFdTCul1XP0tY5pT7CU1McLqIVQ8hebPGwKpaZY6tQsXL-I-q1OzP2xiyg2tK0iJAPHSQo7K4Aln8zRA3-TjAbbUjW242WsgaJto8R75Wxr9ntuaDuBSvBXzVRxpltJyb3z-CxeIngx3crVAEW5u69eF6g9TGqX1naCkAxl4CCdoASWdXjP_oiewJIu0iGcbqbaMhrzLlaEAqKvNozPcv0rqpG0CveL7yl5vCDjAd5eqEvt_qsPv4bsMIITyH7t2vyHmBXlmMT_izYyWF1cvumqUVqxLSTCvuXwt_kyhX7yOaAsEDh9QOzzDx9I0WoJeJ5bcnV.js, line 1084: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+JavaScript warning: https://static.xx.fbcdn.net/rsrc.php/v4ip-K4/ys/l/th_TH-j/BblGx4fU1bfBhGVnfgIxnIw3o-4Ti9XPlk7ChQ4FL4_Cg0xlLfdXRB9fa7FOWlx66VlHQ4PNg2s46qRB5ShHy6Hil8M-HIMe636sR_pAy4vkPNqgVGtp-M8CdomvLZ4PgfZW5RL3QfteATC-61h9-BX_AGCzx4c72vLgALffeUCfCa0LWiAZxQU6U3ud1hSCYTRjc6QtycbZ9LJmhLSyN168zyUJlNkgB_mY-tgtJu6rkx8vvRqZyIs1wTmUHNodo0KE6JEpZQllFv7EHEl.js, line 508: Script terminated by timeout at:
+Ue/<@https://static.xx.fbcdn.net/rsrc.php/v4ip-K4/ys/l/th_TH-j/BblGx4fU1bfBhGVnfgIxnIw3o-4Ti9XPlk7ChQ4FL4_Cg0xlLfdXRB9fa7FOWlx66VlHQ4PNg2s46qRB5ShHy6Hil8M-HIMe636sR_pAy4vkPNqgVGtp-M8CdomvLZ4PgfZW5RL3QfteATC-61h9-BX_AGCzx4c72vLgALffeUCfCa0LWiAZxQU6U3ud1hSCYTRjc6QtycbZ9LJmhLSyN168zyUJlNkgB_mY-tgtJu6rkx8vvRqZyIs1wTmUHNodo0KE6JEpZQllFv7EHEl.js:508:42651
+N@https://static.xx.fbcdn.net/rsrc.php/v4ip-K4/ys/l/th_TH-j/BblGx4fU1bfBhGVnfgIxnIw3o-4Ti9XPlk7ChQ4FL4_Cg0xlLfdXRB9fa7FOWlx66VlHQ4PNg2s46qRB5ShHy6Hil8M-HIMe636sR_pAy4vkPNqgVGtp-M8CdomvLZ4PgfZW5RL3QfteATC-61h9-BX_AGCzx4c72vLgALffeUCfCa0LWiAZxQU6U3ud1hSCYTRjc6QtycbZ9LJmhLSyN168zyUJlNkgB_mY-tgtJu6rkx8vvRqZyIs1wTmUHNodo0KE6JEpZQllFv7EHEl.js:508:69814
+ci@https://static.xx.fbcdn.net/rsrc.php/v4ip-K4/ys/l/th_TH-j/BblGx4fU1bfBhGVnfgIxnIw3o-4Ti9XPlk7ChQ4FL4_Cg0xlLfdXRB9fa7FOWlx66VlHQ4PNg2s46qRB5ShHy6Hil8M-HIMe636sR_pAy4vkPNqgVGtp-M8CdomvLZ4PgfZW5RL3QfteATC-61h9-BX_AGCzx4c72vLgALffeUCfCa0LWiAZxQU6U3ud1hSCYTRjc6QtycbZ9LJmhLSyN168zyUJlNkgB_mY-tgtJu6rkx8vvRqZyIs1wTmUHNodo0KE6JEpZQllFv7EHEl.js:508:86945
+fl@https://static.xx.fbcdn.net/rsrc.php/v4ip-K4/ys/l/th_TH-j/BblGx4fU1bfBhGVnfgIxnIw3o-4Ti9XPlk7ChQ4FL4_Cg0xlLfdXRB9fa7FOWlx66VlHQ4PNg2s46qRB5ShHy6Hil8M-HIMe636sR_pAy4vkPNqgVGtp-M8CdomvLZ4PgfZW5RL3QfteATC-61h9-BX_AGCzx4c72vLgALffeUCfCa0LWiAZxQU6U3ud1hSCYTRjc6QtycbZ9LJmhLSyN168zyUJlNkgB_mY-tgtJu6rkx8vvRqZyIs1wTmUHNodo0KE6JEpZQllFv7EHEl.js:508:138768
+el@https://static.xx.fbcdn.net/rsrc.php/v4ip-K4/ys/l/th_TH-j/BblGx4fU1bfBhGVnfgIxnIw3o-4Ti9XPlk7ChQ4FL4_Cg0xlLfdXRB9fa7FOWlx66VlHQ4PNg2s46qRB5ShHy6Hil8M-HIMe636sR_pAy4vkPNqgVGtp-M8CdomvLZ4PgfZW5RL3QfteATC-61h9-BX_AGCzx4c72vLgALffeUCfCa0LWiAZxQU6U3ud1hSCYTRjc6QtycbZ9LJmhLSyN168zyUJlNkgB_mY-tgtJu6rkx8vvRqZyIs1wTmUHNodo0KE6JEpZQllFv7EHEl.js:508:138741
+dl@https://static.xx.fbcdn.net/rsrc.php/v4ip-K4/ys/l/th_TH-j/BblGx4fU1bfBhGVnfgIxnIw3o-4Ti9XPlk7ChQ4FL4_Cg0xlLfdXRB9fa7FOWlx66VlHQ4PNg2s46qRB5ShHy6Hil8M-HIMe636sR_pAy4vkPNqgVGtp-M8CdomvLZ4PgfZW5RL3QfteATC-61h9-BX_AGCzx4c72vLgALffeUCfCa0LWiAZxQU6U3ud1hSCYTRjc6QtycbZ9LJmhLSyN168zyUJlNkgB_mY-tgtJu6rkx8vvRqZyIs1wTmUHNodo0KE6JEpZQllFv7EHEl.js:508:138593
+Pk@https://static.xx.fbcdn.net/rsrc.php/v4ip-K4/ys/l/th_TH-j/BblGx4fU1bfBhGVnfgIxnIw3o-4Ti9XPlk7ChQ4FL4_Cg0xlLfdXRB9fa7FOWlx66VlHQ4PNg2s46qRB5ShHy6Hil8M-HIMe636sR_pAy4vkPNqgVGtp-M8CdomvLZ4PgfZW5RL3QfteATC-61h9-BX_AGCzx4c72vLgALffeUCfCa0LWiAZxQU6U3ud1hSCYTRjc6QtycbZ9LJmhLSyN168zyUJlNkgB_mY-tgtJu6rkx8vvRqZyIs1wTmUHNodo0KE6JEpZQllFv7EHEl.js:508:133875
+le@https://static.xx.fbcdn.net/rsrc.php/v4ip-K4/ys/l/th_TH-j/BblGx4fU1bfBhGVnfgIxnIw3o-4Ti9XPlk7ChQ4FL4_Cg0xlLfdXRB9fa7FOWlx66VlHQ4PNg2s46qRB5ShHy6Hil8M-HIMe636sR_pAy4vkPNqgVGtp-M8CdomvLZ4PgfZW5RL3QfteATC-61h9-BX_AGCzx4c72vLgALffeUCfCa0LWiAZxQU6U3ud1hSCYTRjc6QtycbZ9LJmhLSyN168zyUJlNkgB_mY-tgtJu6rkx8vvRqZyIs1wTmUHNodo0KE6JEpZQllFv7EHEl.js:508:33841
+I@https://static.xx.fbcdn.net/rsrc.php/v4/yI/r/Bp5dmtcMdUG.js:237:1889
+
+JavaScript warning: https://static.xx.fbcdn.net/rsrc.php/v4i9wo4/yx/l/en_GB/jAGR9l0AJsj.js, line 104: WEBGL_debug_renderer_info is deprecated in Firefox and will be removed. Please use RENDERER.
+1745571100506	Marionette	INFO	Stopped listening on port 54733
+Dynamically enable window occlusion 1
+!!! error running onStopped callback: TypeError: callback is not a function
+[GFX1-]: VideoBridgeParent receives IPC close with reason=AbnormalShutdown

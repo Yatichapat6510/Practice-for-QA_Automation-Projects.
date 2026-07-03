@@ -1,0 +1,17 @@
+1782806896514	geckodriver	INFO	Listening on 127.0.0.1:52566
+1782806899594	mozrunner::runner	INFO	Running command: "C:\\Users\\newty\\.cache\\selenium\\firefox\\win64\\152.0.3\\firefox.exe" "--marionette" "--remote-debuggin ... 7" "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\newty\\AppData\\Local\\Temp\\rust_mozprofilennYLuH"
+Dynamically enable window occlusion 0
+1782806899857	Marionette	INFO	Marionette enabled
+1782806899926	Marionette	INFO	Listening on port 52574
+WebDriver BiDi listening on ws://127.0.0.1:52567
+Read port: 52574
+1782806900082	RemoteAgent	WARN	TLS certificate errors will be ignored for this session
+1782806905186	Marionette	WARN	Ignoring event 'DOMContentLoaded' because document has an invalid readyState of 'complete'.
+console.error: "Experiment desktop-release-rollout-show-relay-to-all-browsers-next-sign-up-modal-cta has unknown featureId: email-autocomplete-relay"
+console.error: "Experiment visual-card-updates has unknown featureId: newtabRefinedCardsLayout"
+console.error: "Experiment enable-nimbus-unenrollment-synchronization has unknown featureId: nimbusStore"
+1782806906106	Marionette	INFO	Stopped listening on port 52574
+console.error: (new Error("Unable to arm timer, the object has been finalized.", "resource://gre/modules/DeferredTask.sys.mjs", 279))
+JavaScript error: resource://gre/modules/PrivateBrowsingUtils.sys.mjs, line 50: TypeError: can't access property "QueryInterface", aWindow.docShell is null
+Dynamically enable window occlusion 1
+JavaScript error: resource://gre/modules/UrlClassifierListManager.sys.mjs, line 465: NS_ERROR_NOT_INITIALIZED: Component returned failure code: 0xc1f30001 (NS_ERROR_NOT_INITIALIZED) [nsIUrlClassifierDBService.getTables]

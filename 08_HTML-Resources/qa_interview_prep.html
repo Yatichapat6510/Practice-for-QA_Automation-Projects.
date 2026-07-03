@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>คู่มือเตรียมสัมภาษณ์ — QA / Software Tester</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0f1117;
+  --surface: #181c27;
+  --surface2: #1e2330;
+  --border: #2a3040;
+  --border2: #3a4560;
+  --text: #e8eaf0;
+  --muted: #8892aa;
+  --accent-hr: #7c6ff7;
+  --accent-hr-dim: #2d2850;
+  --accent-tc: #34d399;
+  --accent-tc-dim: #0d3326;
+  --accent-tp: #f97316;
+  --accent-tp-dim: #2d1a08;
+  --radius: 10px;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding: 2rem 1rem 4rem;
+}
+.container { max-width: 780px; margin: 0 auto; }
+
+/* Header */
+.header { margin-bottom: 2rem; }
+.header-tag {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  color: var(--accent-hr);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  margin-bottom: .5rem;
+}
+.header h1 {
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  font-weight: 600;
+  color: var(--text);
+  line-height: 1.3;
+}
+.header-sub {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: .4rem;
+}
+.chips { display: flex; gap: 6px; flex-wrap: wrap; margin-top: .8rem; }
+.chip {
+  font-size: 11px;
+  padding: 3px 10px;
+  border-radius: 99px;
+  border: 1px solid var(--border2);
+  color: var(--muted);
+  font-family: 'IBM Plex Mono', monospace;
+}
+
+/* Tabs */
+.tabs { display: flex; gap: 6px; margin-bottom: 1.5rem; flex-wrap: wrap; }
+.tab {
+  padding: 8px 18px;
+  border-radius: var(--radius);
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--muted);
+  font-size: 13px;
+  font-family: 'IBM Plex Sans Thai', sans-serif;
+  cursor: pointer;
+  transition: all .2s;
+  font-weight: 500;
+}
+.tab:hover { border-color: var(--border2); color: var(--text); }
+.tab.hr.active { border-color: var(--accent-hr); color: var(--accent-hr); background: var(--accent-hr-dim); }
+.tab.tc.active { border-color: var(--accent-tc); color: var(--accent-tc); background: var(--accent-tc-dim); }
+.tab.tp.active { border-color: var(--accent-tp); color: var(--accent-tp); background: var(--accent-tp-dim); }
+
+/* Section */
+.sec { display: none; }
+.sec.active { display: block; }
+
+/* Card */
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 8px;
+  overflow: hidden;
+  transition: border-color .2s;
+}
+.card:hover { border-color: var(--border2); }
+.card.open { border-color: var(--border2); }
+
+.card-head {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 14px 16px;
+  cursor: pointer;
+  user-select: none;
+}
+.badge {
+  font-size: 10px;
+  font-weight: 600;
+  font-family: 'IBM Plex Mono', monospace;
+  padding: 3px 8px;
+  border-radius: 5px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  margin-top: 1px;
+  letter-spacing: .05em;
+}
+.badge.hr { background: var(--accent-hr-dim); color: var(--accent-hr); border: 1px solid var(--accent-hr); }
+.badge.tc { background: var(--accent-tc-dim); color: var(--accent-tc); border: 1px solid var(--accent-tc); }
+.badge.tp { background: var(--accent-tp-dim); color: var(--accent-tp); border: 1px solid var(--accent-tp); }
+
+.card-titles { flex: 1; }
+.q-th { font-size: 14px; font-weight: 500; color: var(--text); line-height: 1.5; }
+.q-en { font-size: 12px; color: var(--muted); margin-top: 2px; font-style: italic; }
+.arrow {
+  color: var(--muted);
+  font-size: 14px;
+  flex-shrink: 0;
+  margin-top: 3px;
+  transition: transform .2s;
+}
+.card.open .arrow { transform: rotate(180deg); }
+
+.card-body {
+  display: none;
+  border-top: 1px solid var(--border);
+  padding: 16px;
+}
+.card.open .card-body { display: block; }
+
+.section-label {
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.ans-th {
+  font-size: 13.5px;
+  color: var(--text);
+  line-height: 1.8;
+  margin-bottom: 12px;
+}
+.ans-en {
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.75;
+  padding: 12px;
+  background: var(--surface2);
+  border-radius: 7px;
+  border-left: 3px solid var(--border2);
+  margin-bottom: 12px;
+}
+.tip-box {
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.7;
+  padding: 10px 14px;
+  background: var(--surface2);
+  border-radius: 7px;
+  border-left: 3px solid var(--accent-hr);
+}
+.tip-box.tc { border-left-color: var(--accent-tc); }
+.tip-box.tp { border-left-color: var(--accent-tp); }
+
+/* Tips page cards */
+.tip-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+  margin-bottom: 8px;
+}
+.tip-card-title {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 8px;
+}
+.tip-card-body {
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.8;
+}
+.kw {
+  display: inline-block;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  padding: 2px 7px;
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: 4px;
+  color: var(--accent-tc);
+  margin: 2px 2px;
+}
+em { color: var(--text); font-style: normal; }
+strong { font-weight: 600; color: var(--text); }
+</style>
+</head>
+<body>
+<div class="container">
+
+<div class="header">
+  <div class="header-tag">Interview Prep Guide</div>
+  <h1>คู่มือเตรียมสัมภาษณ์งาน<br>Software Tester / QA</h1>
+  <div class="header-sub">ยาติชาภัทร กันทา — Startup / Tech Company</div>
+  <div class="chips">
+    <span class="chip">Manual Testing</span>
+    <span class="chip">SQL · MSSQL</span>
+    <span class="chip">Postman</span>
+    <span class="chip">JMeter</span>
+    <span class="chip">Mobile QA</span>
+    <span class="chip">Jira</span>
+  </div>
+</div>
+
+<div class="tabs">
+  <button class="tab hr active" onclick="sw('hr',this,'hr')">👤 HR / Behavioral (8)</button>
+  <button class="tab tc" onclick="sw('tc',this,'tc')">💻 Technical (8)</button>
+  <button class="tab tp" onclick="sw('tp',this,'tp')">💡 Tips เพิ่มเติม</button>
+</div>
+
+<!-- HR SECTION -->
+<div id="hr" class="sec active">
+
+<div class="card" id="hr0">
+<div class="card-head" onclick="tog('hr0')">
+  <span class="badge hr">HR 01</span>
+  <div class="card-titles"><div class="q-th">แนะนำตัวเองให้ฟังหน่อยได้เลยครับ/ค่ะ</div><div class="q-en">Tell me about yourself.</div></div>
+  <span class="arrow">▾</span>
+</div>
+<div class="card-body">
+  <div class="section-label">โครงสร้างคำตอบ</div>
+  <div class="ans-th">ชื่อ + ตำแหน่งปัจจุบัน → ประสบการณ์ที่เกี่ยวข้อง → สิ่งที่กำลังพัฒนา<br><br><em>"ผม/หนู ยาติชาภัทร กันทา ปัจจุบันทำงาน Software Tester ที่ W2S Software มาเกือบ 2 ปี ดูแล manual testing, SQL data validation (MSSQL), API testing ด้วย Postman, performance testing ด้วย JMeter รวมถึง mobile QA ทั้ง Android และ iOS ตอนนี้กำลังพัฒนาทักษะ automation testing เพิ่มเติมเพื่อให้ครอบคลุมงาน QA มากยิ่งขึ้นครับ/ค่ะ"</em></div>
+  <div class="ans-en"><em>"I'm Yatichapat Kanta, currently a Software Tester at W2S Software with nearly 2 years of experience. I cover manual testing, SQL data validation (MSSQL), API testing with Postman, JMeter performance testing, and mobile QA on Android and iOS. I'm now actively expanding into automation testing."</em></div>
+  <div class="tip-box">💡 Startup ต้องการ generalist mindset — เน้นว่าคุณ "ทำงานได้กว้าง" และ "เรียนรู้เร็ว" ไม่ใช่แค่ทำตามสคริปต์</div>
+</div></div>
+
+<div class="card" id="hr1">
+<div class="card-head" onclick="tog('hr1')">
+  <span class="badge hr">HR 02</span>
+  <div class="card-titles"><div class="q-th">ทำไมถึงสนใจบริษัทเรา?</div><div class="q-en">Why do you want to work here?</div></div>
+  <span class="arrow">▾</span>
+</div>
+<div class="card-body">
+  <div class="section-label">โครงสร้างคำตอบ</div>
+  <div class="ans-th">รีเสิร์ชบริษัทก่อนเสมอ → เชื่อมกับ background ตัวเอง → อยากโตไปด้วยกัน<br><br><em>"ประทับใจที่บริษัทเป็น tech-driven และพัฒนาระบบที่มี impact จริงๆ ซึ่งตรงกับที่ผม/หนูทำ QA กับ enterprise system ที่ต้องการความแม่นยำสูง อยากเป็นส่วนหนึ่งที่ช่วยให้ product มีคุณภาพตั้งแต่ต้นครับ/ค่ะ"</em></div>
+  <div class="ans-en"><em>"I'm drawn to how your team builds high-impact tech products — that aligns with my QA background on systems where accuracy is critical. I want to be part of a team where quality is built in from the start, not tested in at the end."</em></div>
+  <div class="tip-box">💡 นำชื่อ product หรือ market ของบริษัทมาพูดถึงด้วย จะดูจริงใจและเตรียมตัวมามากกว่า</div>
+</div></div>
+
+<div class="card" id="hr2">
+<div class="card-head" onclick="tog('hr2')">
+  <span class="badge hr">HR 03</span>
+  <div class="card-titles"><div class="q-th">จุดแข็งและจุดอ่อนของคุณคืออะไร?</div><div class="q-en">What are your strengths and weaknesses?</div></div>
+  <span class="arrow">▾</span>
+</div>
+<div class="card-body">
+  <div class="section-label">แนวทางตอบ (ไทย)</div>
+  <div class="ans-th"><strong>จุดแข็ง:</strong> <em>"จุดแข็งคือ root cause analysis เชิงลึก เมื่อเกิด production issue จะ trace log และ query database เพื่อหาสาเหตุจริง ไม่ใช่แค่รายงาน bug ผิวเผิน นอกจากนี้ยังครอบคลุมทั้ง web / API / performance / mobile ในคนเดียว"</em><br><br><strong>จุดอ่อน:</strong> <em>"จุดที่กำลังพัฒนาคือ automation testing ยังมีประสบการณ์ manual เป็นหลัก แต่กำลังศึกษา Playwright อยู่เพื่อให้ regression test เร็วและ reliable ขึ้น"</em></div>
+  <div class="ans-en"><strong>Strength:</strong> <em>"Deep-dive root cause analysis — I trace logs and query the database to find the actual cause, not just surface-level reports. I also cover a broad range: web, API, performance, and mobile."</em><br><br><strong>Weakness:</strong> <em>"My growth area is test automation. I'm primarily manual so far, but actively studying Playwright to make regression testing faster and more reliable."</em></div>
+  <div class="tip-box">💡 อย่าพูดจุดอ่อนที่เป็น core skill ของงาน เลือกจุดที่แก้ได้และกำลังแก้จริงเท่านั้น</div>
+</div></div>
+
+<div class="card" id="hr3">
+<div class="card-head" onclick="tog('hr3')">
+  <span class="badge hr">HR 04</span>
+  <div class="card-titles"><div class="q-th">เล่าสถานการณ์ที่เจอ bug สำคัญในงานให้ฟังหน่อย</div><div class="q-en">Tell me about a critical bug you found.</div></div>
+  <span class="arrow">▾</span>
+</div>
+<div class="card-body">
+  <div class="section-label">ใช้ STAR Framework</div>
+  <div class="ans-th"><em>"ระหว่าง regression test ก่อน release พบว่าตัวเลขใน Excel export ไม่ตรงกับ database (Situation/Task) → query MSSQL trace ที่มาของข้อมูล พบว่า stored procedure คำนวณ aggregate ผิด logic (Action) → แจ้ง Dev พร้อมแนบ query พิสูจน์ทันที ทำให้แก้ได้ก่อน deploy production (Result)"</em></div>
+  <div class="ans-en"><em>"During regression testing before a release, Excel export figures didn't match the database. I ran MSSQL queries to trace the data origin and found an aggregation error in a stored procedure. I reported it with the exact query as proof — fixed before it hit production."</em></div>
+  <div class="tip-box">💡 ยิ่งบอก impact ได้ชัด (ป้องกัน X, ประหยัด Y) ยิ่งดี — startup ให้คุณค่ากับคนที่คิดแบบ "มีผลลัพธ์จริง"</div>
+</div></div>
+
+<div class="card" id="hr4">
+<div class="card-head" onclick="tog('hr4')">
+  <span class="badge hr">HR 05</span>
+  <div class="card-titles"><div class="q-th">คุณจัดการ pressure / deadline กระชั้นอย่างไร?</div><div class="q-en">How do you handle tight deadlines?</div></div>
+  <span class="arrow">▾</span>
+</div>
+<div class="card-body">
+  <div class="section-label">แนวทางตอบ (ไทย)</div>
+  <div class="ans-th"><em>"เมื่อเจอ deadline กระชั้น จะ triage test cases ก่อนว่าอะไรคือ critical path ที่ต้องทดสอบก่อน แล้วสื่อสารกับ SA/Dev ตรงๆ ว่าสิ่งไหนทดสอบครบแล้ว สิ่งไหนยัง risk อยู่ เพื่อให้ทีมตัดสินใจบนข้อมูลจริง ไม่ใช่แค่รีบ approve ผ่านโดยไม่รู้ความเสี่ยง"</em></div>
+  <div class="ans-en"><em>"I triage test cases to identify the critical path first, then communicate transparently with SA/Dev about what's covered and what risk remains — so the team makes informed go/no-go decisions rather than blindly rushing to approve."</em></div>
+  <div class="tip-box">💡 Startup ชอบคนที่ "พูดตรง" — การบอก risk ตรงๆ ดีกว่าแกล้งทำเป็นว่าทุกอย่าง ok</div>
+</div></div>
+
+<div class="card" id="hr5">
+<div class="card-head" onclick="tog('hr5')">
+  <span class="badge hr">HR 06</span>
+  <div class="card-titles"><div class="q-th">ทำงานกับ Dev/SA ยังไงเมื่อ requirement ไม่ชัด?</div><div class="q-en">How do you collaborate when requirements are unclear?</div></div>
+  <span class="arrow">▾</span>
+</div>
+<div class="card-body">
+  <div class="section-label">แนวทางตอบ (ไทย)</div>
+  <div class="ans-th"><em>"เมื่อ requirement ไม่ชัด จะไม่รอให้เอกสารครบก่อน แต่จะ list assumption ที่มีแล้วไปคุย SA ทันทีเพื่อยืนยัน ถ้าซับซ้อนจะขอ workshop 15 นาที เพื่อ align ทั้ง 3 ฝ่าย (Dev/SA/QA) ก่อนเขียน test case เพราะการรื้อ test case ที่เขียนผิดทิศนั้นเสียเวลากว่ามาก"</em></div>
+  <div class="ans-en"><em>"I don't wait for perfect documentation. I list my assumptions and validate them with the SA immediately. For complex cases, I request a quick 15-minute alignment with Dev, SA, and QA together before writing test cases."</em></div>
+  <div class="tip-box">💡 คนที่ "ถามก่อนลงมือ" มีคุณค่ามากกว่าคนที่ทำแล้วรื้อใหม่ทั้งหมด</div>
+</div></div>
+
+<div class="card" id="hr6">
+<div class="card-head" onclick="tog('hr6')">
+  <span class="badge hr">HR 07</span>
+  <div class="card-titles"><div class="q-th">วางแผนพัฒนาตัวเองยังไงใน 1-2 ปีข้างหน้า?</div><div class="q-en">Where do you see yourself growing in QA?</div></div>
+  <span class="arrow">▾</span>
+</div>
+<div class="card-body">
+  <div class="section-label">แนวทางตอบ (ไทย)</div>
+  <div class="ans-th"><em>"ระยะสั้น: เสริมทักษะ automation (Playwright/Cypress) เพื่อให้ regression test เร็วและ reliable ขึ้น ระยะกลาง: อยากดูแล QA strategy ของทีม และออกแบบ test pipeline ที่ integrate กับ CI/CD ได้ เพราะมองว่า QA ที่ดีคือการป้องกัน ไม่ใช่แค่การตรวจจับ"</em></div>
+  <div class="ans-en"><em>"Short-term: solid automation skills in Playwright/Cypress for faster regression testing. Mid-term: own QA strategy for a team and design test pipelines integrated with CI/CD. Great QA is about prevention, not just detection."</em></div>
+  <div class="tip-box">💡 Startup ชอบคนที่มอง QA เป็น engineering discipline ไม่ใช่แค่ checklist</div>
+</div></div>
+
+<div class="card" id="hr7">
+<div class="card-head" onclick="tog('hr7')">
+  <span class="badge hr">HR 08</span>
+  <div class="card-titles"><div class="q-th">มีคำถามอะไรอยากถามเราบ้างไหม?</div><div class="q-en">Do you have any questions for us?</div></div>
+  <span class="arrow">▾</span>
+</div>
+<div class="card-body">
+  <div class="section-label">เตรียม 3 คำถามนี้ — ห้ามพูดว่า "ไม่มีครับ/ค่ะ"</div>
+  <div class="ans-th">1. <em>"ทีม QA มี structure ยังไง และเข้าร่วมตั้งแต่ stage ไหนของ development process ครับ/ค่ะ?"</em><br><br>2. <em>"บริษัทมีแผน move ไปทาง automation หรือ shift-left testing ในอนาคตไหมครับ/ค่ะ?"</em><br><br>3. <em>"ความท้าทายหลักของทีมตอนนี้คืออะไรครับ/ค่ะ?"</em></div>
+  <div class="ans-en">1. <em>"What does the QA team structure look like, and at which stage does QA get involved?"</em><br><br>2. <em>"Are there plans to move toward automation or shift-left testing?"</em><br><br>3. <em>"What's the biggest QA challenge the team is facing right now?"</em></div>
+  <div class="tip-box">💡 คำถามที่ดีแสดงว่าคุณคิดเชิง business ไม่ใช่แค่ถามเรื่องเงินเดือนหรือวันหยุด</div>
+</div></div>
+
+</div>
+
+<!-- TECH SECTION -->
+<div id="tc" class="sec">
+
+<div class="card" id="tc0">
+<div class="card-head" onclick="tog('tc0')">
+  <span class="badge tc">TECH 01</span>
+  <div class="card-titles"><div class="q-th">อธิบาย process เขียน test case ให้ฟัง</div><div class="q-en">Walk me through how you write a test case.</div></div>
+  <span class="arrow">▾</span>
+</div>
+<div class="card-body">
+  <div class="section-label">แนวทางตอบ (ไทย)</div>
+  <div class="ans-th"><em>"เริ่มวิเคราะห์ requirement หรือ user story แล้วแตก test scenario ตาม business flow หลัก แต่ละ test case ประกอบด้วย: precondition, test steps, expected result, actual result นอกจาก happy path จะเน้น boundary value, negative case และ edge case เสมอ เพราะ bug มักซ่อนอยู่ตรงนั้น"</em></div>
+  <div class="ans-en"><em>"I analyze the requirement or user story, then break it into test scenarios based on the main business flow. Each test case includes precondition, test steps, expected result, and actual result. Beyond the happy path, I always cover boundary values, negative cases, and edge cases — that's where most bugs hide."</em></div>
+  <div class="tip-box tc">💡 เสริมว่าคุณ review acceptance criteria กับ Dev/SA ก่อนเขียน test case ทุกครั้ง (Agile mindset)</div>
+</div></div>
+
+<div class="card" id="tc1">
+<div class="card-head" onclick="tog('tc1')">
+  <span class="badge tc">TECH 02</span>
+  <div class="card-titles"><div class="q-th">คุณทำ SQL data validation ยังไง?</div><div class="q-en">How do you perform SQL data validation?</div></div>
+  <span class="arrow">▾</span>
+</div>
+<div class="card-body">
+  <div class="section-label">แนวทางตอบ (ไทย)</div>
+  <div class="ans-th"><em>"ใน MSSQL validate หลายระดับ:<br>— COUNT(*) ตรวจจำนวน record ว่า insert ครบ<br>— SUM / AVG ตรวจตัวเลขรวมตาม business rule<br>— JOIN ตรวจ referential integrity ระหว่าง table<br>— CASE WHEN ตรวจ data transformation logic<br>— EXCEPT / INTERSECT เพื่อ compare expected vs. actual dataset"</em></div>
+  <div class="ans-en"><em>"In MSSQL I validate at multiple levels: COUNT(*) for record counts, SUM/AVG for aggregated figures, JOINs for referential integrity, CASE WHEN for transformation logic, and EXCEPT/INTERSECT to compare expected vs. actual datasets."</em></div>
+  <div class="tip-box tc">💡 ถ้ามีตัวอย่าง query จริงจากงาน เล่าให้ฟัง 1 case จะน่าเชื่อถือมาก</div>
+</div></div>
+
+<div class="card" id="tc2">
+<div class="card-head" onclick="tog('tc2')">
+  <span class="badge tc">TECH 03</span>
+  <div class="card-titles"><div class="q-th">คุณ test API ด้วย Postman ยังไง?</div><div class="q-en">How do you perform API testing with Postman?</div></div>
+  <span class="arrow">▾</span>
+</div>
+<div class="card-body">
+  <div class="section-label">แนวทางตอบ (ไทย)</div>
+  <div class="ans-th"><em>"ตรวจ 5 ด้านหลัก:<br>1. Status code ที่ถูกต้อง (200 / 201 / 400 / 401 / 404 / 500)<br>2. Response body — field ครบ, type ถูกต้อง<br>3. Business logic — data ที่ return ตรงกับ DB<br>4. Error handling — message ชัดเจน ไม่ expose sensitive data<br>5. Response time เบื้องต้น<br>นอกจากนี้เขียน test script เพื่อ automate assertion และรัน collection ทั้งหมดได้"</em></div>
+  <div class="ans-en"><em>"I check 5 dimensions: correct status codes, response body structure, business logic vs. DB, error handling without sensitive data exposure, and basic response time. I also write test scripts to automate assertions and run entire collections."</em></div>
+  <div class="tip-box tc">💡 เสริมว่าใช้ Environment Variables สำหรับ switch ระหว่าง Dev / Staging / Prod</div>
+</div></div>
+
+<div class="card" id="tc3">
+<div class="card-head" onclick="tog('tc3')">
+  <span class="badge tc">TECH 04</span>
+  <div class="card-titles"><div class="q-th">คุณทำ performance testing ด้วย JMeter ยังไง?</div><div class="q-en">How do you approach performance testing with JMeter?</div></div>
+  <span class="arrow">▾</span>
+</div>
+<div class="card-body">
+  <div class="section-label">แนวทางตอบ (ไทย)</div>
+  <div class="ans-th"><em>"ออกแบบ test plan โดยกำหนด Thread Group (จำนวน user), Ramp-up period, Loop count แล้วเพิ่ม HTTP Request Sampler ตาม user flow หลัก monitor ผ่าน Aggregate Report ดู throughput, avg response time, error rate เมื่อพบ bottleneck จะ report พร้อม threshold เช่น response &gt; 3s เมื่อ concurrent user เกิน 100"</em></div>
+  <div class="ans-en"><em>"I design a test plan with Thread Groups (user count), Ramp-up period, and Loop count, then add HTTP Request Samplers for the main user flow. I monitor via Aggregate Report tracking throughput, avg response time, and error rate. Bottlenecks are reported with specific thresholds — e.g., response &gt; 3s at 100+ concurrent users."</em></div>
+  <div class="tip-box tc">💡 Startup สนใจตัวเลข baseline — ถ้ามีประสบการณ์จริง บอก concurrent load ที่เคย test ได้เลย</div>
+</div></div>
+
+<div class="card" id="tc4">
+<div class="card-head" onclick="tog('tc4')">
+  <span class="badge tc">TECH 05</span>
+  <div class="card-titles"><div class="q-th">คุณทำ mobile testing ยังไง?</div><div class="q-en">How do you approach mobile application testing?</div></div>
+  <span class="arrow">▾</span>
+</div>
+<div class="card-body">
+  <div class="section-label">แนวทางตอบ (ไทย)</div>
+  <div class="ans-th"><em>"ครอบคลุม 4 ด้านหลัก:<br>1. Functional — flow หลักทำงานถูกต้อง<br>2. UI/UX — layout บนหน้าจอหลายขนาด, font ไม่ตัด, tap target เหมาะสม<br>3. Multi-device — Android หลาย version และ iOS<br>4. Network condition — slow 3G, offline — app handle gracefully หรือ crash<br>รวมถึง test permission (camera/location/notification) และ memory เบื้องต้น"</em></div>
+  <div class="ans-en"><em>"I cover 4 areas: functional flows, UI/UX across screen sizes, multi-device on Android and iOS, and network conditions (slow 3G/offline). I also test permissions and run basic memory checks."</em></div>
+  <div class="tip-box tc">💡 ถ้า startup มี mobile product — นี่คือ differentiator ของคุณจาก QA ที่ทำแค่ web</div>
+</div></div>
+
+<div class="card" id="tc5">
+<div class="card-head" onclick="tog('tc5')">
+  <span class="badge tc">TECH 06</span>
+  <div class="card-titles"><div class="q-th">อธิบายความแตกต่าง Smoke / Sanity / Regression</div><div class="q-en">Explain the difference between Smoke, Sanity, and Regression testing.</div></div>
+  <span class="arrow">▾</span>
+</div>
+<div class="card-body">
+  <div class="section-label">แนวทางตอบ (ไทย)</div>
+  <div class="ans-th"><strong>Smoke test:</strong> ตรวจว่า "ระบบเปิดติดไหม" เช็ค critical path เร็วๆ ก่อนว่าควรทดสอบต่อหรือเปล่า<br><br><strong>Sanity test:</strong> ตรวจหลัง bug fix ว่า feature ที่แก้ทำงานถูกต้อง โดยไม่ต้องรัน full suite<br><br><strong>Regression test:</strong> re-test ระบบทั้งหมดหรือส่วนที่เกี่ยวข้อง เพื่อแน่ใจว่าการแก้ code ใหม่ไม่ทำให้ feature เดิมพัง</div>
+  <div class="ans-en"><strong>Smoke:</strong> The "does it turn on?" check before investing in full testing.<br><br><strong>Sanity:</strong> After a bug fix — confirm the fixed feature works without a full suite run.<br><br><strong>Regression:</strong> Re-test the full system to ensure new changes haven't broken existing functionality.</div>
+  <div class="tip-box tc">💡 เสริมว่าที่ W2S คุณทำ regression testing ก่อน release ทุกครั้ง แสดงว่าใช้จริงไม่ใช่แค่จำ</div>
+</div></div>
+
+<div class="card" id="tc6">
+<div class="card-head" onclick="tog('tc6')">
+  <span class="badge tc">TECH 07</span>
+  <div class="card-titles"><div class="q-th">Dev บอก "ไม่ใช่ bug" คุณจัดการยังไง?</div><div class="q-en">How do you handle "it's not a bug" from a developer?</div></div>
+  <span class="arrow">▾</span>
+</div>
+<div class="card-body">
+  <div class="section-label">แนวทางตอบ (ไทย)</div>
+  <div class="ans-th"><em>"จะไม่เถียงทันที แต่ใช้ evidence เป็นหลัก:<br>1. แนบ screenshot/video + steps to reproduce ที่ชัดเจน<br>2. ระบุว่า behavior นี้ขัดกับ requirement / acceptance criteria ตรงไหน<br>3. ถ้า requirement ไม่ชัด จะ loop SA เข้ามา clarify ร่วมกัน<br>4. ถ้ายังขัดแย้ง จะยก user impact ให้เห็น — 'ถ้า user เจอแบบนี้จะเกิดอะไรขึ้น'"</em></div>
+  <div class="ans-en"><em>"I don't argue directly — I lead with evidence: screenshot/video + steps to reproduce, then point to which acceptance criteria this violates. If requirements are ambiguous, I loop in the SA. If still disputed, I frame it as user impact."</em></div>
+  <div class="tip-box tc">💡 Startup เน้น culture of respect — แสดงว่าคุณ "collaborate" ไม่ใช่ "confront"</div>
+</div></div>
+
+<div class="card" id="tc7">
+<div class="card-head" onclick="tog('tc7')">
+  <span class="badge tc">TECH 08</span>
+  <div class="card-titles"><div class="q-th">คุณทำ root cause analysis ยังไงเมื่อเกิด production issue?</div><div class="q-en">How do you perform root cause analysis?</div></div>
+  <span class="arrow">▾</span>
+</div>
+<div class="card-body">
+  <div class="section-label">แนวทางตอบ (ไทย)</div>
+  <div class="ans-th"><em>"ขั้นตอน:<br>1. Reproduce ใน environment ที่ใกล้เคียง production<br>2. ดู application log หา error/exception ที่เกี่ยวข้อง<br>3. Query database ตรวจ data state ในช่วงเวลาที่เกิดปัญหา<br>4. สร้าง event timeline ดูลำดับก่อน-หลัง<br>5. สรุป root cause + แนะนำ preventive measure"</em></div>
+  <div class="ans-en"><em>"My process: reproduce in a production-like environment → examine logs for errors → query the database for data state at the time of issue → build an event timeline → summarize root cause + recommend preventive measures."</em></div>
+  <div class="tip-box tc">💡 เสริมว่า document ทุก production issue ใน Jira เพื่อเป็น knowledge base ของทีม</div>
+</div></div>
+
+</div>
+
+<!-- TIPS SECTION -->
+<div id="tp" class="sec">
+
+<div class="tip-card">
+  <div class="tip-card-title">🏗 วิธีคิดแบบ Startup QA</div>
+  <div class="tip-card-body">Startup ต้องการ QA ที่ "shift-left" คือเข้าร่วมตั้งแต่ design/planning ไม่ใช่แค่ test ท้ายสุด ใช้คำว่า <em>"ผม/หนูช่วยป้องกัน defect ตั้งแต่ต้น"</em> แทน <em>"ผม/หนูหา bug"</em> — ฟังดู ownership มากกว่ากันมาก</div>
+</div>
+
+<div class="tip-card">
+  <div class="tip-card-title">⭐ จุด unique ของคุณจากประสบการณ์</div>
+  <div class="tip-card-body">คุณมี combination ที่หายาก ในคนเดียว:<br><br>
+  <span class="kw">SQL Validation</span> <span class="kw">API Testing</span> <span class="kw">Performance</span> <span class="kw">Mobile QA</span> <span class="kw">Root Cause Analysis</span><br><br>
+  ส่วนใหญ่ QA junior ทำได้แค่ 1-2 ด้าน เน้นจุดนี้ให้ชัดโดยเฉพาะใน startup ที่ต้องการคนทำงานได้กว้าง</div>
+</div>
+
+<div class="tip-card">
+  <div class="tip-card-title">🗣 Keywords ที่ควรใช้ในการสัมภาษณ์</div>
+  <div class="tip-card-body">ฝึกพูดคำเหล่านี้ให้คล่อง แสดง engineering maturity:<br><br>
+  <span class="kw">shift-left testing</span> <span class="kw">regression suite</span> <span class="kw">test coverage</span> <span class="kw">CI/CD integration</span> <span class="kw">defect triage</span> <span class="kw">acceptance criteria</span> <span class="kw">risk-based testing</span> <span class="kw">test pyramid</span><br><br>
+  Startup Tech มักสัมภาษณ์ผสม TH+EN ถ้า interviewer ถามภาษาอังกฤษ ตอบภาษาอังกฤษได้เลย</div>
+</div>
+
+<div class="tip-card">
+  <div class="tip-card-title">⏱ โครงสร้างเวลาในการตอบ</div>
+  <div class="tip-card-body">
+  <strong>HR question:</strong> 1.5–2 นาทีต่อคำถาม ไม่ควรยาวกว่านี้<br><br>
+  <strong>Technical question:</strong> 2–3 นาที สามารถ think aloud ได้ บอก "ขอคิดสักครู่" ได้เลย<br><br>
+  <strong>ถ้าไม่รู้คำตอบ:</strong> พูดว่า <em>"ผม/หนูยังไม่เคยเจอ scenario นี้โดยตรง แต่จะ approach แบบนี้..."</em> ดีกว่าเงียบหรือตอบผิดมาก</div>
+</div>
+
+<div class="tip-card">
+  <div class="tip-card-title">📋 สิ่งที่ต้องเตรียมก่อนวันสัมภาษณ์</div>
+  <div class="tip-card-body">
+  1. รีเสิร์ชบริษัท: product คืออะไร, ปัญหาที่ solve คืออะไร, tech stack ที่ใช้<br>
+  2. เตรียม 3 เรื่องเล่า STAR จากงานจริง: bug สำคัญ / ทำงานภายใต้ pressure / ทำงานกับทีม<br>
+  3. อ่าน JD อีกครั้ง — keyword ไหนตรงกับ resume นำมาเล่าใน interview<br>
+  4. เตรียมคำถามถามกลับ 2-3 ข้อ (ดูหัวข้อ HR 08)<br>
+  5. ทดลองพูด mock answer เสียงดังคนเดียวอย่างน้อย 1 รอบ</div>
+</div>
+
+<div class="tip-card">
+  <div class="tip-card-title">😊 Mindset ในวันสัมภาษณ์</div>
+  <div class="tip-card-body">Interview คือ <strong>two-way conversation</strong> ไม่ใช่การสอบ คุณก็กำลัง evaluate บริษัทด้วยเช่นกัน<br><br>ความมั่นใจมาจากการเตรียมตัว ไม่ใช่จากการรู้ทุกอย่าง ถ้าเจอคำถามที่ไม่รู้ — แสดง reasoning process ออกมา นั่นคือสิ่งที่ interviewer ดูจริงๆ ไม่ใช่แค่คำตอบที่ "ถูก"</div>
+</div>
+
+</div>
+</div>
+
+<script>
+function tog(id) {
+  document.getElementById(id).classList.toggle('open');
+}
+function sw(name, btn, color) {
+  document.querySelectorAll('.sec').forEach(function(s){ s.classList.remove('active'); });
+  document.querySelectorAll('.tab').forEach(function(b){ b.classList.remove('active'); });
+  document.getElementById(name).classList.add('active');
+  btn.classList.add('active');
+}
+</script>
+</body>
+</html>

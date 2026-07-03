@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.0 (Python 3.11.9 on win32)" generated="2026-04-21T01:15:03.943062" rpa="false" schemaversion="5">
+<suite id="s1" name="Test FB" source="d:\New personal files\Practice writing Python code for beginner\FirstRobot.robot\Test FB.robot">
+<test id="s1-t1" name="Login Facebook - Fail" line="54">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-04-21T01:15:04.268577" level="INFO">Opening browser 'chrome' to base url 'https://www.facebook.com/?locale=th_TH'.</msg>
+<arg>${URL_facebook}</arg>
+<arg>chrome</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-04-21T01:15:04.268577" elapsed="5.639739"/>
+</kw>
+<kw name="Input Username and Password">
+<kw name="Element Should Be Visible" owner="SeleniumLibrary">
+<msg time="2026-04-21T01:15:10.056105" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-21.png"&gt;&lt;img src="selenium-screenshot-21.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2026-04-21T01:15:10.057466" level="FAIL">Element with locator '//*[@id="email"]' not found.</msg>
+<arg>${Xpath_user}</arg>
+<doc>Verifies that the element identified by ``locator`` is visible.</doc>
+<status status="FAIL" start="2026-04-21T01:15:09.911313" elapsed="0.148924">Element with locator '//*[@id="email"]' not found.</status>
+</kw>
+<kw name="Element Should Be Visible" owner="SeleniumLibrary">
+<arg>${Xpath_pass}</arg>
+<doc>Verifies that the element identified by ``locator`` is visible.</doc>
+<status status="NOT RUN" start="2026-04-21T01:15:10.060237" elapsed="0.000000"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<arg>${Xpath_user}</arg>
+<arg>${username}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" start="2026-04-21T01:15:10.060237" elapsed="0.000000"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<arg>${Xpath_pass}</arg>
+<arg>${password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" start="2026-04-21T01:15:10.060237" elapsed="0.000000"/>
+</kw>
+<arg>${input_username}</arg>
+<arg>${input_password}</arg>
+<arg>${username_fail}</arg>
+<arg>${password_fail}</arg>
+<status status="FAIL" start="2026-04-21T01:15:09.909311" elapsed="0.150926">Element with locator '//*[@id="email"]' not found.</status>
+</kw>
+<kw name="Click Login Button">
+<arg>${btn_login}</arg>
+<status status="NOT RUN" start="2026-04-21T01:15:10.061245" elapsed="0.000000"/>
+</kw>
+<kw name="Check For CAPTCHA">
+<status status="NOT RUN" start="2026-04-21T01:15:10.062246" elapsed="0.000000"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<arg>5s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="NOT RUN" start="2026-04-21T01:15:10.062246" elapsed="0.000000"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="NOT RUN" start="2026-04-21T01:15:10.063727" elapsed="0.000000"/>
+</kw>
+<tag>Fail</tag>
+<status status="FAIL" start="2026-04-21T01:15:04.267593" elapsed="5.796134">Element with locator '//*[@id="email"]' not found.</status>
+</test>
+<test id="s1-t2" name="Login Facebook - Success" line="63">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-04-21T01:15:10.066736" level="INFO">Opening browser 'chrome' to base url 'https://www.facebook.com/?locale=th_TH'.</msg>
+<arg>${URL_facebook}</arg>
+<arg>chrome</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-04-21T01:15:10.066736" elapsed="5.422810"/>
+</kw>
+<kw name="Input Username and Password">
+<kw name="Element Should Be Visible" owner="SeleniumLibrary">
+<msg time="2026-04-21T01:15:15.766550" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-22.png"&gt;&lt;img src="selenium-screenshot-22.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2026-04-21T01:15:15.767567" level="FAIL">Element with locator '//*[@id="email"]' not found.</msg>
+<arg>${Xpath_user}</arg>
+<doc>Verifies that the element identified by ``locator`` is visible.</doc>
+<status status="FAIL" start="2026-04-21T01:15:15.492546" elapsed="0.278013">Element with locator '//*[@id="email"]' not found.</status>
+</kw>
+<kw name="Element Should Be Visible" owner="SeleniumLibrary">
+<arg>${Xpath_pass}</arg>
+<doc>Verifies that the element identified by ``locator`` is visible.</doc>
+<status status="NOT RUN" start="2026-04-21T01:15:15.770559" elapsed="0.000000"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<arg>${Xpath_user}</arg>
+<arg>${username}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" start="2026-04-21T01:15:15.770559" elapsed="0.000000"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<arg>${Xpath_pass}</arg>
+<arg>${password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" start="2026-04-21T01:15:15.771544" elapsed="0.000000"/>
+</kw>
+<arg>${input_username}</arg>
+<arg>${input_password}</arg>
+<arg>${username_success}</arg>
+<arg>${password_success}</arg>
+<status status="FAIL" start="2026-04-21T01:15:15.491545" elapsed="0.279999">Element with locator '//*[@id="email"]' not found.</status>
+</kw>
+<kw name="Click Login Button">
+<arg>${btn_login}</arg>
+<status status="NOT RUN" start="2026-04-21T01:15:15.772545" elapsed="0.000000"/>
+</kw>
+<kw name="Check For CAPTCHA">
+<status status="NOT RUN" start="2026-04-21T01:15:15.773559" elapsed="0.000000"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<arg>5s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="NOT RUN" start="2026-04-21T01:15:15.775556" elapsed="0.000000"/>
+</kw>
+<kw name="Verify Login Success">
+<arg>${txt_massage}</arg>
+<status status="NOT RUN" start="2026-04-21T01:15:15.777546" elapsed="0.000000"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary">
+<doc>Closes the current browser.</doc>
+<status status="NOT RUN" start="2026-04-21T01:15:15.778548" elapsed="0.000000"/>
+</kw>
+<tag>Success</tag>
+<status status="FAIL" start="2026-04-21T01:15:10.065736" elapsed="5.714823">Element with locator '//*[@id="email"]' not found.</status>
+</test>
+<status status="FAIL" start="2026-04-21T01:15:03.944068" elapsed="11.840485"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="2" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="0" fail="1" skip="0">Fail</stat>
+<stat pass="0" fail="1" skip="0">Success</stat>
+</tag>
+<suite>
+<stat pass="0" fail="2" skip="0" id="s1" name="Test FB">Test FB</stat>
+</suite>
+</statistics>
+<errors>
+</errors>
+</robot>
