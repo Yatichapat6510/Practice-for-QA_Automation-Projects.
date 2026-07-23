@@ -1,0 +1,26 @@
+Traceback (most recent call last):
+  File "<string>", line 18, in <module>
+  File "C:\Python311\Lib\site-packages\selenium\webdriver\support\wait.py", line 121, in until
+    raise TimeoutException(message, screen, stacktrace)
+selenium.common.exceptions.TimeoutException: Message: 
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff65006a865+152a5]
+	chromedriver!GetHandleVerifier [0x7ff65006a8c0+15300]
+	chromedriver!(No symbol) [0x7ff64fbc596d]
+	chromedriver!(No symbol) [0x7ff64fc205a9]
+	chromedriver!(No symbol) [0x7ff64fc208ac]
+	chromedriver!(No symbol) [0x7ff64fc710f7]
+	chromedriver!(No symbol) [0x7ff64fc6dcf4]
+	chromedriver!(No symbol) [0x7ff64fc12b3c]
+	chromedriver!(No symbol) [0x7ff64fc13a53]
+	chromedriver!GetHandleVerifier [0x7ff65064d3a1+5f7de1]
+	chromedriver!GetHandleVerifier [0x7ff650647a3b+5f247b]
+	chromedriver!GetHandleVerifier [0x7ff65066bca5+6166e5]
+	chromedriver!GetHandleVerifier [0x7ff6500872ae+31cee]
+	chromedriver!GetHandleVerifier [0x7ff65008fe3c+3a87c]
+	chromedriver!GetHandleVerifier [0x7ff650074404+1ee44]
+	chromedriver!GetHandleVerifier [0x7ff650074594+1efd4]
+	chromedriver!GetHandleVerifier [0x7ff6500575c7+2007]
+	KERNEL32!BaseThreadInitThunk [0x7fff4814e957+17]
+	ntdll!RtlUserThreadStart [0x7fff4a1e7c1c+2c]
+

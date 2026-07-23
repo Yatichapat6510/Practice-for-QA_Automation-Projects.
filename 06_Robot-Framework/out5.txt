@@ -1,0 +1,4 @@
+cart url https://www.saucedemo.com/cart.html
+page contains Your Cart: True
+after checkout click url https://www.saucedemo.com/checkout-step-one.html
+after sleep url https://www.saucedemo.com/checkout-step-one.html

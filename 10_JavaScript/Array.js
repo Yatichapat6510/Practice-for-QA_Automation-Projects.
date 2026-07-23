@@ -14,4 +14,3 @@ for (let i = 0; i < fruits.length; i++) {
 
 const upperFruits = fruits.map(item => item.toUpperCase());
 console.log('Array แปลงเป็นตัวพิมพ์ใหญ่:', upperFruits);
-

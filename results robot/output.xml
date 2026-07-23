@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<robot generator="Robot 7.0 (Python 3.11.9 on win32)" generated="2026-07-03T16:23:27.796396" rpa="false" schemaversion="5">
+<suite id="s1" name="Practice writing code for QA Projects" source="c:\Users\newty\OneDrive\Desktop\Cowork\Practice writing code for QA_Projects">
+<suite id="s1-s1" name="06 Robot-Framework" source="c:\Users\newty\OneDrive\Desktop\Cowork\Practice writing code for QA_Projects\06_Robot-Framework">
+<suite id="s1-s1-s1" name="FirstRobot.robot" source="c:\Users\newty\OneDrive\Desktop\Cowork\Practice writing code for QA_Projects\06_Robot-Framework\FirstRobot.robot">
+<suite id="s1-s1-s1-s1" name="Tests" source="c:\Users\newty\OneDrive\Desktop\Cowork\Practice writing code for QA_Projects\06_Robot-Framework\FirstRobot.robot\tests">
+<suite id="s1-s1-s1-s1-s1" name="Facebook" source="c:\Users\newty\OneDrive\Desktop\Cowork\Practice writing code for QA_Projects\06_Robot-Framework\FirstRobot.robot\tests\Facebook.robot">
+<test id="s1-s1-s1-s1-s1-t1" name="Login Facebook - Fail" line="39">
+<kw name="Open Chrome Browser">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-07-03T16:23:28.414986" level="INFO">Opening browser 'Chrome' to base url 'https://www.facebook.com/?locale=th_TH'.</msg>
+<arg>${url}</arg>
+<arg>Chrome</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-07-03T16:23:28.413976" elapsed="3.232033"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-07-03T16:23:31.648069" elapsed="0.176611"/>
+</kw>
+<arg>${URL_facebook}</arg>
+<status status="PASS" start="2026-07-03T16:23:28.410429" elapsed="3.414251"/>
+</kw>
+<kw name="Input Username and Password">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<msg time="2026-07-03T16:23:42.156168" level="INFO" html="true">&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td colspan="3"&gt;&lt;a href="selenium-screenshot-6.png"&gt;&lt;img src="selenium-screenshot-6.png" width="800px"&gt;&lt;/a&gt;</msg>
+<msg time="2026-07-03T16:23:42.158007" level="FAIL">Element '//*[@id="email"]' not visible after 10 seconds.</msg>
+<arg>${Xpath_user}</arg>
+<arg>10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="FAIL" start="2026-07-03T16:23:31.835894" elapsed="10.356767">Element '//*[@id="email"]' not visible after 10 seconds.</status>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${Xpath_pass}</arg>
+<arg>10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="NOT RUN" start="2026-07-03T16:23:42.194679" elapsed="0.000000"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<arg>${Xpath_user}</arg>
+<arg>${username}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" start="2026-07-03T16:23:42.196211" elapsed="0.001019"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<arg>${Xpath_pass}</arg>
+<arg>${password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" start="2026-07-03T16:23:42.197230" elapsed="0.000000"/>
+</kw>
+<arg>${input_username}</arg>
+<arg>${input_password}</arg>
+<arg>${username_fail}</arg>
+<arg>${password_fail}</arg>
+<status status="FAIL" start="2026-07-03T16:23:31.830476" elapsed="10.368310">Element '//*[@id="email"]' not visible after 10 seconds.</status>
+</kw>
+<kw name="Click Login Button">
+<arg>${btn_login}</arg>
+<status status="NOT RUN" start="2026-07-03T16:23:42.199310" elapsed="0.001030"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<arg>10s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="NOT RUN" start="2026-07-03T16:23:42.200340" elapsed="0.000999"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-07-03T16:23:42.202339" elapsed="2.361592"/>
+</kw>
+<tag>Fail</tag>
+<status status="FAIL" start="2026-07-03T16:23:28.387887" elapsed="16.177033">Element '//*[@id="email"]' not visible after 10 seconds.</status>
+</test>
+<test id="s1-s1-s1-s1-s1-t2" name="Login Facebook - Success" line="47">
+<kw name="Open Chrome Browser">
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-07-03T16:23:44.650796" level="INFO">Opening browser 'Chrome' to base url 'https://www.facebook.com/?locale=th_TH'.</msg>
+<arg>${url}</arg>
+<arg>Chrome</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-07-03T16:23:44.649770" elapsed="3.248245"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-07-03T16:23:47.898015" elapsed="0.098889"/>
+</kw>
+<arg>${URL_facebook}</arg>
+<status status="PASS" start="2026-07-03T16:23:44.647224" elapsed="3.351187"/>
+</kw>
+<kw name="Input Username and Password">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<msg time="2026-07-03T16:23:49.510713" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: Message: invalid session id; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalidsessionidexception
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff7a47f3fa5+14925]
+	chromedriver!GetHandleVerifier [0x7ff7a47f4000+14980]
+	chromedriver!(No symbol) [0x7ff7a4337726]
+	chromedriver!(No symbol) [0x7ff7a4383083]
+	chromedriver!(No symbol) [0x7ff7a43ba2d2]
+	chromedriver!(No symbol) [0x7ff7a43b40d2]
+	chromedriver!(No symbol) [0x7ff7a43b3892]
+	chromedriver!(No symbol) [0x7ff7a43003e5]
+	chromedriver!GetHandleVerifier [0x7ff7a4dd7591+5f7f11]
+	chromedriver!GetHandleVerifier [0x7ff7a4dd1902+5f2282]
+	chromedriver!GetHandleVerifier [0x7ff7a4df7115+617a95]
+	chromedriver!GetHandleVerifier [0x7ff7a4811dce+3274e]
+	chromedriver!GetHandleVerifier [0x7ff7a481a82c+3b1ac]
+	chromedriver!(No symbol) [0x7ff7a42ff188]
+	chromedriver!GetHandleVerifier [0x7ff7a4fa7b58+7c84d8]
+	KERNEL32!BaseThreadInitThunk [0x7ff96079e957+17]
+	ntdll!RtlUserThreadStart [0x7ff961dc7c1c+2c]
+</msg>
+<msg time="2026-07-03T16:23:49.544235" level="FAIL">InvalidSessionIdException: Message: invalid session id: session deleted as the browser has closed the connection
+from disconnected: not connected to DevTools
+  (Session info: chrome=149.0.7827.201); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalidsessionidexception
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff7a47f3fa5+14925]
+	chromedriver!GetHandleVerifier [0x7ff7a47f4000+14980]
+	chromedriver!(No symbol) [0x7ff7a433793d]
+	chromedriver!(No symbol) [0x7ff7a4322d82]
+	chromedriver!(No symbol) [0x7ff7a43490cc]
+	chromedriver!(No symbol) [0x7ff7a43c1aa0]
+	chromedriver!(No symbol) [0x7ff7a43dec82]
+	chromedriver!(No symbol) [0x7ff7a438401c]
+	chromedriver!(No symbol) [0x7ff7a4384f43]
+	chromedriver!GetHandleVerifier [0x7ff7a4dd7591+5f7f11]
+	chromedriver!GetHandleVerifier [0x7ff7a4dd1902+5f2282]
+	chromedriver!GetHandleVerifier [0x7ff7a4df7115+617a95]
+	chromedriver!GetHandleVerifier [0x7ff7a4811dce+3274e]
+	chromedriver!GetHandleVerifier [0x7ff7a481a82c+3b1ac]
+	chromedriver!GetHandleVerifier [0x7ff7a47fd744+1e0c4]
+	chromedriver!GetHandleVerifier [0x7ff7a47fd8d4+1e254]
+	chromedriver!GetHandleVerifier [0x7ff7a47e1447+1dc7]
+	KERNEL32!BaseThreadInitThunk [0x7ff96079e957+17]
+	ntdll!RtlUserThreadStart [0x7ff961dc7c1c+2c]
+</msg>
+<arg>${Xpath_user}</arg>
+<arg>10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="FAIL" start="2026-07-03T16:23:48.004482" elapsed="1.757031">InvalidSessionIdException: Message: invalid session id: session deleted as the browser has closed the connection
+from disconnected: not connected to DevTools
+  (Session info: chrome=149.0.7827.201); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalidsessionidexception
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff7a47f3fa5+14925]
+	chromedriver!GetHandleVerifier [0x7ff7a47f4000+14980]
+	chromedriver!(No symbol) [0x7ff7a433793d]
+	chromedriver!(No symbol) [0x7ff7a4322d82]
+	chromedriver!(No symbol) [0x7ff7a43490cc]
+	chromedriver!(No symbol) [0x7ff7a43c1aa0]
+	chromedriver!(No symbol) [0x7ff7a43dec82]
+	chromedriver!(No symbol) [0x7ff7a438401c]
+	chromedriver!(No symbol) [0x7ff7a4384f43]
+	chromedriver!GetHandleVerifier [0x7ff7a4dd7591+5f7f11]
+	chromedriver!GetHandleVerifier [0x7ff7a4dd1902+5f2282]
+	chromedriver!GetHandleVerifier [0x7ff7a4df7115+617a95]
+	chromedriver!GetHandleVerifier [0x7ff7a4811dce+3274e]
+	chromedriver!GetHandleVerifier [0x7ff7a481a82c+3b1ac]
+	chromedriver!GetHandleVerifier [0x7ff7a47fd744+1e0c4]
+	chromedriver!GetHandleVerifier [0x7ff7a47fd8d4+1e254]
+	chromedriver!GetHandleVerifier [0x7ff7a47e1447+1dc7]
+	KERNEL32!BaseThreadInitThunk [0x7ff96079e957+17]
+	ntdll!RtlUserThreadStart [0x7ff961dc7c1c+2c]
+</status>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${Xpath_pass}</arg>
+<arg>10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="NOT RUN" start="2026-07-03T16:23:49.763518" elapsed="0.001519"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<arg>${Xpath_user}</arg>
+<arg>${username}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" start="2026-07-03T16:23:49.765037" elapsed="0.002295"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<arg>${Xpath_pass}</arg>
+<arg>${password}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="NOT RUN" start="2026-07-03T16:23:49.768360" elapsed="0.000998"/>
+</kw>
+<arg>${input_username}</arg>
+<arg>${input_password}</arg>
+<arg>${username_success}</arg>
+<arg>${password_success}</arg>
+<status status="FAIL" start="2026-07-03T16:23:48.001948" elapsed="1.768545">InvalidSessionIdException: Message: invalid session id: session deleted as the browser has closed the connection
+from disconnected: not connected to DevTools
+  (Session info: chrome=149.0.7827.201); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalidsessionidexception
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff7a47f3fa5+14925]
+	chromedriver!GetHandleVerifier [0x7ff7a47f4000+14980]
+	chromedriver!(No symbol) [0x7ff7a433793d]
+	chromedriver!(No symbol) [0x7ff7a4322d82]
+	chromedriver!(No symbol) [0x7ff7a43490cc]
+	chromedriver!(No symbol) [0x7ff7a43c1aa0]
+	chromedriver!(No symbol) [0x7ff7a43dec82]
+	chromedriver!(No symbol) [0x7ff7a438401c]
+	chromedriver!(No symbol) [0x7ff7a4384f43]
+	chromedriver!GetHandleVerifier [0x7ff7a4dd7591+5f7f11]
+	chromedriver!GetHandleVerifier [0x7ff7a4dd1902+5f2282]
+	chromedriver!GetHandleVerifier [0x7ff7a4df7115+617a95]
+	chromedriver!GetHandleVerifier [0x7ff7a4811dce+3274e]
+	chromedriver!GetHandleVerifier [0x7ff7a481a82c+3b1ac]
+	chromedriver!GetHandleVerifier [0x7ff7a47fd744+1e0c4]
+	chromedriver!GetHandleVerifier [0x7ff7a47fd8d4+1e254]
+	chromedriver!GetHandleVerifier [0x7ff7a47e1447+1dc7]
+	KERNEL32!BaseThreadInitThunk [0x7ff96079e957+17]
+	ntdll!RtlUserThreadStart [0x7ff961dc7c1c+2c]
+</status>
+</kw>
+<kw name="Click Login Button">
+<arg>${btn_login}</arg>
+<status status="NOT RUN" start="2026-07-03T16:23:49.772486" elapsed="0.001007"/>
+</kw>
+<kw name="Sleep" owner="BuiltIn">
+<arg>10s</arg>
+<doc>Pauses the test executed for the given time.</doc>
+<status status="NOT RUN" start="2026-07-03T16:23:49.774492" elapsed="0.000000"/>
+</kw>
+<kw name="Verify Login Success">
+<arg>${txt_message}</arg>
+<status status="NOT RUN" start="2026-07-03T16:23:49.779056" elapsed="0.002550"/>
+</kw>
+<kw name="Close Browser" owner="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes the current browser.</doc>
+<status status="PASS" start="2026-07-03T16:23:49.784146" elapsed="2.031914"/>
+</kw>
+<tag>Success</tag>
+<status status="FAIL" start="2026-07-03T16:23:44.602156" elapsed="7.214421">InvalidSessionIdException: Message: invalid session id: session deleted as the browser has closed the connection
+from disconnected: not connected to DevTools
+  (Session info: chrome=149.0.7827.201); For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalidsessionidexception
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff7a47f3fa5+14925]
+	chromedriver!GetHandleVerifier [0x7ff7a47f4000+14980]
+	chromedriver!(No symbol) [0x7ff7a433793d]
+	chromedriver!(No symbol) [0x7ff7a4322d82]
+	chromedriver!(No symbol) [0x7ff7a43490cc]
+	chromedriver!(No symbol) [0x7ff7a43c1aa0]
+	chromedriver!(No symbol) [0x7ff7a43dec82]
+	chromedriver!(No symbol) [0x7ff7a438401c]
+	chromedriver!(No symbol) [0x7ff7a4384f43]
+	chromedriver!GetHandleVerifier [0x7ff7a4dd7591+5f7f11]
+	chromedriver!GetHandleVerifier [0x7ff7a4dd1902+5f2282]
+	chromedriver!GetHandleVerifier [0x7ff7a4df7115+617a95]
+	chromedriver!GetHandleVerifier [0x7ff7a4811dce+3274e]
+	chromedriver!GetHandleVerifier [0x7ff7a481a82c+3b1ac]
+	chromedriver!GetHandleVerifier [0x7ff7a47fd744+1e0c4]
+	chromedriver!GetHandleVerifier [0x7ff7a47fd8d4+1e254]
+	chromedriver!GetHandleVerifier [0x7ff7a47e1447+1dc7]
+	KERNEL32!BaseThreadInitThunk [0x7ff96079e957+17]
+	ntdll!RtlUserThreadStart [0x7ff961dc7c1c+2c]
+</status>
+</test>
+<kw name="Close All Browsers" owner="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" start="2026-07-03T16:23:51.844049" elapsed="0.002022"/>
+</kw>
+<status status="FAIL" start="2026-07-03T16:23:27.967658" elapsed="23.878413"/>
+</suite>
+<status status="FAIL" start="2026-07-03T16:23:27.955702" elapsed="23.910820"/>
+</suite>
+<status status="FAIL" start="2026-07-03T16:23:27.926182" elapsed="23.974235"/>
+</suite>
+<status status="FAIL" start="2026-07-03T16:23:27.917572" elapsed="23.991890"/>
+</suite>
+<status status="FAIL" start="2026-07-03T16:23:27.845786" elapsed="24.081582"/>
+</suite>
+<statistics>
+<total>
+<stat pass="0" fail="2" skip="0">All Tests</stat>
+</total>
+<tag>
+<stat pass="0" fail="1" skip="0">Fail</stat>
+<stat pass="0" fail="1" skip="0">Success</stat>
+</tag>
+<suite>
+<stat pass="0" fail="2" skip="0" id="s1" name="Practice writing code for QA Projects">Practice writing code for QA Projects</stat>
+<stat pass="0" fail="2" skip="0" id="s1-s1" name="06 Robot-Framework">Practice writing code for QA Projects.06 Robot-Framework</stat>
+<stat pass="0" fail="2" skip="0" id="s1-s1-s1" name="FirstRobot.robot">Practice writing code for QA Projects.06 Robot-Framework.FirstRobot.robot</stat>
+<stat pass="0" fail="2" skip="0" id="s1-s1-s1-s1" name="Tests">Practice writing code for QA Projects.06 Robot-Framework.FirstRobot.robot.Tests</stat>
+<stat pass="0" fail="2" skip="0" id="s1-s1-s1-s1-s1" name="Facebook">Practice writing code for QA Projects.06 Robot-Framework.FirstRobot.robot.Tests.Facebook</stat>
+</suite>
+</statistics>
+<errors>
+<msg time="2026-07-03T16:23:49.510713" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: Message: invalid session id; For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#invalidsessionidexception
+Stacktrace:
+	chromedriver!GetHandleVerifier [0x7ff7a47f3fa5+14925]
+	chromedriver!GetHandleVerifier [0x7ff7a47f4000+14980]
+	chromedriver!(No symbol) [0x7ff7a4337726]
+	chromedriver!(No symbol) [0x7ff7a4383083]
+	chromedriver!(No symbol) [0x7ff7a43ba2d2]
+	chromedriver!(No symbol) [0x7ff7a43b40d2]
+	chromedriver!(No symbol) [0x7ff7a43b3892]
+	chromedriver!(No symbol) [0x7ff7a43003e5]
+	chromedriver!GetHandleVerifier [0x7ff7a4dd7591+5f7f11]
+	chromedriver!GetHandleVerifier [0x7ff7a4dd1902+5f2282]
+	chromedriver!GetHandleVerifier [0x7ff7a4df7115+617a95]
+	chromedriver!GetHandleVerifier [0x7ff7a4811dce+3274e]
+	chromedriver!GetHandleVerifier [0x7ff7a481a82c+3b1ac]
+	chromedriver!(No symbol) [0x7ff7a42ff188]
+	chromedriver!GetHandleVerifier [0x7ff7a4fa7b58+7c84d8]
+	KERNEL32!BaseThreadInitThunk [0x7ff96079e957+17]
+	ntdll!RtlUserThreadStart [0x7ff961dc7c1c+2c]
+</msg>
+</errors>
+</robot>
