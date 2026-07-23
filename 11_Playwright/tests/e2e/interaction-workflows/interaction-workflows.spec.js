@@ -1,5 +1,5 @@
-import { expect, test } from '../support/test.js';
-import { avatarImage, documentPdf, supportingDocuments } from '../fixtures/upload-files.js';
+import { expect, test } from './fixtures/demo-app.fixture.js';
+import { avatarImage, documentPdf, supportingDocuments } from './data/upload-files.data.js';
 
 test.describe('Interaction workflows', () => {
   test('creates an account with registration details', async ({ page }) => {

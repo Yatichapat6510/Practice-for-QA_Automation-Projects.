@@ -1,3 +1,4 @@
+// In-memory HTTP resources served by the interaction-workflows fixture.
 const layout = (content, script = '') => `
   <!doctype html>
   <html lang="en">

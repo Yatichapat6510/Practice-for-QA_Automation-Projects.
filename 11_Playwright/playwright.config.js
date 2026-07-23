@@ -4,9 +4,9 @@ import { defineConfig, devices } from '@playwright/test';
 /** @see https://playwright.dev/docs/test-configuration */
 export default defineConfig({
   testDir: './tests',
-  // The runnable suite lives in tests/e2e. Older practice files remain available
-  // as notes/examples and are intentionally not mixed into the automated suite.
-  testMatch: '**/e2e/**/*.spec.js',
+  // The runnable suite is explicitly isolated from the non-runnable practice library.
+  testMatch: 'e2e/**/*.spec.js',
+  testIgnore: ['practice/**'],
   fullyParallel: true,
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
@@ -23,7 +23,7 @@ export default defineConfig({
   },
   projects: [
     {
-      name: 'chromium',
+      name: 'demo-e2e-chromium',
       // Uses installed Google Chrome without a machine-specific executable path.
       use: { ...devices['Desktop Chrome'], channel: 'chrome' },
     },

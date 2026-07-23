@@ -1,5 +1,5 @@
 import { test as base, expect } from '@playwright/test';
-import { demoPages } from '../fixtures/demo-pages.js';
+import { demoPages } from '../resources/demo-pages.resource.js';
 
 // A deterministic local demo app for learning interaction tests. Replace this
 // fixture with calls to the real application when its URL and UI are available.

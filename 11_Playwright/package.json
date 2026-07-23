@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "playwright test",
-    "test:demo": "playwright test tests/e2e",
+    "test:demo": "playwright test --project=demo-e2e-chromium",
     "test:list": "playwright test --list",
     "test:headed": "playwright test --headed",
     "test:ui": "playwright test --ui",
