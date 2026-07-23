@@ -36,9 +36,13 @@ test('multi tab scenario', async ({ context }) => {
 
 // Multi-user scenario — context แยกกัน = session แยกกัน
 test('admin and user', async ({ browser }) => {
-  const adminCtx = await browser.newContext({ storageState: 'admin.json' });
-  const userCtx  = await browser.newContext({ storageState: 'user.json' });
-  // admin และ user login แยกกัน ไม่กระทบกัน
+  // Create independent browser contexts so the example does not depend on
+  // untracked admin.json/user.json files.
+  const adminCtx = await browser.newContext();
+  const userCtx = await browser.newContext();
+
+  await adminCtx.close();
+  await userCtx.close();
 });
 
 
@@ -71,26 +75,3 @@ test('login แล้ว verify API response', async ({ page }) => {
 
 
 
-const { chromium } = require('playwright');
-
-(async () => {
-  try {
-    const browser = await chromium.launch();
-    const page = await (await browser.newContext()).newPage();
-        
-    page.on('console', msg => console.log('PAGE LOG:', msg.text()));
-    page.on('pageerror', error => console.log('PAGE ERROR:', error.message));
-    page.on('requestfailed', request => {
-      const f = request.failure();
-      console.log('REQUEST FAILED:', request.url(), f && f.errorText);
-    });
-
-    await page.goto('http://localhost:8080/Dashboard.html', { waitUntil: 'networkidle' });
-    await new Promise(r => setTimeout(r, 2000));
-        
-    await browser.close();
-    console.log('Done');
-  } catch (e) {
-    console.log('TEST SCRIPT ERROR:', e);
-  }
-})();
