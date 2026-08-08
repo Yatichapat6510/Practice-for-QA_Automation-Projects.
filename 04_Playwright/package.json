@@ -6,6 +6,7 @@
   "scripts": {
     "test": "playwright test",
     "test:demo": "playwright test --project=demo-e2e-chromium",
+    "test:sauce-demo": "playwright test --project=sauce-demo-chromium",
     "test:list": "playwright test --list",
     "test:headed": "playwright test --headed",
     "test:ui": "playwright test --ui",
@@ -16,7 +17,7 @@
   "license": "ISC",
   "type": "module",
   "devDependencies": {
-    "@playwright/test": "^1.60.0",
+    "@playwright/test": "^1.62.1",
     "@types/node": "^25.9.1"
   },
   "dependencies": {
