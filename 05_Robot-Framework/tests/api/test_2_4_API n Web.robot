@@ -1,6 +1,7 @@
 # Write test cases for API covering all methods: GET, POST, PUT, DELETE
 # Each test has a description and verifies expected responses
-
+# Run Robot Framework to generate report and log files:
+# robot --output output.xml --log log.html --report report.html "tests/api/test_2_4_API n Web.robot"
 
 *** Settings ***
 Library    RequestsLibrary
@@ -86,4 +87,3 @@ TC-07 Verify deleted user is still accessible on GET
     Dictionary Should Contain Key    ${user}    id
     Should Be Equal As Numbers    ${user}[id]    1
     Log    Verified GET after delete returns ${resp.status_code}
-
