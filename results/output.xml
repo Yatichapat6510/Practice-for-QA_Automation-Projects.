@@ -1,90 +1,273 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.0 (Python 3.11.9 on win32)" generated="2026-08-10T16:51:09.924260" rpa="false" schemaversion="5">
+<robot generator="Robot 7.0 (Python 3.11.9 on win32)" generated="2026-08-24T16:19:49.575371" rpa="false" schemaversion="5">
 <suite id="s1" name="Practice writing code for QA Projects" source="C:\Users\newty\OneDrive\Desktop\Cowork\Practice writing code for QA_Projects">
 <suite id="s1-s1" name="05 Robot-Framework" source="C:\Users\newty\OneDrive\Desktop\Cowork\Practice writing code for QA_Projects\05_Robot-Framework">
 <suite id="s1-s1-s1" name="Tests" source="C:\Users\newty\OneDrive\Desktop\Cowork\Practice writing code for QA_Projects\05_Robot-Framework\tests">
-<suite id="s1-s1-s1-s1" name="Api" source="C:\Users\newty\OneDrive\Desktop\Cowork\Practice writing code for QA_Projects\05_Robot-Framework\tests\api">
-<suite id="s1-s1-s1-s1-s1" name="test 2 4 API n Web" source="C:\Users\newty\OneDrive\Desktop\Cowork\Practice writing code for QA_Projects\05_Robot-Framework\tests\api\test_2_4_API n Web.robot">
-<test id="s1-s1-s1-s1-s1-t1" name="TC-06 Delete User With DELETE" line="69">
-<kw name="Create Session" owner="RequestsLibrary">
-<msg time="2026-08-10T16:51:10.381335" level="INFO">Creating Session using : alias=api, url=https://jsonplaceholder.typicode.com, headers={},                     cookies={}, auth=None, timeout=None, proxies=None, verify=False,                     debug=0 </msg>
-<arg>api</arg>
-<arg>${API_BASE}</arg>
-<doc>Create Session: create a HTTP session to a server</doc>
-<status status="PASS" start="2026-08-10T16:51:10.381335" elapsed="0.002259"/>
+<suite id="s1-s1-s1-s1" name="Ui" source="C:\Users\newty\OneDrive\Desktop\Cowork\Practice writing code for QA_Projects\05_Robot-Framework\tests\ui">
+<suite id="s1-s1-s1-s1-s1" name="Cart" source="C:\Users\newty\OneDrive\Desktop\Cowork\Practice writing code for QA_Projects\05_Robot-Framework\tests\ui\cart">
+<suite id="s1-s1-s1-s1-s1-s1" name="Browser Reuse" source="C:\Users\newty\OneDrive\Desktop\Cowork\Practice writing code for QA_Projects\05_Robot-Framework\tests\ui\cart\browser_reuse.robot">
+<kw name="Login Once For All Tests" type="SETUP">
+<kw name="Login As Standard User" owner="ui_keywords">
+<kw name="Open Browser With Safe Options" owner="ui_keywords">
+<kw name="Create Dictionary" owner="BuiltIn">
+<msg time="2026-08-24T16:19:50.010565" level="INFO">&amp;{prefs} = { credentials_enable_service=False | profile.password_manager_enabled=False | profile.password_manager_leak_detection=False }</msg>
+<var>&amp;{prefs}</var>
+<arg>credentials_enable_service=${False}</arg>
+<arg>profile.password_manager_enabled=${False}</arg>
+<arg>profile.password_manager_leak_detection=${False}</arg>
+<doc>Creates and returns a dictionary based on the given ``items``.</doc>
+<status status="PASS" start="2026-08-24T16:19:50.010565" elapsed="0.000000"/>
 </kw>
-<kw name="DELETE On Session" owner="RequestsLibrary">
-<msg time="2026-08-10T16:51:11.701094" level="INFO">DELETE Request : url=https://jsonplaceholder.typicode.com/users/1 
- path_url=/users/1 
- headers={'User-Agent': 'python-requests/2.31.0', 'Accept-Encoding': 'gzip, deflate', 'Accept': '*/*', 'Connection': 'keep-alive', 'Content-Length': '0'} 
- body=None 
- </msg>
-<msg time="2026-08-10T16:51:11.701581" level="INFO">DELETE Response : url=https://jsonplaceholder.typicode.com/users/1 
- status=200, reason=OK 
- headers={'Date': 'Mon, 10 Aug 2026 09:51:16 GMT', 'Content-Type': 'application/json; charset=utf-8', 'Content-Length': '2', 'Connection': 'keep-alive', 'access-control-allow-credentials': 'true', 'Cache-Control': 'no-cache', 'etag': 'W/"2-vyGp6PvFo4RvsFtPoIWeCReyIC8"', 'expires': '-1', 'nel': '{"report_to":"heroku-nel","response_headers":["Via"],"max_age":3600,"success_fraction":0.01,"failure_fraction":0.1}', 'pragma': 'no-cache', 'report-to': '{"group":"heroku-nel","endpoints":[{"url":"https://nel.heroku.com/reports?s=%2BB5k971hYAlncAIARtpeAgn%2FrKiDroEY7A6AHa5z0Ro%3D\\u0026sid=e11707d5-02a7-43ef-b45e-2cf4d2036f7d\\u0026ts=1786355476"}],"max_age":3600}', 'reporting-endpoints': 'heroku-nel="https://nel.heroku.com/reports?s=%2BB5k971hYAlncAIARtpeAgn%2FrKiDroEY7A6AHa5z0Ro%3D&amp;sid=e11707d5-02a7-43ef-b45e-2cf4d2036f7d&amp;ts=1786355476"', 'Server': 'cloudflare', 'vary': 'Origin, Accept-Encoding', 'via': '2.0 heroku-router', 'x-content-type-options': 'nosniff', 'x-powered-by': 'Express', 'x-ratelimit-limit': '1000', 'x-ratelimit-remaining': '999', 'x-ratelimit-reset': '1786355514', 'cf-cache-status': 'DYNAMIC', 'CF-RAY': 'a28e19deab940886-BKK', 'alt-svc': 'h3=":443"; ma=86400'} 
- body={} 
- </msg>
-<msg time="2026-08-10T16:51:11.701581" level="INFO">c:\Python311\Lib\site-packages\urllib3\connectionpool.py:1097: InsecureRequestWarning: Unverified HTTPS request is being made to host 'jsonplaceholder.typicode.com'. Adding certificate verification is strongly advised. See: https://urllib3.readthedocs.io/en/latest/advanced-usage.html#tls-warnings
-  warnings.warn(</msg>
-<msg time="2026-08-10T16:51:11.702575" level="INFO">${resp} = &lt;Response [200]&gt;</msg>
-<var>${resp}</var>
-<arg>api</arg>
-<arg>/users/1</arg>
-<doc>Sends a DELETE request on a previously created HTTP Session.</doc>
-<status status="PASS" start="2026-08-10T16:51:10.384602" elapsed="1.317973"/>
+<kw name="Open Browser" owner="SeleniumLibrary">
+<msg time="2026-08-24T16:19:50.012070" level="INFO">Opening browser 'chrome' to base url 'https://www.saucedemo.com'.</msg>
+<arg>${URL}</arg>
+<arg>${BROWSER}</arg>
+<arg>options=add_argument("--disable-notifications");add_experimental_option("prefs", ${prefs})</arg>
+<doc>Opens a new browser instance to the optional ``url``.</doc>
+<status status="PASS" start="2026-08-24T16:19:50.010565" elapsed="2.491129"/>
+</kw>
+<kw name="Maximize Browser Window" owner="SeleniumLibrary">
+<doc>Maximizes current browser window.</doc>
+<status status="PASS" start="2026-08-24T16:19:52.502693" elapsed="0.064825"/>
+</kw>
+<doc>Opens browser with safe options to disable Chrome Password Manager</doc>
+<status status="PASS" start="2026-08-24T16:19:50.009573" elapsed="2.559108"/>
+</kw>
+<kw name="Input Text" owner="SeleniumLibrary">
+<msg time="2026-08-24T16:19:52.571483" level="INFO">Typing text 'standard_user' into text field 'id:user-name'.</msg>
+<arg>id:user-name</arg>
+<arg>${USERNAME}</arg>
+<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-24T16:19:52.568681" elapsed="0.293277"/>
+</kw>
+<kw name="Input Password" owner="SeleniumLibrary">
+<msg time="2026-08-24T16:19:52.866022" level="INFO">Typing password into text field 'id:password'.</msg>
+<msg time="2026-08-24T16:19:52.905887" level="INFO">Temporally setting log level to: NONE</msg>
+<arg>id:password</arg>
+<arg>${PASSWORD}</arg>
+<doc>Types the given password into the text field identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-24T16:19:52.863957" elapsed="0.100449"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>id:login-button</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-24T16:19:52.964406" elapsed="0.022967"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-08-24T16:19:52.988888" level="INFO">Clicking button 'id:login-button'.</msg>
+<arg>id:login-button</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-24T16:19:52.987373" elapsed="0.139141"/>
+</kw>
+<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
+<arg>class:inventory_list</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` appears on the current page.</doc>
+<status status="PASS" start="2026-08-24T16:19:53.127500" elapsed="0.019874"/>
+</kw>
+<status status="PASS" start="2026-08-24T16:19:50.009573" elapsed="3.138835"/>
+</kw>
+<doc>Open browser and log in once for the whole suite.</doc>
+<status status="PASS" start="2026-08-24T16:19:50.008567" elapsed="3.139841"/>
+</kw>
+<test id="s1-s1-s1-s1-s1-s1-t1" name="TC Browser Reuse Keeps Logged In Session" line="19">
+<kw name="Reset To Home Before Each Test" type="SETUP">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-08-24T16:19:53.165062" level="INFO">Opening url 'https://www.saucedemo.com/inventory.html'</msg>
+<arg>${URL}/inventory.html</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-08-24T16:19:53.163067" elapsed="0.201992"/>
+</kw>
+<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
+<arg>Products</arg>
+<arg>10s</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" start="2026-08-24T16:19:53.365059" elapsed="0.076491"/>
+</kw>
+<doc>Go back to the home page instead of logging in each time.</doc>
+<status status="PASS" start="2026-08-24T16:19:53.162106" elapsed="0.280441"/>
+</kw>
+<kw name="Add Product To Cart By Name" owner="ui_keywords">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-08-24T16:19:53.445546" level="INFO">${locator} = xpath://div[contains(@class,'inventory_item_name')][text()='Sauce Labs Backpack']/ancestor::div[@class='inventory_item']//button[contains(@id,'add-to-cart')]</msg>
+<var>${locator}</var>
+<arg>xpath://div[contains(@class,'inventory_item_name')][text()='${product_name}']/ancestor::div[@class='inventory_item']//button[contains(@id,'add-to-cart')]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-08-24T16:19:53.444546" elapsed="0.001999"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${locator}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-24T16:19:53.447544" elapsed="0.048868"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-08-24T16:19:53.499976" level="INFO">Clicking button 'xpath://div[contains(@class,'inventory_item_name')][text()='Sauce Labs Backpack']/ancestor::div[@class='inventory_item']//button[contains(@id,'add-to-cart')]'.</msg>
+<arg>${locator}</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-24T16:19:53.497974" elapsed="0.147380"/>
+</kw>
+<arg>Sauce Labs Backpack</arg>
+<doc>Adds a product to the cart by product name</doc>
+<status status="PASS" start="2026-08-24T16:19:53.443554" elapsed="0.202783"/>
+</kw>
+<kw name="Go To Cart" owner="ui_keywords">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>class:shopping_cart_link</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-24T16:19:53.651932" elapsed="0.034463"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-24T16:19:53.687928" level="INFO">Clicking element 'class:shopping_cart_link'.</msg>
+<arg>class:shopping_cart_link</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-24T16:19:53.687392" elapsed="0.084529"/>
+</kw>
+<status status="PASS" start="2026-08-24T16:19:53.650371" elapsed="0.121550"/>
+</kw>
+<kw name="Verify Cart Has N Items" owner="ui_keywords">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>class:shopping_cart_badge</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-24T16:19:53.773920" elapsed="0.025470"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-08-24T16:19:53.841731" level="INFO">${count} = 1</msg>
+<var>${count}</var>
+<arg>class:shopping_cart_badge</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-24T16:19:53.800406" elapsed="0.042327"/>
 </kw>
 <kw name="Should Be Equal As Numbers" owner="BuiltIn">
-<msg time="2026-08-10T16:51:11.704821" level="INFO">Argument types are:
-&lt;class 'int'&gt;
-&lt;class 'str'&gt;</msg>
-<arg>${resp.status_code}</arg>
-<arg>200</arg>
+<arg>${count}</arg>
+<arg>${expected}</arg>
 <doc>Fails if objects are unequal after converting them to real numbers.</doc>
-<status status="PASS" start="2026-08-10T16:51:11.703578" elapsed="0.002267"/>
+<status status="PASS" start="2026-08-24T16:19:53.842733" elapsed="0.001994"/>
 </kw>
-<kw name="Set Variable" owner="BuiltIn">
-<msg time="2026-08-10T16:51:11.707842" level="INFO">${deleted} = {}</msg>
-<var>${deleted}</var>
-<arg>${resp.json()}</arg>
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="PASS" start="2026-08-10T16:51:11.706839" elapsed="0.001003"/>
+<arg>1</arg>
+<status status="PASS" start="2026-08-24T16:19:53.772924" elapsed="0.071803"/>
 </kw>
-<kw name="Should Be Empty" owner="BuiltIn">
-<msg time="2026-08-10T16:51:11.710383" level="INFO">Length is 0.</msg>
-<arg>${deleted}</arg>
-<doc>Verifies that the given item is empty.</doc>
-<status status="PASS" start="2026-08-10T16:51:11.708867" elapsed="0.002541"/>
-</kw>
-<kw name="Log" owner="BuiltIn">
-<msg time="2026-08-10T16:51:11.714251" level="INFO">Verified delete response is empty</msg>
-<arg>Verified delete response is empty</arg>
-<doc>Logs the given message with the given level.</doc>
-<status status="PASS" start="2026-08-10T16:51:11.713250" elapsed="0.002550"/>
-</kw>
-<status status="PASS" start="2026-08-10T16:51:10.367628" elapsed="1.349750"/>
+<tag>reuse</tag>
+<tag>smoke</tag>
+<status status="PASS" start="2026-08-24T16:19:53.149388" elapsed="0.698324"/>
 </test>
-<status status="PASS" start="2026-08-10T16:51:10.104724" elapsed="1.664355"/>
+<test id="s1-s1-s1-s1-s1-s1-t2" name="TC Browser Reuse Allows Multiple Tests In One Session" line="25">
+<kw name="Reset To Home Before Each Test" type="SETUP">
+<kw name="Go To" owner="SeleniumLibrary">
+<msg time="2026-08-24T16:19:53.929715" level="INFO">Opening url 'https://www.saucedemo.com/inventory.html'</msg>
+<arg>${URL}/inventory.html</arg>
+<doc>Navigates the current browser window to the provided ``url``.</doc>
+<status status="PASS" start="2026-08-24T16:19:53.926180" elapsed="0.065244"/>
+</kw>
+<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
+<arg>Products</arg>
+<arg>10s</arg>
+<doc>Waits until ``text`` appears on the current page.</doc>
+<status status="PASS" start="2026-08-24T16:19:53.992427" elapsed="0.039173"/>
+</kw>
+<doc>Go back to the home page instead of logging in each time.</doc>
+<status status="PASS" start="2026-08-24T16:19:53.921154" elapsed="0.111447"/>
+</kw>
+<kw name="Add Product To Cart By Name" owner="ui_keywords">
+<kw name="Set Variable" owner="BuiltIn">
+<msg time="2026-08-24T16:19:54.037603" level="INFO">${locator} = xpath://div[contains(@class,'inventory_item_name')][text()='Sauce Labs Bike Light']/ancestor::div[@class='inventory_item']//button[contains(@id,'add-to-cart')]</msg>
+<var>${locator}</var>
+<arg>xpath://div[contains(@class,'inventory_item_name')][text()='${product_name}']/ancestor::div[@class='inventory_item']//button[contains(@id,'add-to-cart')]</arg>
+<doc>Returns the given values which can then be assigned to a variables.</doc>
+<status status="PASS" start="2026-08-24T16:19:54.035604" elapsed="0.003265"/>
+</kw>
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>${locator}</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-24T16:19:54.038869" elapsed="0.038872"/>
+</kw>
+<kw name="Click Button" owner="SeleniumLibrary">
+<msg time="2026-08-24T16:19:54.079774" level="INFO">Clicking button 'xpath://div[contains(@class,'inventory_item_name')][text()='Sauce Labs Bike Light']/ancestor::div[@class='inventory_item']//button[contains(@id,'add-to-cart')]'.</msg>
+<arg>${locator}</arg>
+<doc>Clicks the button identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-24T16:19:54.078759" elapsed="0.108735"/>
+</kw>
+<arg>Sauce Labs Bike Light</arg>
+<doc>Adds a product to the cart by product name</doc>
+<status status="PASS" start="2026-08-24T16:19:54.034602" elapsed="0.153941"/>
+</kw>
+<kw name="Go To Cart" owner="ui_keywords">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>class:shopping_cart_link</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-24T16:19:54.190558" elapsed="0.022657"/>
+</kw>
+<kw name="Click Element" owner="SeleniumLibrary">
+<msg time="2026-08-24T16:19:54.215211" level="INFO">Clicking element 'class:shopping_cart_link'.</msg>
+<arg>class:shopping_cart_link</arg>
+<doc>Click the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-24T16:19:54.214199" elapsed="0.084886"/>
+</kw>
+<status status="PASS" start="2026-08-24T16:19:54.189557" elapsed="0.110538"/>
+</kw>
+<kw name="Verify Cart Has N Items" owner="ui_keywords">
+<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
+<arg>class:shopping_cart_badge</arg>
+<arg>timeout=10s</arg>
+<doc>Waits until the element ``locator`` is visible.</doc>
+<status status="PASS" start="2026-08-24T16:19:54.303101" elapsed="0.025654"/>
+</kw>
+<kw name="Get Text" owner="SeleniumLibrary">
+<msg time="2026-08-24T16:19:54.363922" level="INFO">${count} = 2</msg>
+<var>${count}</var>
+<arg>class:shopping_cart_badge</arg>
+<doc>Returns the text value of the element identified by ``locator``.</doc>
+<status status="PASS" start="2026-08-24T16:19:54.329754" elapsed="0.035166"/>
+</kw>
+<kw name="Should Be Equal As Numbers" owner="BuiltIn">
+<arg>${count}</arg>
+<arg>${expected}</arg>
+<doc>Fails if objects are unequal after converting them to real numbers.</doc>
+<status status="PASS" start="2026-08-24T16:19:54.364920" elapsed="0.002514"/>
+</kw>
+<arg>2</arg>
+<status status="PASS" start="2026-08-24T16:19:54.302092" elapsed="0.065342"/>
+</kw>
+<tag>reuse</tag>
+<tag>smoke</tag>
+<status status="PASS" start="2026-08-24T16:19:53.868714" elapsed="0.500741"/>
+</test>
+<kw name="Close All Browsers" owner="SeleniumLibrary" type="TEARDOWN">
+<doc>Closes all open browsers and resets the browser cache.</doc>
+<status status="PASS" start="2026-08-24T16:19:54.389792" elapsed="2.295821"/>
+</kw>
+<status status="PASS" start="2026-08-24T16:19:49.736416" elapsed="6.949197"/>
 </suite>
-<status status="PASS" start="2026-08-10T16:51:10.087827" elapsed="1.693821"/>
+<status status="PASS" start="2026-08-24T16:19:49.718878" elapsed="6.977095"/>
 </suite>
-<status status="PASS" start="2026-08-10T16:51:10.067770" elapsed="1.738838"/>
+<status status="PASS" start="2026-08-24T16:19:49.700747" elapsed="7.007280"/>
 </suite>
-<status status="PASS" start="2026-08-10T16:51:10.053967" elapsed="1.767377"/>
+<status status="PASS" start="2026-08-24T16:19:49.681001" elapsed="7.061046"/>
 </suite>
-<status status="PASS" start="2026-08-10T16:51:09.974958" elapsed="1.867092"/>
+<status status="PASS" start="2026-08-24T16:19:49.657382" elapsed="7.096711"/>
+</suite>
+<status status="PASS" start="2026-08-24T16:19:49.604583" elapsed="7.168186"/>
 </suite>
 <statistics>
 <total>
-<stat pass="1" fail="0" skip="0">All Tests</stat>
+<stat pass="2" fail="0" skip="0">All Tests</stat>
 </total>
 <tag>
+<stat pass="2" fail="0" skip="0">reuse</stat>
+<stat pass="2" fail="0" skip="0">smoke</stat>
 </tag>
 <suite>
-<stat pass="1" fail="0" skip="0" id="s1" name="Practice writing code for QA Projects">Practice writing code for QA Projects</stat>
-<stat pass="1" fail="0" skip="0" id="s1-s1" name="05 Robot-Framework">Practice writing code for QA Projects.05 Robot-Framework</stat>
-<stat pass="1" fail="0" skip="0" id="s1-s1-s1" name="Tests">Practice writing code for QA Projects.05 Robot-Framework.Tests</stat>
-<stat pass="1" fail="0" skip="0" id="s1-s1-s1-s1" name="Api">Practice writing code for QA Projects.05 Robot-Framework.Tests.Api</stat>
-<stat pass="1" fail="0" skip="0" id="s1-s1-s1-s1-s1" name="test 2 4 API n Web">Practice writing code for QA Projects.05 Robot-Framework.Tests.Api.test 2 4 API n Web</stat>
+<stat pass="2" fail="0" skip="0" id="s1" name="Practice writing code for QA Projects">Practice writing code for QA Projects</stat>
+<stat pass="2" fail="0" skip="0" id="s1-s1" name="05 Robot-Framework">Practice writing code for QA Projects.05 Robot-Framework</stat>
+<stat pass="2" fail="0" skip="0" id="s1-s1-s1" name="Tests">Practice writing code for QA Projects.05 Robot-Framework.Tests</stat>
+<stat pass="2" fail="0" skip="0" id="s1-s1-s1-s1" name="Ui">Practice writing code for QA Projects.05 Robot-Framework.Tests.Ui</stat>
+<stat pass="2" fail="0" skip="0" id="s1-s1-s1-s1-s1" name="Cart">Practice writing code for QA Projects.05 Robot-Framework.Tests.Ui.Cart</stat>
+<stat pass="2" fail="0" skip="0" id="s1-s1-s1-s1-s1-s1" name="Browser Reuse">Practice writing code for QA Projects.05 Robot-Framework.Tests.Ui.Cart.Browser Reuse</stat>
 </suite>
 </statistics>
 <errors>
