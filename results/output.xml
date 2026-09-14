@@ -1,275 +1,182 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<robot generator="Robot 7.0 (Python 3.11.9 on win32)" generated="2026-08-24T16:19:49.575371" rpa="false" schemaversion="5">
+<robot generator="Robot 7.0 (Python 3.11.9 on win32)" generated="2026-08-27T14:05:21.408447" rpa="false" schemaversion="5">
 <suite id="s1" name="Practice writing code for QA Projects" source="C:\Users\newty\OneDrive\Desktop\Cowork\Practice writing code for QA_Projects">
-<suite id="s1-s1" name="05 Robot-Framework" source="C:\Users\newty\OneDrive\Desktop\Cowork\Practice writing code for QA_Projects\05_Robot-Framework">
-<suite id="s1-s1-s1" name="Tests" source="C:\Users\newty\OneDrive\Desktop\Cowork\Practice writing code for QA_Projects\05_Robot-Framework\tests">
-<suite id="s1-s1-s1-s1" name="Ui" source="C:\Users\newty\OneDrive\Desktop\Cowork\Practice writing code for QA_Projects\05_Robot-Framework\tests\ui">
-<suite id="s1-s1-s1-s1-s1" name="Cart" source="C:\Users\newty\OneDrive\Desktop\Cowork\Practice writing code for QA_Projects\05_Robot-Framework\tests\ui\cart">
-<suite id="s1-s1-s1-s1-s1-s1" name="Browser Reuse" source="C:\Users\newty\OneDrive\Desktop\Cowork\Practice writing code for QA_Projects\05_Robot-Framework\tests\ui\cart\browser_reuse.robot">
-<kw name="Login Once For All Tests" type="SETUP">
-<kw name="Login As Standard User" owner="ui_keywords">
-<kw name="Open Browser With Safe Options" owner="ui_keywords">
-<kw name="Create Dictionary" owner="BuiltIn">
-<msg time="2026-08-24T16:19:50.010565" level="INFO">&amp;{prefs} = { credentials_enable_service=False | profile.password_manager_enabled=False | profile.password_manager_leak_detection=False }</msg>
-<var>&amp;{prefs}</var>
-<arg>credentials_enable_service=${False}</arg>
-<arg>profile.password_manager_enabled=${False}</arg>
-<arg>profile.password_manager_leak_detection=${False}</arg>
-<doc>Creates and returns a dictionary based on the given ``items``.</doc>
-<status status="PASS" start="2026-08-24T16:19:50.010565" elapsed="0.000000"/>
+<suite id="s1-s1" name="06 Appium" source="C:\Users\newty\OneDrive\Desktop\Cowork\Practice writing code for QA_Projects\06_Appium">
+<suite id="s1-s1-s1" name="Tests" source="C:\Users\newty\OneDrive\Desktop\Cowork\Practice writing code for QA_Projects\06_Appium\tests">
+<suite id="s1-s1-s1-s1" name="Test" source="C:\Users\newty\OneDrive\Desktop\Cowork\Practice writing code for QA_Projects\06_Appium\tests\test.robot">
+<kw name="Open Android Application" owner="common_android" type="SETUP">
+<kw name="Open Application" owner="AppiumLibrary">
+<kw name="Capture Page Screenshot" owner="AppiumLibrary">
+<msg time="2026-08-27T14:05:28.355988" level="FAIL">No application is open</msg>
+<doc>Takes a screenshot of the current page and embeds it into the log.</doc>
+<status status="FAIL" start="2026-08-27T14:05:28.354990" elapsed="0.126806">No application is open</status>
 </kw>
-<kw name="Open Browser" owner="SeleniumLibrary">
-<msg time="2026-08-24T16:19:50.012070" level="INFO">Opening browser 'chrome' to base url 'https://www.saucedemo.com'.</msg>
-<arg>${URL}</arg>
-<arg>${BROWSER}</arg>
-<arg>options=add_argument("--disable-notifications");add_experimental_option("prefs", ${prefs})</arg>
-<doc>Opens a new browser instance to the optional ``url``.</doc>
-<status status="PASS" start="2026-08-24T16:19:50.010565" elapsed="2.491129"/>
+<msg time="2026-08-27T14:05:28.483072" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: No application is open</msg>
+<msg time="2026-08-27T14:05:28.509127" level="FAIL">WebDriverException: Message: Cannot start the 'com.saucelabs.mydemoapp.android' application. Consider checking the driver's troubleshooting documentation. Original error: Error executing adbExec. Original error: 'Command ''C:\Users\newty\AppData\Local\Android\Sdk\platform-tools\adb.exe' -P 5037 -s emulator-5554 shell am start-activity -W -n com.saucelabs.mydemoapp.android/com.saucelabs.mydemoapp.android.MainActivity -S -a android.intent.action.MAIN -c android.intent.category.LAUNCHER -f 0x10200000' exited with code 1'; Command output: Stopping: com.saucelabs.mydemoapp.android
+Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.saucelabs.mydemoapp.android/.MainActivity }
+Error type 3
+Error: Activity class {com.saucelabs.mydemoapp.android/com.saucelabs.mydemoapp.android.MainActivity} does not exist.
+
+Stacktrace:
+UnknownError: Cannot start the 'com.saucelabs.mydemoapp.android' application. Consider checking the driver's troubleshooting documentation. Original error: Error executing adbExec. Original error: 'Command ''C:\Users\newty\AppData\Local\Android\Sdk\platform-tools\adb.exe' -P 5037 -s emulator-5554 shell am start-activity -W -n com.saucelabs.mydemoapp.android/com.saucelabs.mydemoapp.android.MainActivity -S -a android.intent.action.MAIN -c android.intent.category.LAUNCHER -f 0x10200000' exited with code 1'; Command output: Stopping: com.saucelabs.mydemoapp.android
+Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.saucelabs.mydemoapp.android/.MainActivity }
+Error type 3
+Error: Activity class {com.saucelabs.mydemoapp.android/com.saucelabs.mydemoapp.android.MainActivity} does not exist.
+
+    at getResponseForW3CError (C:\Users\newty\AppData\Roaming\npm\node_modules\appium\node_modules\@appium\base-driver\build\lib\protocol\errors.js:829:36)
+    at asyncHandler (C:\Users\newty\AppData\Roaming\npm\node_modules\appium\node_modules\@appium\base-driver\build\lib\protocol\protocol.js:474:77)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+The above error is caused by
+Error: Cannot start the 'com.saucelabs.mydemoapp.android' application. Consider checking the driver's troubleshooting documentation. Original error: Error executing adbExec. Original error: 'Command ''C:\Users\newty\AppData\Local\Android\Sdk\platform-tools\adb.exe' -P 5037 -s emulator-5554 shell am start-activity -W -n com.saucelabs.mydemoapp.android/com.saucelabs.mydemoapp.android.MainActivity -S -a android.intent.action.MAIN -c android.intent.category.LAUNCHER -f 0x10200000' exited with code 1'; Command output: Stopping: com.saucelabs.mydemoapp.android
+Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.saucelabs.mydemoapp.android/.MainActivity }
+Error type 3
+Error: Activity class {com.saucelabs.mydemoapp.android/com.saucelabs.mydemoapp.android.MainActivity} does not exist.
+
+    at ADB.startApp (file:///C:/Users/newty/.appium/node_modules/appium-uiautomator2-driver/node_modules/appium-adb/build/lib/tools/app-commands.js:571:15)
+    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
+    at async AndroidUiautomator2Driver.ensureAppStarts (file:///C:/Users/newty/.appium/node_modules/appium-uiautomator2-driver/build/lib/commands/aut.js:99:5)
+    at async AndroidUiautomator2Driver.performPostExecSetup [as performSessionPostExecSetup] (file:///C:/Users/newty/.appium/node_modules/appium-uiautomator2-driver/build/lib/uiautomator2-server/session.js:190:9)
+    at async AndroidUiautomator2Driver.startSession [as startUiAutomator2Session] (file:///C:/Users/newty/.appium/node_modules/appium-uiautomator2-driver/build/lib/uiautomator2-server/session.js:248:5)
+    at async AndroidUiautomator2Driver.createSession (file:///C:/Users/newty/.appium/node_modules/appium-uiautomator2-driver/build/lib/driver.js:289:28)
+    at async AppiumDriver.createSession (C:\Users\newty\AppData\Roaming\npm\node_modules\appium\build\lib\appium.js:266:44)
+    at async runCommandPromise (C:\Users\newty\AppData\Roaming\npm\node_modules\appium\node_modules\@appium\base-driver\build\lib\basedriver\driver.js:119:24)
+    at async AppiumDriver.executeCommand (C:\Users\newty\AppData\Roaming\npm\node_modules\appium\node_modules\@appium\base-driver\build\lib\basedriver\driver.js:160:15)
+    at async defaultBehavior (C:\Users\newty\AppData\Roaming\npm\node_modules\appium\build\lib\appium.js:575:24)
+    at async AppiumDriver.executeWrappedCommand (C:\Users\newty\AppData\Roaming\npm\node_modules\appium\build\lib\appium.js:683:22)
+    at async AppiumDriver.executeCommand (C:\Users\newty\AppData\Roaming\npm\node_modules\appium\build\lib\appium.js:591:21)
+    at async asyncHandler (C:\Users\newty\AppData\Roaming\npm\node_modules\appium\node_modules\@appium\base-driver\build\lib\protocol\protocol.js:393:25)</msg>
+<arg>${APPIUM_URL}</arg>
+<arg>platformName=${PLATFORM_NAME}</arg>
+<arg>appium:automationName=${AUTOMATION_NAME}</arg>
+<arg>appium:deviceName=${DEVICE_NAME}</arg>
+<arg>appium:appPackage=${APP_PACKAGE}</arg>
+<arg>appium:appActivity=${APP_ACTIVITY}</arg>
+<arg>appium:noReset=${TRUE}</arg>
+<arg>appium:autoGrantPermissions=${TRUE}</arg>
+<arg>appium:newCommandTimeout=120</arg>
+<doc>Opens a new application to the given Appium server.
+Capabilities of appium server, Android and iOS,
+Please check https://appium.io/docs/en/2.19/guides/caps/
+| *Option*            | *Man.* | *Description*     |
+| remote_url          | Yes    | Appium server url |
+| alias               | No     | alias             |</doc>
+<status status="FAIL" start="2026-08-27T14:05:22.103024" elapsed="6.419045">WebDriverException: Message: Cannot start the 'com.saucelabs.mydemoapp.android' application. Consider checking the driver's troubleshooting documentation. Original error: Error executing adbExec. Original error: 'Command ''C:\Users\newty\AppData\Local\Android\Sdk\platform-tools\adb.exe' -P 5037 -s emulator-5554 shell am start-activity -W -n com.saucelabs.mydemoapp.android/com.saucelabs.mydemoapp.android.MainActivity -S -a android.intent.action.MAIN -c android.intent.category.LAUNCHER -f 0x10200000' exited with code 1'; Command output: Stopping: com.saucelabs.mydemoapp.android
+Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.saucelabs.mydemoapp.android/.MainActivity }
+Error type 3
+Error: Activity class {com.saucelabs.mydemoapp.android/com.saucelabs.mydemoapp.android.MainActivity} does not exist.
+
+Stacktrace:
+UnknownError: Cannot start the 'com.saucelabs.mydemoapp.android' application. Consider checking the driver's troubleshooting documentation. Original error: Error executing adbExec. Original error: 'Command ''C:\Users\newty\AppData\Local\Android\Sdk\platform-tools\adb.exe' -P 5037 -s emulator-5554 shell am start-activity -W -n com.saucelabs.mydemoapp.android/com.saucelabs.mydemoapp.and...
+    [ Message content over the limit has been removed. ]
+...ion [as startUiAutomator2Session] (file:///C:/Users/newty/.appium/node_modules/appium-uiautomator2-driver/build/lib/uiautomator2-server/session.js:248:5)
+    at async AndroidUiautomator2Driver.createSession (file:///C:/Users/newty/.appium/node_modules/appium-uiautomator2-driver/build/lib/driver.js:289:28)
+    at async AppiumDriver.createSession (C:\Users\newty\AppData\Roaming\npm\node_modules\appium\build\lib\appium.js:266:44)
+    at async runCommandPromise (C:\Users\newty\AppData\Roaming\npm\node_modules\appium\node_modules\@appium\base-driver\build\lib\basedriver\driver.js:119:24)
+    at async AppiumDriver.executeCommand (C:\Users\newty\AppData\Roaming\npm\node_modules\appium\node_modules\@appium\base-driver\build\lib\basedriver\driver.js:160:15)
+    at async defaultBehavior (C:\Users\newty\AppData\Roaming\npm\node_modules\appium\build\lib\appium.js:575:24)
+    at async AppiumDriver.executeWrappedCommand (C:\Users\newty\AppData\Roaming\npm\node_modules\appium\build\lib\appium.js:683:22)
+    at async AppiumDriver.executeCommand (C:\Users\newty\AppData\Roaming\npm\node_modules\appium\build\lib\appium.js:591:21)
+    at async asyncHandler (C:\Users\newty\AppData\Roaming\npm\node_modules\appium\node_modules\@appium\base-driver\build\lib\protocol\protocol.js:393:25)</status>
 </kw>
-<kw name="Maximize Browser Window" owner="SeleniumLibrary">
-<doc>Maximizes current browser window.</doc>
-<status status="PASS" start="2026-08-24T16:19:52.502693" elapsed="0.064825"/>
+<doc>เชื่อมต่อ Appium 2 Server ที่เปิดด้วย base path มาตรฐาน และเปิดแอปด้วย W3C capabilities</doc>
+<status status="FAIL" start="2026-08-27T14:05:22.101022" elapsed="6.421047">WebDriverException: Message: Cannot start the 'com.saucelabs.mydemoapp.android' application. Consider checking the driver's troubleshooting documentation. Original error: Error executing adbExec. Original error: 'Command ''C:\Users\newty\AppData\Local\Android\Sdk\platform-tools\adb.exe' -P 5037 -s emulator-5554 shell am start-activity -W -n com.saucelabs.mydemoapp.android/com.saucelabs.mydemoapp.android.MainActivity -S -a android.intent.action.MAIN -c android.intent.category.LAUNCHER -f 0x10200000' exited with code 1'; Command output: Stopping: com.saucelabs.mydemoapp.android
+Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.saucelabs.mydemoapp.android/.MainActivity }
+Error type 3
+Error: Activity class {com.saucelabs.mydemoapp.android/com.saucelabs.mydemoapp.android.MainActivity} does not exist.
+
+Stacktrace:
+UnknownError: Cannot start the 'com.saucelabs.mydemoapp.android' application. Consider checking the driver's troubleshooting documentation. Original error: Error executing adbExec. Original error: 'Command ''C:\Users\newty\AppData\Local\Android\Sdk\platform-tools\adb.exe' -P 5037 -s emulator-5554 shell am start-activity -W -n com.saucelabs.mydemoapp.android/com.saucelabs.mydemoapp.and...
+    [ Message content over the limit has been removed. ]
+...ion [as startUiAutomator2Session] (file:///C:/Users/newty/.appium/node_modules/appium-uiautomator2-driver/build/lib/uiautomator2-server/session.js:248:5)
+    at async AndroidUiautomator2Driver.createSession (file:///C:/Users/newty/.appium/node_modules/appium-uiautomator2-driver/build/lib/driver.js:289:28)
+    at async AppiumDriver.createSession (C:\Users\newty\AppData\Roaming\npm\node_modules\appium\build\lib\appium.js:266:44)
+    at async runCommandPromise (C:\Users\newty\AppData\Roaming\npm\node_modules\appium\node_modules\@appium\base-driver\build\lib\basedriver\driver.js:119:24)
+    at async AppiumDriver.executeCommand (C:\Users\newty\AppData\Roaming\npm\node_modules\appium\node_modules\@appium\base-driver\build\lib\basedriver\driver.js:160:15)
+    at async defaultBehavior (C:\Users\newty\AppData\Roaming\npm\node_modules\appium\build\lib\appium.js:575:24)
+    at async AppiumDriver.executeWrappedCommand (C:\Users\newty\AppData\Roaming\npm\node_modules\appium\build\lib\appium.js:683:22)
+    at async AppiumDriver.executeCommand (C:\Users\newty\AppData\Roaming\npm\node_modules\appium\build\lib\appium.js:591:21)
+    at async asyncHandler (C:\Users\newty\AppData\Roaming\npm\node_modules\appium\node_modules\@appium\base-driver\build\lib\protocol\protocol.js:393:25)</status>
 </kw>
-<doc>Opens browser with safe options to disable Chrome Password Manager</doc>
-<status status="PASS" start="2026-08-24T16:19:50.009573" elapsed="2.559108"/>
-</kw>
-<kw name="Input Text" owner="SeleniumLibrary">
-<msg time="2026-08-24T16:19:52.571483" level="INFO">Typing text 'standard_user' into text field 'id:user-name'.</msg>
-<arg>id:user-name</arg>
-<arg>${USERNAME}</arg>
-<doc>Types the given ``text`` into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2026-08-24T16:19:52.568681" elapsed="0.293277"/>
-</kw>
-<kw name="Input Password" owner="SeleniumLibrary">
-<msg time="2026-08-24T16:19:52.866022" level="INFO">Typing password into text field 'id:password'.</msg>
-<msg time="2026-08-24T16:19:52.905887" level="INFO">Temporally setting log level to: NONE</msg>
-<arg>id:password</arg>
-<arg>${PASSWORD}</arg>
-<doc>Types the given password into the text field identified by ``locator``.</doc>
-<status status="PASS" start="2026-08-24T16:19:52.863957" elapsed="0.100449"/>
-</kw>
-<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
-<arg>id:login-button</arg>
-<arg>timeout=10s</arg>
-<doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" start="2026-08-24T16:19:52.964406" elapsed="0.022967"/>
-</kw>
-<kw name="Click Button" owner="SeleniumLibrary">
-<msg time="2026-08-24T16:19:52.988888" level="INFO">Clicking button 'id:login-button'.</msg>
-<arg>id:login-button</arg>
-<doc>Clicks the button identified by ``locator``.</doc>
-<status status="PASS" start="2026-08-24T16:19:52.987373" elapsed="0.139141"/>
-</kw>
-<kw name="Wait Until Page Contains Element" owner="SeleniumLibrary">
-<arg>class:inventory_list</arg>
-<arg>timeout=10s</arg>
-<doc>Waits until the element ``locator`` appears on the current page.</doc>
-<status status="PASS" start="2026-08-24T16:19:53.127500" elapsed="0.019874"/>
-</kw>
-<status status="PASS" start="2026-08-24T16:19:50.009573" elapsed="3.138835"/>
-</kw>
-<doc>Open browser and log in once for the whole suite.</doc>
-<status status="PASS" start="2026-08-24T16:19:50.008567" elapsed="3.139841"/>
-</kw>
-<test id="s1-s1-s1-s1-s1-s1-t1" name="TC Browser Reuse Keeps Logged In Session" line="19">
-<kw name="Reset To Home Before Each Test" type="SETUP">
-<kw name="Go To" owner="SeleniumLibrary">
-<msg time="2026-08-24T16:19:53.165062" level="INFO">Opening url 'https://www.saucedemo.com/inventory.html'</msg>
-<arg>${URL}/inventory.html</arg>
-<doc>Navigates the current browser window to the provided ``url``.</doc>
-<status status="PASS" start="2026-08-24T16:19:53.163067" elapsed="0.201992"/>
-</kw>
-<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
-<arg>Products</arg>
-<arg>10s</arg>
-<doc>Waits until ``text`` appears on the current page.</doc>
-<status status="PASS" start="2026-08-24T16:19:53.365059" elapsed="0.076491"/>
-</kw>
-<doc>Go back to the home page instead of logging in each time.</doc>
-<status status="PASS" start="2026-08-24T16:19:53.162106" elapsed="0.280441"/>
-</kw>
-<kw name="Add Product To Cart By Name" owner="ui_keywords">
-<kw name="Set Variable" owner="BuiltIn">
-<msg time="2026-08-24T16:19:53.445546" level="INFO">${locator} = xpath://div[contains(@class,'inventory_item_name')][text()='Sauce Labs Backpack']/ancestor::div[@class='inventory_item']//button[contains(@id,'add-to-cart')]</msg>
-<var>${locator}</var>
-<arg>xpath://div[contains(@class,'inventory_item_name')][text()='${product_name}']/ancestor::div[@class='inventory_item']//button[contains(@id,'add-to-cart')]</arg>
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="PASS" start="2026-08-24T16:19:53.444546" elapsed="0.001999"/>
-</kw>
-<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
-<arg>${locator}</arg>
-<arg>timeout=10s</arg>
-<doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" start="2026-08-24T16:19:53.447544" elapsed="0.048868"/>
-</kw>
-<kw name="Click Button" owner="SeleniumLibrary">
-<msg time="2026-08-24T16:19:53.499976" level="INFO">Clicking button 'xpath://div[contains(@class,'inventory_item_name')][text()='Sauce Labs Backpack']/ancestor::div[@class='inventory_item']//button[contains(@id,'add-to-cart')]'.</msg>
-<arg>${locator}</arg>
-<doc>Clicks the button identified by ``locator``.</doc>
-<status status="PASS" start="2026-08-24T16:19:53.497974" elapsed="0.147380"/>
-</kw>
-<arg>Sauce Labs Backpack</arg>
-<doc>Adds a product to the cart by product name</doc>
-<status status="PASS" start="2026-08-24T16:19:53.443554" elapsed="0.202783"/>
-</kw>
-<kw name="Go To Cart" owner="ui_keywords">
-<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
-<arg>class:shopping_cart_link</arg>
-<arg>timeout=10s</arg>
-<doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" start="2026-08-24T16:19:53.651932" elapsed="0.034463"/>
-</kw>
-<kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2026-08-24T16:19:53.687928" level="INFO">Clicking element 'class:shopping_cart_link'.</msg>
-<arg>class:shopping_cart_link</arg>
-<doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2026-08-24T16:19:53.687392" elapsed="0.084529"/>
-</kw>
-<status status="PASS" start="2026-08-24T16:19:53.650371" elapsed="0.121550"/>
-</kw>
-<kw name="Verify Cart Has N Items" owner="ui_keywords">
-<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
-<arg>class:shopping_cart_badge</arg>
-<arg>timeout=10s</arg>
-<doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" start="2026-08-24T16:19:53.773920" elapsed="0.025470"/>
-</kw>
-<kw name="Get Text" owner="SeleniumLibrary">
-<msg time="2026-08-24T16:19:53.841731" level="INFO">${count} = 1</msg>
-<var>${count}</var>
-<arg>class:shopping_cart_badge</arg>
-<doc>Returns the text value of the element identified by ``locator``.</doc>
-<status status="PASS" start="2026-08-24T16:19:53.800406" elapsed="0.042327"/>
-</kw>
-<kw name="Should Be Equal As Numbers" owner="BuiltIn">
-<arg>${count}</arg>
-<arg>${expected}</arg>
-<doc>Fails if objects are unequal after converting them to real numbers.</doc>
-<status status="PASS" start="2026-08-24T16:19:53.842733" elapsed="0.001994"/>
-</kw>
-<arg>1</arg>
-<status status="PASS" start="2026-08-24T16:19:53.772924" elapsed="0.071803"/>
-</kw>
-<tag>reuse</tag>
+<test id="s1-s1-s1-s1-t1" name="App Should Open Successfully" line="7">
 <tag>smoke</tag>
-<status status="PASS" start="2026-08-24T16:19:53.149388" elapsed="0.698324"/>
+<status status="FAIL" start="2026-08-27T14:05:28.523005" elapsed="0.025297">Parent suite setup failed:
+WebDriverException: Message: Cannot start the 'com.saucelabs.mydemoapp.android' application. Consider checking the driver's troubleshooting documentation. Original error: Error executing adbExec. Original error: 'Command ''C:\Users\newty\AppData\Local\Android\Sdk\platform-tools\adb.exe' -P 5037 -s emulator-5554 shell am start-activity -W -n com.saucelabs.mydemoapp.android/com.saucelabs.mydemoapp.android.MainActivity -S -a android.intent.action.MAIN -c android.intent.category.LAUNCHER -f 0x10200000' exited with code 1'; Command output: Stopping: com.saucelabs.mydemoapp.android
+Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.saucelabs.mydemoapp.android/.MainActivity }
+Error type 3
+Error: Activity class {com.saucelabs.mydemoapp.android/com.saucelabs.mydemoapp.android.MainActivity} does not exist.
+
+Stacktrace:
+UnknownError: Cannot start the 'com.saucelabs.mydemoapp.android' application. Consider checking the driver's troubleshooting documentation. Original error: Error executing adbExec. Original error: 'Command ''C:\Users\newty\AppData\Local\Android\Sdk\platform-tools\adb.exe' -P 5037 -s emulator-5554 shell am start-activity -W -n com.saucelabs.mydemoapp.android/com.saucelabs.mydemoapp.and...
+    [ Message content over the limit has been removed. ]
+...ion [as startUiAutomator2Session] (file:///C:/Users/newty/.appium/node_modules/appium-uiautomator2-driver/build/lib/uiautomator2-server/session.js:248:5)
+    at async AndroidUiautomator2Driver.createSession (file:///C:/Users/newty/.appium/node_modules/appium-uiautomator2-driver/build/lib/driver.js:289:28)
+    at async AppiumDriver.createSession (C:\Users\newty\AppData\Roaming\npm\node_modules\appium\build\lib\appium.js:266:44)
+    at async runCommandPromise (C:\Users\newty\AppData\Roaming\npm\node_modules\appium\node_modules\@appium\base-driver\build\lib\basedriver\driver.js:119:24)
+    at async AppiumDriver.executeCommand (C:\Users\newty\AppData\Roaming\npm\node_modules\appium\node_modules\@appium\base-driver\build\lib\basedriver\driver.js:160:15)
+    at async defaultBehavior (C:\Users\newty\AppData\Roaming\npm\node_modules\appium\build\lib\appium.js:575:24)
+    at async AppiumDriver.executeWrappedCommand (C:\Users\newty\AppData\Roaming\npm\node_modules\appium\build\lib\appium.js:683:22)
+    at async AppiumDriver.executeCommand (C:\Users\newty\AppData\Roaming\npm\node_modules\appium\build\lib\appium.js:591:21)
+    at async asyncHandler (C:\Users\newty\AppData\Roaming\npm\node_modules\appium\node_modules\@appium\base-driver\build\lib\protocol\protocol.js:393:25)</status>
 </test>
-<test id="s1-s1-s1-s1-s1-s1-t2" name="TC Browser Reuse Allows Multiple Tests In One Session" line="25">
-<kw name="Reset To Home Before Each Test" type="SETUP">
-<kw name="Go To" owner="SeleniumLibrary">
-<msg time="2026-08-24T16:19:53.929715" level="INFO">Opening url 'https://www.saucedemo.com/inventory.html'</msg>
-<arg>${URL}/inventory.html</arg>
-<doc>Navigates the current browser window to the provided ``url``.</doc>
-<status status="PASS" start="2026-08-24T16:19:53.926180" elapsed="0.065244"/>
+<kw name="Close Android Application" owner="common_android" type="TEARDOWN">
+<kw name="Close Application" owner="AppiumLibrary">
+<kw name="Capture Page Screenshot" owner="AppiumLibrary">
+<msg time="2026-08-27T14:05:28.569329" level="FAIL">No application is open</msg>
+<doc>Takes a screenshot of the current page and embeds it into the log.</doc>
+<status status="FAIL" start="2026-08-27T14:05:28.569329" elapsed="0.014948">No application is open</status>
 </kw>
-<kw name="Wait Until Page Contains" owner="SeleniumLibrary">
-<arg>Products</arg>
-<arg>10s</arg>
-<doc>Waits until ``text`` appears on the current page.</doc>
-<status status="PASS" start="2026-08-24T16:19:53.992427" elapsed="0.039173"/>
+<msg time="2026-08-27T14:05:28.584277" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: No application is open</msg>
+<msg time="2026-08-27T14:05:28.620748" level="FAIL">No application is open</msg>
+<doc>Closes the current application and the webdriver session.</doc>
+<status status="FAIL" start="2026-08-27T14:05:28.568612" elapsed="0.065153">No application is open</status>
 </kw>
-<doc>Go back to the home page instead of logging in each time.</doc>
-<status status="PASS" start="2026-08-24T16:19:53.921154" elapsed="0.111447"/>
+<doc>ปิด session และ quit driver</doc>
+<status status="FAIL" start="2026-08-27T14:05:28.567262" elapsed="0.066503">No application is open</status>
 </kw>
-<kw name="Add Product To Cart By Name" owner="ui_keywords">
-<kw name="Set Variable" owner="BuiltIn">
-<msg time="2026-08-24T16:19:54.037603" level="INFO">${locator} = xpath://div[contains(@class,'inventory_item_name')][text()='Sauce Labs Bike Light']/ancestor::div[@class='inventory_item']//button[contains(@id,'add-to-cart')]</msg>
-<var>${locator}</var>
-<arg>xpath://div[contains(@class,'inventory_item_name')][text()='${product_name}']/ancestor::div[@class='inventory_item']//button[contains(@id,'add-to-cart')]</arg>
-<doc>Returns the given values which can then be assigned to a variables.</doc>
-<status status="PASS" start="2026-08-24T16:19:54.035604" elapsed="0.003265"/>
-</kw>
-<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
-<arg>${locator}</arg>
-<arg>timeout=10s</arg>
-<doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" start="2026-08-24T16:19:54.038869" elapsed="0.038872"/>
-</kw>
-<kw name="Click Button" owner="SeleniumLibrary">
-<msg time="2026-08-24T16:19:54.079774" level="INFO">Clicking button 'xpath://div[contains(@class,'inventory_item_name')][text()='Sauce Labs Bike Light']/ancestor::div[@class='inventory_item']//button[contains(@id,'add-to-cart')]'.</msg>
-<arg>${locator}</arg>
-<doc>Clicks the button identified by ``locator``.</doc>
-<status status="PASS" start="2026-08-24T16:19:54.078759" elapsed="0.108735"/>
-</kw>
-<arg>Sauce Labs Bike Light</arg>
-<doc>Adds a product to the cart by product name</doc>
-<status status="PASS" start="2026-08-24T16:19:54.034602" elapsed="0.153941"/>
-</kw>
-<kw name="Go To Cart" owner="ui_keywords">
-<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
-<arg>class:shopping_cart_link</arg>
-<arg>timeout=10s</arg>
-<doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" start="2026-08-24T16:19:54.190558" elapsed="0.022657"/>
-</kw>
-<kw name="Click Element" owner="SeleniumLibrary">
-<msg time="2026-08-24T16:19:54.215211" level="INFO">Clicking element 'class:shopping_cart_link'.</msg>
-<arg>class:shopping_cart_link</arg>
-<doc>Click the element identified by ``locator``.</doc>
-<status status="PASS" start="2026-08-24T16:19:54.214199" elapsed="0.084886"/>
-</kw>
-<status status="PASS" start="2026-08-24T16:19:54.189557" elapsed="0.110538"/>
-</kw>
-<kw name="Verify Cart Has N Items" owner="ui_keywords">
-<kw name="Wait Until Element Is Visible" owner="SeleniumLibrary">
-<arg>class:shopping_cart_badge</arg>
-<arg>timeout=10s</arg>
-<doc>Waits until the element ``locator`` is visible.</doc>
-<status status="PASS" start="2026-08-24T16:19:54.303101" elapsed="0.025654"/>
-</kw>
-<kw name="Get Text" owner="SeleniumLibrary">
-<msg time="2026-08-24T16:19:54.363922" level="INFO">${count} = 2</msg>
-<var>${count}</var>
-<arg>class:shopping_cart_badge</arg>
-<doc>Returns the text value of the element identified by ``locator``.</doc>
-<status status="PASS" start="2026-08-24T16:19:54.329754" elapsed="0.035166"/>
-</kw>
-<kw name="Should Be Equal As Numbers" owner="BuiltIn">
-<arg>${count}</arg>
-<arg>${expected}</arg>
-<doc>Fails if objects are unequal after converting them to real numbers.</doc>
-<status status="PASS" start="2026-08-24T16:19:54.364920" elapsed="0.002514"/>
-</kw>
-<arg>2</arg>
-<status status="PASS" start="2026-08-24T16:19:54.302092" elapsed="0.065342"/>
-</kw>
-<tag>reuse</tag>
-<tag>smoke</tag>
-<status status="PASS" start="2026-08-24T16:19:53.868714" elapsed="0.500741"/>
-</test>
-<kw name="Close All Browsers" owner="SeleniumLibrary" type="TEARDOWN">
-<doc>Closes all open browsers and resets the browser cache.</doc>
-<status status="PASS" start="2026-08-24T16:19:54.389792" elapsed="2.295821"/>
-</kw>
-<status status="PASS" start="2026-08-24T16:19:49.736416" elapsed="6.949197"/>
+<status status="FAIL" start="2026-08-27T14:05:21.528276" elapsed="7.106486">Suite setup failed:
+WebDriverException: Message: Cannot start the 'com.saucelabs.mydemoapp.android' application. Consider checking the driver's troubleshooting documentation. Original error: Error executing adbExec. Original error: 'Command ''C:\Users\newty\AppData\Local\Android\Sdk\platform-tools\adb.exe' -P 5037 -s emulator-5554 shell am start-activity -W -n com.saucelabs.mydemoapp.android/com.saucelabs.mydemoapp.android.MainActivity -S -a android.intent.action.MAIN -c android.intent.category.LAUNCHER -f 0x10200000' exited with code 1'; Command output: Stopping: com.saucelabs.mydemoapp.android
+Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] flg=0x10200000 cmp=com.saucelabs.mydemoapp.android/.MainActivity }
+Error type 3
+Error: Activity class {com.saucelabs.mydemoapp.android/com.saucelabs.mydemoapp.android.MainActivity} does not exist.
+
+Stacktrace:
+UnknownError: Cannot start the 'com.saucelabs.mydemoapp.android' application. Consider checking the driver's troubleshooting documentation. Original error: Error executing adbExec. Original error: 'Command ''C:\Users\newty\AppData\Local\Android\Sdk\platform-tools\adb.exe' -P 5037 -s emulator-5554 shell am start-activity -W -n com.saucelabs.mydemoapp.android/com.saucelabs.mydemoapp.and...
+    [ Message content over the limit has been removed. ]
+...ion [as startUiAutomator2Session] (file:///C:/Users/newty/.appium/node_modules/appium-uiautomator2-driver/build/lib/uiautomator2-server/session.js:248:5)
+    at async AndroidUiautomator2Driver.createSession (file:///C:/Users/newty/.appium/node_modules/appium-uiautomator2-driver/build/lib/driver.js:289:28)
+    at async AppiumDriver.createSession (C:\Users\newty\AppData\Roaming\npm\node_modules\appium\build\lib\appium.js:266:44)
+    at async runCommandPromise (C:\Users\newty\AppData\Roaming\npm\node_modules\appium\node_modules\@appium\base-driver\build\lib\basedriver\driver.js:119:24)
+    at async AppiumDriver.executeCommand (C:\Users\newty\AppData\Roaming\npm\node_modules\appium\node_modules\@appium\base-driver\build\lib\basedriver\driver.js:160:15)
+    at async defaultBehavior (C:\Users\newty\AppData\Roaming\npm\node_modules\appium\build\lib\appium.js:575:24)
+    at async AppiumDriver.executeWrappedCommand (C:\Users\newty\AppData\Roaming\npm\node_modules\appium\build\lib\appium.js:683:22)
+    at async AppiumDriver.executeCommand (C:\Users\newty\AppData\Roaming\npm\node_modules\appium\build\lib\appium.js:591:21)
+    at async asyncHandler (C:\Users\newty\AppData\Roaming\npm\node_modules\appium\node_modules\@appium\base-driver\build\lib\protocol\protocol.js:393:25)
+
+Also suite teardown failed:
+No application is open</status>
 </suite>
-<status status="PASS" start="2026-08-24T16:19:49.718878" elapsed="6.977095"/>
+<status status="FAIL" start="2026-08-27T14:05:21.518048" elapsed="7.144703"/>
 </suite>
-<status status="PASS" start="2026-08-24T16:19:49.700747" elapsed="7.007280"/>
+<status status="FAIL" start="2026-08-27T14:05:21.509509" elapsed="7.169406"/>
 </suite>
-<status status="PASS" start="2026-08-24T16:19:49.681001" elapsed="7.061046"/>
-</suite>
-<status status="PASS" start="2026-08-24T16:19:49.657382" elapsed="7.096711"/>
-</suite>
-<status status="PASS" start="2026-08-24T16:19:49.604583" elapsed="7.168186"/>
+<status status="FAIL" start="2026-08-27T14:05:21.454526" elapsed="7.245760"/>
 </suite>
 <statistics>
 <total>
-<stat pass="2" fail="0" skip="0">All Tests</stat>
+<stat pass="0" fail="1" skip="0">All Tests</stat>
 </total>
 <tag>
-<stat pass="2" fail="0" skip="0">reuse</stat>
-<stat pass="2" fail="0" skip="0">smoke</stat>
+<stat pass="0" fail="1" skip="0">smoke</stat>
 </tag>
 <suite>
-<stat pass="2" fail="0" skip="0" id="s1" name="Practice writing code for QA Projects">Practice writing code for QA Projects</stat>
-<stat pass="2" fail="0" skip="0" id="s1-s1" name="05 Robot-Framework">Practice writing code for QA Projects.05 Robot-Framework</stat>
-<stat pass="2" fail="0" skip="0" id="s1-s1-s1" name="Tests">Practice writing code for QA Projects.05 Robot-Framework.Tests</stat>
-<stat pass="2" fail="0" skip="0" id="s1-s1-s1-s1" name="Ui">Practice writing code for QA Projects.05 Robot-Framework.Tests.Ui</stat>
-<stat pass="2" fail="0" skip="0" id="s1-s1-s1-s1-s1" name="Cart">Practice writing code for QA Projects.05 Robot-Framework.Tests.Ui.Cart</stat>
-<stat pass="2" fail="0" skip="0" id="s1-s1-s1-s1-s1-s1" name="Browser Reuse">Practice writing code for QA Projects.05 Robot-Framework.Tests.Ui.Cart.Browser Reuse</stat>
+<stat pass="0" fail="1" skip="0" id="s1" name="Practice writing code for QA Projects">Practice writing code for QA Projects</stat>
+<stat pass="0" fail="1" skip="0" id="s1-s1" name="06 Appium">Practice writing code for QA Projects.06 Appium</stat>
+<stat pass="0" fail="1" skip="0" id="s1-s1-s1" name="Tests">Practice writing code for QA Projects.06 Appium.Tests</stat>
+<stat pass="0" fail="1" skip="0" id="s1-s1-s1-s1" name="Test">Practice writing code for QA Projects.06 Appium.Tests.Test</stat>
 </suite>
 </statistics>
 <errors>
+<msg time="2026-08-27T14:05:28.483072" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: No application is open</msg>
+<msg time="2026-08-27T14:05:28.584277" level="WARN">Keyword 'Capture Page Screenshot' could not be run on failure: No application is open</msg>
 </errors>
 </robot>

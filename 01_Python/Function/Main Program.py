@@ -54,8 +54,8 @@
 
 # Main Program
 
-import calculator as calc
-import database as db
+import Function.calculator as calc
+import Function.database as db
 
 print(calc.add(10,20))
 print(calc.subtract(5,3))
