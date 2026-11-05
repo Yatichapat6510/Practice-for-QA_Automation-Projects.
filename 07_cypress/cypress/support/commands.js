@@ -23,3 +23,20 @@
 //
 // -- This will overwrite an existing command --
 // Cypress.Commands.overwrite('visit', (originalFn, url, options) => { ... })
+
+
+// ===== Custom commands used by the showcase specs (SauceDemo) =====
+
+// cy.login('standard_user', 'secret_sauce')
+Cypress.Commands.add('login', (username, password) => {
+  cy.visit('/')
+  cy.get('#user-name').clear().type(username)
+  cy.get('#password').clear().type(password)
+  cy.get('#login-button').click()
+})
+
+// cy.logout() - open the burger menu and click Logout
+Cypress.Commands.add('logout', () => {
+  cy.get('#react-burger-menu-btn').click()
+  cy.get('#logout_sidebar_link').should('be.visible').click()
+})

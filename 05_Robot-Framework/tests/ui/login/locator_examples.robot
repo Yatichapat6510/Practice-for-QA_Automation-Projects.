@@ -1,6 +1,7 @@
 *** Settings ***
 
 Library            SeleniumLibrary
+Resource           ../../../resources/browser.robot
 Suite Teardown     Close All Browsers
 
 
@@ -16,7 +17,7 @@ ${PASSWORD}       secret_sauce
 
 TC001 Locator Strategy Examples
 
-    Open Browser        ${URL}    ${BROWSER}
+    Open Browser For Test    ${URL}    ${BROWSER}
     Maximize Browser Window
 
     # By ID — best for login form fields

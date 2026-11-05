@@ -29,6 +29,18 @@ jobs:
       - name: Run Robot Framework tests
         run: xvfb-run --auto-servernum robot -d results tests/
 
+      - name: Summarize failed tests
+        if: failure()
+        run: |
+          python - <<'PY'
+          import xml.etree.ElementTree as ET
+          for test in ET.parse("results/output.xml").getroot().iter("test"):
+              status = test.find("status")
+              if status is not None and status.get("status") == "FAIL":
+                  msg = " ".join((status.text or "").split())[:400]
+                  print(f"::error title={test.get('name')}::{msg}")
+          PY
+
       - name: Upload test results
         if: always()
         uses: actions/upload-artifact@v4

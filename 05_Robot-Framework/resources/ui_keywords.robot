@@ -1,6 +1,7 @@
 *** Settings ***
 Library           SeleniumLibrary
 Library           Collections
+Resource          browser.robot
 
 *** Variables ***
 ${URL}          https://www.saucedemo.com
@@ -15,7 +16,7 @@ Open Browser With Safe Options
     ...    credentials_enable_service=${False}
     ...    profile.password_manager_enabled=${False}
     ...    profile.password_manager_leak_detection=${False}
-    Open Browser    ${URL}    ${BROWSER}    options=add_argument("--disable-notifications");add_experimental_option("prefs", ${prefs})
+    Open Browser For Test    ${URL}    ${BROWSER}    options=add_argument("--disable-notifications");add_experimental_option("prefs", ${prefs})
     Maximize Browser Window
 
 Login As Standard User
