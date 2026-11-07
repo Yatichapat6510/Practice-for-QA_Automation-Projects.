@@ -1,0 +1,94 @@
+name: Maestro CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '14_Maestro/**'
+      - '.github/workflows/maestro-ci.yml'
+  pull_request:
+    paths:
+      - '14_Maestro/**'
+      - '.github/workflows/maestro-ci.yml'
+  workflow_dispatch:
+    inputs:
+      tags:
+        description: 'tag ที่ต้องการรัน คั่นด้วย , (เว้นว่าง = รันทั้งชุดหลัก) เช่น smoke หรือ login,cart'
+        required: false
+        default: ''
+
+permissions:
+  contents: read
+
+# push ใหม่เข้ามาระหว่างรัน ให้ยกเลิกรอบเก่า เพราะ emulator ใช้เวลานานและกินโควตา
+concurrency:
+  group: maestro-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  maestro:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      ANDROID_API_LEVEL: 31
+      APP_REPO: saucelabs/my-demo-app-android
+      # ล็อกเวอร์ชัน CLI ให้ตรงกับที่ใช้บนเครื่อง local เพื่อให้ผลรันซ้ำได้
+      MAESTRO_VERSION: 2.8.0
+      MAESTRO_CLI_NO_ANALYTICS: 1
+      # emulator บน CI ช้ากว่าเครื่องจริง ให้เวลา driver เริ่มทำงานมากขึ้น
+      MAESTRO_DRIVER_STARTUP_TIMEOUT: 120000
+      MAESTRO_TAGS: ${{ inputs.tags }}
+
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v4
+
+      - name: Enable KVM for the Android emulator
+        run: |
+          echo 'KERNEL=="kvm", GROUP="kvm", MODE="0666", OPTIONS+="static_node=kvm"' | sudo tee /etc/udev/rules.d/99-kvm4all.rules
+          sudo udevadm control --reload-rules
+          sudo udevadm trigger --name-match=kvm
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: '17'
+
+      - name: Install Maestro CLI
+        run: |
+          curl -fsSL "https://get.maestro.mobile.dev" | bash
+          echo "$HOME/.maestro/bin" >> "$GITHUB_PATH"
+
+      - name: Download app APK (latest release)
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release download --repo "$APP_REPO" --pattern 'mda-[0-9]*.apk' --dir app-build
+          mv app-build/*.apk app-build/my-demo-app.apk
+          ls -l app-build
+
+      - name: Run Maestro flows on the emulator
+        uses: reactivecircus/android-emulator-runner@v2
+        with:
+          api-level: ${{ env.ANDROID_API_LEVEL }}
+          arch: x86_64
+          target: google_apis
+          profile: pixel_6
+          disable-animations: true
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -no-snapshot
+          # แต่ละบรรทัดของ script รันแยก shell กัน จึงใส่ logic ทั้งหมดไว้ในสคริปต์เดียว
+          # เพื่อให้ exit code ของเทสต์ส่งต่อมาถึง step นี้ได้จริง
+          script: |
+            adb install -r "$GITHUB_WORKSPACE/app-build/my-demo-app.apk"
+            bash 14_Maestro/scripts/run_tests.sh "$MAESTRO_TAGS"
+
+      - name: Upload test results
+        if: ${{ !cancelled() }}
+        uses: actions/upload-artifact@v4
+        with:
+          name: maestro-test-results
+          # report.xml (JUnit), screenshot, commands.json และ log ของแต่ละ flow
+          path: 14_Maestro/results/
+          retention-days: 30
+          if-no-files-found: warn

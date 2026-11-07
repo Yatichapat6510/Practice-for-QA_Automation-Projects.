@@ -59,7 +59,8 @@ Workflow อยู่ที่ [`.github/workflows/`](.github/workflows/)
 | [`playwright.yml`](.github/workflows/playwright.yml) | เปลี่ยนไฟล์ใน `04_Playwright/` | `npm test` บน Chrome |
 | [`robot_ci.yml`](.github/workflows/robot_ci.yml) | ทุก push / pull request | `robot tests/` ใน `05_Robot-Framework/` |
 | [`cypress.yml`](.github/workflows/cypress.yml) | เปลี่ยนไฟล์ใน `07_cypress/` | สเปกใน `cypress/e2e/1-getting-started/` |
-| [`mobile.yml`](.github/workflows/mobile.yml) | เปลี่ยนไฟล์ใน `06_Appium/` หรือ `14_Maestro/` | pytest, Robot และ Maestro บน Android emulator |
+| [`mobile.yml`](.github/workflows/mobile.yml) | เปลี่ยนไฟล์ใน `06_Appium/` | pytest และ Robot บน Android emulator |
+| [`maestro-ci.yml`](.github/workflows/maestro-ci.yml) | เปลี่ยนไฟล์ใน `14_Maestro/` | Maestro flow บน Android emulator (รันมือพร้อมระบุ tag ได้) |
 
 หมายเหตุสำหรับชุด Robot Framework: เมื่อมีตัวแปร `CI` (GitHub Actions ตั้งให้อัตโนมัติ) keyword `Open Browser For Test` ใน [`resources/browser.robot`](05_Robot-Framework/resources/browser.robot) จะเปิด Chrome แบบ headless และ `--no-sandbox` เพื่อให้ทำงานบน runner ได้ ส่วนในเครื่องจะเปิดเบราว์เซอร์ตามปกติ
 
