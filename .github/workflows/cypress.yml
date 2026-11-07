@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Run showcase specs (project-1-sauce-demo)
         uses: cypress-io/github-action@v7
         with:
@@ -28,7 +28,7 @@ jobs:
           spec: cypress/e2e/1-getting-started/**/*.cy.js
       - name: Upload failure screenshots
         if: failure()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: cypress-screenshots
           path: 07_cypress/cypress/screenshots

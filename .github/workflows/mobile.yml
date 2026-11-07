@@ -29,7 +29,7 @@ jobs:
 
     steps:
       - name: Check out source
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: Enable KVM for the Android emulator
         run: |
@@ -38,7 +38,7 @@ jobs:
           sudo udevadm trigger --name-match=kvm
 
       - name: Set up Python
-        uses: actions/setup-python@v5
+        uses: actions/setup-python@v6
         with:
           python-version: '3.11'
 
@@ -79,7 +79,7 @@ jobs:
 
       - name: Upload test results
         if: ${{ !cancelled() }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: mobile-test-results
           # ผลของ pytest/Robot + screenshot ตอนเทสล้มของ pytest (ผล Maestro อยู่ที่ maestro-ci.yml)
