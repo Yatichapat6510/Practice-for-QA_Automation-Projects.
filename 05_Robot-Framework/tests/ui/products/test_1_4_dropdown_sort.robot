@@ -45,6 +45,7 @@ TC001 Locator Strategy Examples On Inventory Page
     Click Button      css:input[data-test='login-button']
 
     # By XPath — ใช้เมื่อ id/css ไม่มี
+    Wait Until Element Is Visible    xpath://button[contains(text(),'Add to cart')]    timeout=10s
     Click Element     xpath://button[contains(text(),'Add to cart')]
 
     [Teardown]    Close Browser
@@ -57,6 +58,6 @@ TC002 Verify Error Message Locator On Failed Login
     Click Button      css:input[data-test='login-button']
 
     # By class — ตรวจสอบ error message
-    Element Should Be Visible    class:error-message-container
+    Wait Until Element Is Visible    class:error-message-container    timeout=10s
 
     [Teardown]    Close Browser
