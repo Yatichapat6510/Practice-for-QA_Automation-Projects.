@@ -21,7 +21,7 @@ TC Complete Checkout Flow
     Login As Standard User
     Add Product To Cart By Name    Sauce Labs Backpack
     Click Element    class:shopping_cart_link
-    Click Button     id:checkout
+    Proceed To Checkout
     Fill Checkout Information    John    Doe    90210
     Verify Checkout Overview Page
     Click Button     id:finish

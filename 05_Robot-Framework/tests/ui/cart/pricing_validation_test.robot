@@ -11,7 +11,7 @@ TC Cart Total Should Match Calculated Tax
     Add Product To Cart By Name    Sauce Labs Backpack
     Add Product To Cart By Name    Sauce Labs Bike Light
     Click Element    class:shopping_cart_link
-    Click Button     id:checkout
+    Proceed To Checkout
     Fill Checkout Information    John    Doe    90210
     ${displayed}=    Get Text    class:summary_total_label
     ${expected}=    Calculate Expected Total With Tax    29.99    9.99    # Custom keyword!
