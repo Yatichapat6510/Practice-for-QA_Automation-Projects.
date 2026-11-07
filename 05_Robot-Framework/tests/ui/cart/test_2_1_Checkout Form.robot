@@ -5,13 +5,6 @@
 Resource    ../../../resources/ui_keywords.robot
 
 *** Keywords ***
-Fill Checkout Information
-    [Arguments]    ${first}    ${last}    ${zip}
-    Input Text    id:first-name    ${first}
-    Input Text    id:last-name     ${last}
-    Input Text    id:postal-code   ${zip}
-    Click Button  id:continue
-
 Verify Checkout Overview Page
     Page Should Contain    Checkout: Overview
     Element Should Be Visible    id:finish

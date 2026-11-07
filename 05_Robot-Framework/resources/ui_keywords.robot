@@ -64,3 +64,4 @@ Fill Checkout Information
     Input Text      id:last-name     ${last_name}
     Input Text      id:postal-code   ${postal_code}
     Click Button    id:continue
+    Wait Until Page Contains    Checkout: Overview    timeout=10s
