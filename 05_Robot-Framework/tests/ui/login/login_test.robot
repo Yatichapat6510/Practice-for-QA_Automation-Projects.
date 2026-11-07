@@ -20,7 +20,7 @@ TC001 Valid Login Should Succeed
     Input Text             id:user-name  ${USERNAME}
     Input Password         id:password   ${PASSWORD}
     Click Button           id:login-button
-    Page Should Contain    Products
+    Wait Until Page Contains    Products    timeout=10s
     [Teardown]    Teardown With Screenshot On Failure
 
 TC002 Invalid Login Should Show Error
@@ -29,7 +29,7 @@ TC002 Invalid Login Should Show Error
     Input Text             id:user-name  wrong_user
     Input Password         id:password   wrong_pass
     Click Button           id:login-button
-    Element Should Be Visible    class:error-message-container
+    Wait Until Element Is Visible    class:error-message-container    timeout=10s
     [Teardown]    Teardown With Screenshot On Failure
 
 TC003 Add Products And Verify Cart
@@ -69,7 +69,9 @@ Login As User
     Input Text        id:user-name     ${username}
     Input Password    id:password      ${password}
     Wait Until Element Is Visible    id:login-button    timeout=10s
-    Click Button      id:login-button  
+    Click Button      id:login-button
+    # SPA: the click does not reload the page, so wait for either outcome (inventory or login error)
+    Wait Until Page Contains Element    css:#inventory_container, [data-test="error"]    timeout=15s
 
 Verify User Is On Products Page
     [Documentation]    Verify login succeeded and user is on Products page
@@ -88,5 +90,6 @@ Add Product To Cart
 
 Verify Cart Count
     [Arguments]    ${expected_count}
+    Wait Until Element Contains    class:shopping_cart_badge    ${expected_count}    timeout=10s
     ${count}=      Get Text    class:shopping_cart_badge
     Should Be Equal As Numbers    ${count}    ${expected_count}

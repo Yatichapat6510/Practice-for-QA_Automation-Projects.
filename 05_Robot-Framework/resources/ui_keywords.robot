@@ -35,6 +35,8 @@ Login As User
     Input Password        id:password         ${password}
     Wait Until Element Is Visible    id:login-button    timeout=10s
     Click Button          id:login-button
+    # SPA: the click does not reload the page, so wait for either outcome (inventory or login error)
+    Wait Until Page Contains Element    css:#inventory_container, [data-test="error"]    timeout=15s
 
 Add Product To Cart By Name
     [Arguments]    ${product_name}
@@ -45,7 +47,7 @@ Add Product To Cart By Name
 
 Verify Cart Has N Items
     [Arguments]    ${expected}
-    Wait Until Element Is Visible    class:shopping_cart_badge    timeout=10s
+    Wait Until Element Contains    class:shopping_cart_badge    ${expected}    timeout=10s
     ${count}=    Get Text    class:shopping_cart_badge
     Should Be Equal As Numbers    ${count}    ${expected}
 
