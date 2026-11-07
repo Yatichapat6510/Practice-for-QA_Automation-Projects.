@@ -71,15 +71,11 @@ jobs:
           profile: pixel_6
           disable-animations: true
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -no-snapshot
+          # แต่ละบรรทัดของ script รันแยก shell กัน จึงใส่ logic ทั้งหมดไว้ในสคริปต์เดียว
+          # เพื่อให้ exit code ของเทสต์ส่งต่อมาถึง step นี้ได้จริง
           script: |
             adb install -r "$GITHUB_WORKSPACE/app-build/my-demo-app.apk"
-            nohup appium > appium.log 2>&1 &
-            sleep 10
-            mkdir -p 06_Appium/results
-            status=0
-            pytest 06_Appium/tests/py -m "not known_defect" || status=1
-            robot -d 06_Appium/results/robot -e known-defect 06_Appium/tests/robot || status=1
-            exit $status
+            bash 06_Appium/scripts/run_ci_tests.sh
 
       - name: Upload test results
         if: ${{ !cancelled() }}
