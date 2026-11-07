@@ -1,0 +1,14 @@
+appId: org.wikipedia
+---
+- launchApp
+- evalScript: ${output.terms = ["Maestro", "Appium", "Playwright"]}
+- evalScript: ${output.index = 0}
+- repeat:
+    while:
+      true: ${output.index < output.terms.length}
+    commands:
+      - runFlow:
+          file: subflows/search-term.yaml
+          env:
+            TERM: ${output.terms[output.index]}
+      - evalScript: ${output.index++}

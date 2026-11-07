@@ -1,0 +1,18 @@
+appId: org.wikipedia
+---
+- launchApp
+- tapOn: "Search Wikipedia"
+- inputText: "Maestro"
+- assertVisible: "Maestro (software)"
+
+appId: org.wikipedia
+tags:
+  - smoke
+---
+- launchApp
+- runFlow: subflows/dismiss-onboarding.yaml
+- tapOn: "Search Wikipedia"
+- inputText: "Maestro"
+- assertVisible:
+    text: ".*Maestro.*"
+- takeScreenshot: search-results

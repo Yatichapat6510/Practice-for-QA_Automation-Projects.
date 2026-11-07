@@ -1,0 +1,107 @@
+appId: com.saucelabs.mydemoapp.android
+---
+- launchApp:
+    clearState: true
+- runFlow:
+    file: login-subflow.yaml
+    env:
+      USERNAME: "bod@example.com"
+      PASSWORD: "10203040"
+
+# เลือกสินค้า (ค่าเริ่มต้นเรียง A→Z ทำให้ Backpack เป็นรูปแรก)
+- tapOn:
+    id: "productIV"
+    index: 0
+- assertVisible:
+    id: "productTV"
+    text: "Sauce Labs Backpack"
+
+# เพิ่มลงตะกร้า
+- scrollUntilVisible:
+    element: "Tap to add product to cart"
+- tapOn: "Tap to add product to cart"
+- assertVisible:
+    id: "cartTV"
+    text: "1"
+- tapOn: "View cart"
+
+# ตรวจสอบรายการและยอดรวมในตะกร้า
+- assertVisible:
+    id: "titleTV"
+    text: "Sauce Labs Backpack"
+- evalScript: ${output.expectedTotal = 29.99}
+- assertTrue: ${output.expectedTotal > 0}
+- assertVisible:
+    id: "totalPriceTV"
+    text: "\\$ 29\\.99"
+
+# ไป Checkout (login แล้ว จึงเข้าหน้ากรอกที่อยู่จัดส่งทันที)
+- tapOn: "Confirms products for checkout"
+- assertVisible: "Enter a shipping address"
+
+# กรอกที่อยู่ (ค่าที่เห็นในช่องเป็นแค่ placeholder ต้องกรอกเอง)
+- tapOn:
+    id: "fullNameET"
+- inputText: "Rebecca Winter"
+- hideKeyboard
+- tapOn:
+    id: "address1ET"
+- inputText: "Mandorley 112"
+- hideKeyboard
+- scrollUntilVisible:
+    element:
+      id: "cityET"
+- tapOn:
+    id: "cityET"
+- inputText: "Truro"
+- hideKeyboard
+- scrollUntilVisible:
+    element:
+      id: "zipET"
+- tapOn:
+    id: "zipET"
+- inputText: "89750"
+- hideKeyboard
+- scrollUntilVisible:
+    element:
+      id: "countryET"
+- tapOn:
+    id: "countryET"
+- inputText: "United Kingdom"
+- hideKeyboard
+- tapOn: "Saves user info for checkout"
+
+# กรอกข้อมูลบัตร (ใช้ข้อมูลทดสอบของแอป)
+- assertVisible: "Enter a payment method"
+- tapOn:
+    id: "nameET"
+- inputText: "Rebecca Winter"
+- hideKeyboard
+- tapOn:
+    id: "cardNumberET"
+- inputText: "3258125675687891"
+- hideKeyboard
+- tapOn:
+    id: "expirationDateET"
+- inputText: "0325"
+- hideKeyboard
+- tapOn:
+    id: "securityCodeET"
+- inputText: "123"
+- hideKeyboard
+- tapOn: "Saves payment info and launches screen to review checkout data"
+
+# หน้า Review: ยอดรวม = ราคาสินค้า 29.99 + ค่าส่ง 5.99 = 35.98
+- assertVisible: "Review your order"
+- evalScript: ${output.expectedTotal = 29.99 + 5.99}
+- assertTrue: ${output.expectedTotal.toFixed(2) == "35.98"}
+- assertVisible:
+    id: "priceTV"
+    text: "\\$ 29\\.99"
+- assertVisible:
+    id: "totalAmountTV"
+    text: "\\$ 35\\.98"
+
+# สั่งซื้อ
+- tapOn: "Completes the process of checkout"
+- assertVisible: "Checkout Complete"

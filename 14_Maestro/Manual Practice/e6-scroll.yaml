@@ -1,0 +1,13 @@
+appId: org.wikipedia
+---
+- launchApp
+- tapOn: "Search Wikipedia"
+- inputText: "Thailand"
+- tapOn:
+    text: "Thailand"
+    index: 1
+- scrollUntilVisible:
+    element: "See also"
+    direction: DOWN
+    timeout: 30000
+- assertVisible: "See also"

@@ -1,0 +1,8 @@
+appId: org.wikipedia
+---
+- tapOn: "Search Wikipedia"
+- inputText: ${TERM}
+- assertVisible:
+    text: ".*${TERM}.*"
+- back
+- back

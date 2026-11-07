@@ -1,0 +1,31 @@
+#Buggy: ไม่สามารถเลือกผลลัพธ์การค้นหาได้ (เลือกช่องพิมพ์แทน) ต้องแก้ไขด้วยการระบุ index ของผลลัพธ์ที่ต้องการ
+# appId: org.wikipedia 
+# ---
+# - launchApp
+# - tapOn:
+#     text: "Search Wikipedia"
+#     index: 3
+# - inputText: "Appium"
+# - tapOn: "Appium"
+# - assertVisible: "Appium"
+# - tapOn: "OK"
+# - assertVisible: ".*"
+
+#e3-fixed.yaml
+
+appId: org.wikipedia
+--- 
+- launchApp
+- tapOn: "Search Wikipedia"
+- inputText: "Appium"
+- tapOn:
+    text: "Appium"
+    index: 1          # ตั้งใจเลือกผลลัพธ์ ไม่ใช่ช่องพิมพ์ (ยืนยันด้วย Studio)
+- assertVisible: "Contents"   # ตัวอย่างข้อความที่มีเฉพาะหน้าบทความ ให้ปรับตามแอปจริง
+- runFlow:
+    when:
+      visible: "OK"
+    commands:
+      - tapOn: "OK"
+
+

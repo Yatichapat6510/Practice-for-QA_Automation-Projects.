@@ -1,0 +1,14 @@
+appId: org.wikipedia
+env: 
+  USERNAME: ${USERNAME || "myUsername"}
+  PASSWORD: ${PASSWORD || "myPassword"}
+---
+- tapOn:
+    id: drawer_icon_menu
+- tapOn: LOG IN / JOIN WIKIPEDIA
+- tapOn: Username
+- inputText: ${USERNAME}
+- tapOn: Password
+- inputText: ${PASSWORD}
+- tapOn: LOG IN
+

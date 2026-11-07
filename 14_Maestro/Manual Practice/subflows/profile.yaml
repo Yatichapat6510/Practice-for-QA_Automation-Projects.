@@ -1,0 +1,9 @@
+appId: org.wikipedia
+---
+- launchApp
+- runFlow:
+    file: subflows/login.yaml
+    env:
+      USERNAME: "qa_tester"
+      PASSWORD: "not-a-real-password"
+      
