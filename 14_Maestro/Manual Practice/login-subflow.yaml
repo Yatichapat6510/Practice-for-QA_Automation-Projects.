@@ -1,0 +1,29 @@
+appId: com.saucelabs.mydemoapp.android
+env:
+  USERNAME: "bod@example.com"
+  PASSWORD: "10203040"
+---
+# รอหน้า Products พร้อม (ปิด dialog ของระบบถ้ามี)
+- runFlow: ../flows/subflows/wait_app_ready.yaml
+# เปิดเมนูด้านซ้าย แล้วเลื่อนหา Login
+- tapOn: "View menu"
+- scrollUntilVisible:
+    element: "Login Menu Item"
+- tapOn: "Login Menu Item"
+- assertVisible: "Tap to login with given credentials"
+# กรอกข้อมูล
+- tapOn:
+    id: "nameET"
+- inputText: ${USERNAME}
+- tapOn:
+    id: "passwordET"
+- inputText: ${PASSWORD}
+- hideKeyboard
+- tapOn: "Tap to login with given credentials"
+# login สำเร็จแอปจะกลับหน้า Products
+- extendedWaitUntil:
+    notVisible: "Tap to login with given credentials"
+    timeout: 10000
+- extendedWaitUntil:
+    visible: "Displays all products of catalog"
+    timeout: 10000

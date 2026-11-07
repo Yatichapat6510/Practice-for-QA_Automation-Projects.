@@ -1,0 +1,10 @@
+appId: org.wikipedia
+---
+- launchApp
+- runFlow:
+    when:
+      visible: "Skip"
+      platform: Android
+    commands:
+      - tapOn: "Skip"
+- assertVisible: "Search Wikipedia"

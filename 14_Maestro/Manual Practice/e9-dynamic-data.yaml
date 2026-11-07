@@ -1,0 +1,9 @@
+appId: org.wikipedia
+---
+- launchApp
+- runScript: scripts/gen-username.js
+- tapOn: "Search Wikipedia"
+- inputText: ${output.username}
+
+# ทางเลือก: ใช้ faker ตรง ๆ ใน expression
+# - inputText: ${"User_" + faker.name().firstName()}

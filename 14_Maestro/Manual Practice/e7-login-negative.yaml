@@ -1,0 +1,13 @@
+url: https://www.saucedemo.com
+---
+- launchApp
+- tapOn:
+    id: "user-name"
+- inputText: "standard_user"
+- tapOn:
+    id: "password"
+- inputText: "wrong_password"
+- tapOn:
+    id: "login-button"
+- assertVisible: ".*do not match any user.*"
+- assertNotVisible: "Products"
