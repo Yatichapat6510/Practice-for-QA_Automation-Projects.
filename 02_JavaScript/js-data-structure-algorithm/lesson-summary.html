@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="th" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>สรุปบทเรียน Data Structure &amp; Algorithm ด้วย JavaScript</title>
+<style>
+:root{
+  --bg:#f6f7fb; --surface:#ffffff; --surface2:#eef1f7; --text:#1b2333; --muted:#5d6881;
+  --border:#dde2ee; --accent:#3b5bdb; --accent-soft:#e3e9ff; --code-bg:#f3f5fa; --code-text:#1f2a44;
+  --tk-c:#7a869f; --tk-s:#0b7a4b; --tk-n:#c2410c; --tk-k:#7c3aed; --tk-f:#1d4ed8; --tk-t:#b45309;
+  --shadow:0 1px 3px rgba(20,30,60,.08),0 6px 20px rgba(20,30,60,.05);
+}
+[data-theme="dark"]{
+  --bg:#0e1320; --surface:#161d2f; --surface2:#1d263b; --text:#e6eaf5; --muted:#9aa6c2;
+  --border:#2a3550; --accent:#7c9cff; --accent-soft:#222f57; --code-bg:#0b1020; --code-text:#d8e0f5;
+  --tk-c:#7d8aa8; --tk-s:#7ee0a8; --tk-n:#ffb072; --tk-k:#c4a1ff; --tk-f:#8db8ff; --tk-t:#ffd27a;
+  --shadow:0 1px 3px rgba(0,0,0,.4);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{margin:0;background:var(--bg);color:var(--text);font-family:"Noto Sans Thai","Sarabun","Segoe UI",system-ui,sans-serif;line-height:1.75;font-size:16px}
+a{color:var(--accent);text-decoration:none}
+a:hover{text-decoration:underline}
+.topbar{position:sticky;top:0;z-index:20;background:var(--surface);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:10px 20px;gap:12px}
+.topbar .brand{font-weight:700;font-size:15px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.theme-btn{border:1px solid var(--border);background:var(--surface2);color:var(--text);border-radius:999px;padding:6px 14px;cursor:pointer;font:inherit;font-size:14px}
+.layout{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:230px minmax(0,1fr);gap:28px;padding:24px 20px 60px}
+nav.toc{position:sticky;top:76px;align-self:start;background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px;box-shadow:var(--shadow);font-size:14px}
+nav.toc a{display:block;padding:6px 10px;border-radius:8px;color:var(--text)}
+nav.toc a:hover,nav.toc a.active{background:var(--accent-soft);color:var(--accent);text-decoration:none}
+nav.toc .sub a{padding-left:22px;color:var(--muted);font-size:13px}
+main section{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:26px 28px;margin-bottom:24px;box-shadow:var(--shadow)}
+h1{font-size:28px;line-height:1.35;margin:0 0 6px}
+h2{font-size:22px;margin:0 0 14px;padding-bottom:10px;border-bottom:2px solid var(--accent-soft)}
+h3{font-size:18px;margin:26px 0 8px}
+p{margin:8px 0}
+.muted{color:var(--muted)}
+.small{font-size:13px}
+.hero{background:linear-gradient(135deg,var(--accent-soft),var(--surface));}
+.meta{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 0}
+.chip{background:var(--surface2);border:1px solid var(--border);border-radius:999px;padding:3px 12px;font-size:13px}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin:12px 0}
+.card{background:var(--surface2);border:1px solid var(--border);border-radius:12px;padding:14px 16px}
+.card h4{margin:0 0 6px;font-size:16px}
+ul{padding-left:22px;margin:8px 0}
+li{margin:3px 0}
+table{width:100%;border-collapse:collapse;font-size:15px;margin:10px 0}
+th,td{border-bottom:1px solid var(--border);padding:9px 10px;text-align:left;vertical-align:top}
+th{background:var(--surface2);font-size:14px}
+.tbl-scroll{overflow-x:auto}
+td.ts{white-space:nowrap;font-variant-numeric:tabular-nums;font-weight:600}
+tr.part-row td{background:var(--accent-soft);font-weight:700;color:var(--accent)}
+code{font-family:"Cascadia Code","Consolas","SFMono-Regular",monospace;font-size:.92em}
+p code,li code,td code{background:var(--surface2);border:1px solid var(--border);border-radius:6px;padding:1px 6px}
+.code-wrap{border:1px solid var(--border);border-radius:12px;overflow:hidden;margin:12px 0;background:var(--code-bg)}
+.code-head{display:flex;justify-content:space-between;align-items:center;background:var(--surface2);padding:6px 12px;border-bottom:1px solid var(--border)}
+.code-file{font-family:"Cascadia Code","Consolas",monospace;font-size:13px;color:var(--muted)}
+.copy-btn{border:1px solid var(--border);background:var(--surface);color:var(--text);border-radius:8px;padding:3px 12px;font-size:13px;cursor:pointer}
+.copy-btn.done{background:var(--accent);color:#fff;border-color:var(--accent)}
+pre{margin:0;padding:14px 16px;overflow-x:auto;color:var(--code-text);font-size:13.5px;line-height:1.6;tab-size:2}
+pre code{background:none;border:none;padding:0}
+.tk-c{color:var(--tk-c);font-style:italic}.tk-s{color:var(--tk-s)}.tk-n{color:var(--tk-n)}
+.tk-k{color:var(--tk-k);font-weight:600}.tk-f{color:var(--tk-f)}.tk-t{color:var(--tk-t)}
+details.fold{border:1px solid var(--border);border-radius:12px;margin:12px 0;background:var(--surface)}
+details.fold>summary{cursor:pointer;padding:10px 14px;font-weight:600}
+details.fold .code-wrap{margin:0;border:none;border-top:1px solid var(--border);border-radius:0 0 12px 12px}
+.callout{border-left:4px solid var(--accent);background:var(--accent-soft);border-radius:8px;padding:10px 14px;margin:12px 0}
+.badge{display:inline-block;border-radius:6px;padding:0 8px;font-weight:700;font-size:13px;background:var(--accent-soft);color:var(--accent);font-family:"Cascadia Code","Consolas",monospace}
+.tree-box pre{font-size:13px}
+footer{text-align:center;color:var(--muted);font-size:13px;padding:10px 0 40px}
+@media(max-width:900px){.layout{grid-template-columns:1fr}nav.toc{position:static}}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="brand">Data Structure &amp; Algorithm ด้วย JavaScript : สรุปบทเรียน</div>
+  <button class="theme-btn" id="themeBtn" type="button" aria-label="สลับโหมดสี">โหมดมืด</button>
+</header>
+
+<div class="layout">
+<nav class="toc" id="toc" aria-label="สารบัญ">
+  <a href="#overview">1. Overview</a>
+  <a href="#steps">2. Step-by-Step Breakdown</a>
+  <a href="#concepts">3. Core Concepts &amp; Usage</a>
+  <div class="sub">
+    <a href="#c-measure">วัดประสิทธิภาพ</a>
+    <a href="#c-bigo">Big-O</a>
+    <a href="#c-ll">Linked List</a>
+    <a href="#c-stack">Stack</a>
+    <a href="#c-queue">Queue</a>
+    <a href="#c-bst">Binary Search Tree</a>
+    <a href="#c-graph">Graph</a>
+  </div>
+  <a href="#structure">4. Project Structure</a>
+</nav>
+
+<main>
+<section id="overview" class="hero">
+  <h1>โครงสร้างข้อมูลและอัลกอริทึม (Data Structure &amp; Algorithm) ด้วย JavaScript</h1>
+  <p class="muted">สรุปจากคลิป <a href="https://youtu.be/Kpj1xzi1IFw" target="_blank" rel="noopener">https://youtu.be/Kpj1xzi1IFw</a> ช่อง KongRuksiam Official</p>
+  <div class="meta">
+    <span class="chip">ความยาว 5 ชม. 53 นาที</span>
+    <span class="chip">ภาษา JavaScript (Node.js)</span>
+    <span class="chip">50 บทย่อย</span>
+  </div>
+
+  <h2 style="margin-top:26px">1. Overview</h2>
+  <h3>คลิปนี้สอนเรื่องอะไร</h3>
+  <p>แนะนำพื้นฐานของ <strong>อัลกอริทึม</strong> (วิธีแก้ปัญหาเป็นขั้นตอน) และ <strong>โครงสร้างข้อมูล</strong> (วิธีจัดเก็บข้อมูลให้ใช้งานได้เร็ว) โดยลงมือเขียนด้วย JavaScript ตั้งแต่การวัดความเร็วของโค้ด การวิเคราะห์ด้วย Big-O ไปจนถึงการสร้างโครงสร้างข้อมูลหลักด้วยตัวเอง</p>
+  <div class="grid2">
+    <div class="card"><h4>อัลกอริทึม</h4><ul><li>วัดเวลาด้วย <code>console.time</code></li><li>นับตัวดำเนินการและลดรูป</li><li>Big-O: O(1), O(log n), O(n), O(n²), O(2ⁿ), O(n!)</li></ul></div>
+    <div class="card"><h4>โครงสร้างข้อมูลแบบเชิงเส้น</h4><ul><li>Linked List</li><li>Stack (LIFO)</li><li>Queue (FIFO)</li></ul></div>
+    <div class="card"><h4>โครงสร้างข้อมูลแบบไม่เชิงเส้น</h4><ul><li>Tree และ Binary Search Tree</li><li>Graph (Adjacency Matrix / List)</li></ul></div>
+  </div>
+  <h3>ใช้แก้ปัญหาอะไร</h3>
+  <ul>
+    <li>เลือกวิธีเขียนโค้ดที่เร็วกว่าเมื่อข้อมูลมีจำนวนมาก โดยมีตัวชี้วัดเป็น Big-O แทนการเดา</li>
+    <li>เลือกโครงสร้างข้อมูลให้เหมาะกับงาน เช่น ต้องเพิ่ม/ลบหน้าลิสต์บ่อย ต้องค้นหาเร็ว หรือต้องแทนความสัมพันธ์ระหว่างข้อมูล</li>
+    <li>เข้าใจหลักการที่อยู่ใต้ <code>Array</code>, <code>Map</code> และไลบรารีต่าง ๆ ที่ใช้อยู่ทุกวัน</li>
+  </ul>
+  <h3>เหมาะกับงานแบบไหน</h3>
+  <ul>
+    <li>เตรียมสัมภาษณ์งานสายโปรแกรมเมอร์ / QA Automation ที่มีโจทย์เขียนโค้ดและวิเคราะห์ความซับซ้อน</li>
+    <li>เขียนสคริปต์ประมวลผลข้อมูลชุดใหญ่ เช่น ตรวจข้อมูลทดสอบจำนวนมาก ค้นหาข้อมูลซ้ำ</li>
+    <li>ผู้ที่เรียน JavaScript พื้นฐาน ES6 และ OOP (คลาส/constructor) มาแล้ว ตามที่ผู้สอนแนะนำเป็นความรู้ก่อนเรียน</li>
+  </ul>
+</section>
+
+<section id="steps">
+  <h2>2. Step-by-Step Breakdown</h2>
+  <p class="muted">คลิก Timestamp เพื่อเปิดวิดีโอที่ตำแหน่งนั้น ตารางเรียงตามลำดับเวลาในคลิป และบอกว่าไฟล์โค้ดใดเกี่ยวข้อง</p>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>เวลา</th><th>หัวข้อ</th><th>โค้ดที่เกี่ยวข้อง</th></tr></thead>
+    <tbody><tr class="part-row"><td colspan="3">ภาคที่ 1 : อัลกอริทึมและ Big-O</td></tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=0" target="_blank" rel="noopener">0:00</a></td>
+    <td><strong>รู้จักโครงสร้างข้อมูลและอัลกอริทึม</strong><div class="muted">ภาพรวมว่าโครงสร้างข้อมูลและอัลกอริทึมคืออะไร และทำไมโปรแกรมเมอร์ต้องรู้</div></td>
+    <td class="muted small">&ndash;</td>
+  </tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=577" target="_blank" rel="noopener">09:37</a></td>
+    <td><strong>การวัดประสิทธิภาพอัลกอริทึม</strong><div class="muted">เปรียบเทียบผลรวม 1 ถึง n ด้วยลูปกับสูตร ว่าต่างกันอย่างไร</div></td>
+    <td class="muted small">01-algorithm/01-summation-loop.js, 02-summation-formula.js</td>
+  </tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=1423" target="_blank" rel="noopener">23:43</a></td>
+    <td><strong>เขียนโปรแกรมจับเวลา</strong><div class="muted">ใช้ console.time / console.timeEnd จับเวลาการทำงาน</div></td>
+    <td class="muted small">01-algorithm/01-summation-loop.js</td>
+  </tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=1919" target="_blank" rel="noopener">31:59</a></td>
+    <td><strong>อัตราการเติบโตของฟังก์ชั่น</strong><div class="muted">ดูว่าเวลาที่ใช้เพิ่มขึ้นอย่างไรเมื่อข้อมูลมากขึ้น</div></td>
+    <td class="muted small">&ndash;</td>
+  </tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=2592" target="_blank" rel="noopener">43:12</a></td>
+    <td><strong>การวิเคราะห์อัลกอริทึม</strong><div class="muted">หลักคิดในการวิเคราะห์ความเร็วโดยไม่ต้องพึ่งเครื่องที่ใช้รัน</div></td>
+    <td class="muted small">&ndash;</td>
+  </tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=2775" target="_blank" rel="noopener">46:15</a></td>
+    <td><strong>รู้จักกับ Big-O</strong><div class="muted">แนะนำสัญลักษณ์ Big-O สำหรับบอกอัตราการเติบโต</div></td>
+    <td class="muted small">&ndash;</td>
+  </tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=3099" target="_blank" rel="noopener">51:39</a></td>
+    <td><strong>การนับตัวดำเนินการ</strong><div class="muted">นับจำนวนคำสั่งที่ทำงานเพื่อสร้างฟังก์ชันเวลา T(n)</div></td>
+    <td class="muted small">01-algorithm/09-big-o-counting.js (ตัวอย่างเสริม)</td>
+  </tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=4291" target="_blank" rel="noopener">01:11:31</a></td>
+    <td><strong>การเขียนลดรูปฟังก์ชั่น</strong><div class="muted">ตัดค่าคงที่และเทอมที่เล็กกว่าออกจาก T(n)</div></td>
+    <td class="muted small">01-algorithm/09-big-o-counting.js (ตัวอย่างเสริม)</td>
+  </tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=4627" target="_blank" rel="noopener">01:17:07</a></td>
+    <td><strong>Big-O Notation</strong><div class="muted">นิยามและวิธีเขียน Big-O อย่างเป็นทางการ</div></td>
+    <td class="muted small">&ndash;</td>
+  </tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=5105" target="_blank" rel="noopener">01:25:05</a></td>
+    <td><strong>Constant Time</strong><div class="muted">O(1) เวลาคงที่</div></td>
+    <td class="muted small">01-algorithm/03-constant-time.js</td>
+  </tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=5213" target="_blank" rel="noopener">01:26:53</a></td>
+    <td><strong>Logarithm Time</strong><div class="muted">O(log n) เช่น Binary Search</div></td>
+    <td class="muted small">01-algorithm/04-logarithm-time.js</td>
+  </tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=5562" target="_blank" rel="noopener">01:32:42</a></td>
+    <td><strong>Linear Time</strong><div class="muted">O(n) เช่น Linear Search</div></td>
+    <td class="muted small">01-algorithm/05-linear-time.js</td>
+  </tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=5941" target="_blank" rel="noopener">01:39:01</a></td>
+    <td><strong>Quadratic Time</strong><div class="muted">O(n²) เช่น ลูปซ้อนลูป</div></td>
+    <td class="muted small">01-algorithm/06-quadratic-time.js</td>
+  </tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=6095" target="_blank" rel="noopener">01:41:35</a></td>
+    <td><strong>Exponential Time</strong><div class="muted">O(2ⁿ) เช่น ฟีโบนัชชีแบบ Recursion</div></td>
+    <td class="muted small">01-algorithm/07-exponential-time.js</td>
+  </tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=6176" target="_blank" rel="noopener">01:42:56</a></td>
+    <td><strong>Factorial Time</strong><div class="muted">O(n!) และฟังก์ชันแฟกทอเรียล</div></td>
+    <td class="muted small">01-algorithm/08-factorial-time.js</td>
+  </tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=6364" target="_blank" rel="noopener">01:46:04</a></td>
+    <td><strong>การคำนวณ Big-O</strong><div class="muted">ฝึกหา Big-O ของโค้ดหลายรูปแบบ</div></td>
+    <td class="muted small">&ndash;</td>
+  </tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=7111" target="_blank" rel="noopener">01:58:31</a></td>
+    <td><strong>วิเคราะห์การทำงานของฟังก์ชั่น</strong><div class="muted">สรุปการวิเคราะห์ฟังก์ชันก่อนเข้าสู่โครงสร้างข้อมูล</div></td>
+    <td class="muted small">&ndash;</td>
+  </tr><tr class="part-row"><td colspan="3">ภาคที่ 2 : Linked List</td></tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=7392" target="_blank" rel="noopener">02:03:12</a></td>
+    <td><strong>ลิงค์ลิสต์ (Linked-List)</strong><div class="muted">แนวคิดของลิงค์ลิสต์ โหนด head tail</div></td>
+    <td class="muted small">02-data-structure-linear/linked-list/LinkedList.js</td>
+  </tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=7925" target="_blank" rel="noopener">02:12:05</a></td>
+    <td><strong>สร้างลิงค์ลิสต์ (Constructor)</strong><div class="muted">สร้างคลาส Node และ LinkedList</div></td>
+    <td class="muted small">LinkedList.js : constructor</td>
+  </tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=8377" target="_blank" rel="noopener">02:19:37</a></td>
+    <td><strong>Push (Linked-List)</strong><div class="muted">เพิ่มโหนดท้ายลิสต์</div></td>
+    <td class="muted small">LinkedList.js : push</td>
+  </tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=8955" target="_blank" rel="noopener">02:29:15</a></td>
+    <td><strong>Pop (Linked-List)</strong><div class="muted">ลบโหนดท้ายลิสต์</div></td>
+    <td class="muted small">LinkedList.js : pop</td>
+  </tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=9634" target="_blank" rel="noopener">02:40:34</a></td>
+    <td><strong>Unshift (Linked-List)</strong><div class="muted">เพิ่มโหนดหน้าลิสต์</div></td>
+    <td class="muted small">LinkedList.js : unshift</td>
+  </tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=10046" target="_blank" rel="noopener">02:47:26</a></td>
+    <td><strong>Shift (Linked-List)</strong><div class="muted">ลบโหนดหน้าลิสต์</div></td>
+    <td class="muted small">LinkedList.js : shift</td>
+  </tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=10437" target="_blank" rel="noopener">02:53:57</a></td>
+    <td><strong>Get (Linked-List)</strong><div class="muted">ดึงโหนดตามตำแหน่ง</div></td>
+    <td class="muted small">LinkedList.js : get</td>
+  </tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=10889" target="_blank" rel="noopener">03:01:29</a></td>
+    <td><strong>Set (Linked-List)</strong><div class="muted">แก้ค่าโหนดตามตำแหน่ง</div></td>
+    <td class="muted small">LinkedList.js : set</td>
+  </tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=11196" target="_blank" rel="noopener">03:06:36</a></td>
+    <td><strong>Insert (Linked-List)</strong><div class="muted">แทรกโหนดตามตำแหน่ง</div></td>
+    <td class="muted small">LinkedList.js : insert</td>
+  </tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=11871" target="_blank" rel="noopener">03:17:51</a></td>
+    <td><strong>Remove (Linked-List)</strong><div class="muted">ลบโหนดตามตำแหน่ง</div></td>
+    <td class="muted small">LinkedList.js : remove</td>
+  </tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=12332" target="_blank" rel="noopener">03:25:32</a></td>
+    <td><strong>Reverse (Linked-List)</strong><div class="muted">กลับด้านลิงค์ลิสต์</div></td>
+    <td class="muted small">LinkedList.js : reverse</td>
+  </tr><tr class="part-row"><td colspan="3">ภาคที่ 3 : Stack</td></tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=12829" target="_blank" rel="noopener">03:33:49</a></td>
+    <td><strong>สแต็ก (Stack)</strong><div class="muted">แนวคิด LIFO</div></td>
+    <td class="muted small">02-data-structure-linear/stack/Stack.js</td>
+  </tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=13119" target="_blank" rel="noopener">03:38:39</a></td>
+    <td><strong>สร้างสแต็ก (Constructor)</strong><div class="muted">สร้างคลาส Stack ที่มี top</div></td>
+    <td class="muted small">Stack.js : constructor</td>
+  </tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=13417" target="_blank" rel="noopener">03:43:37</a></td>
+    <td><strong>Push (Stack)</strong><div class="muted">ใส่ข้อมูลบนสุด</div></td>
+    <td class="muted small">Stack.js : push</td>
+  </tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=13864" target="_blank" rel="noopener">03:51:04</a></td>
+    <td><strong>Pop (Stack)</strong><div class="muted">เอาข้อมูลบนสุดออก</div></td>
+    <td class="muted small">Stack.js : pop</td>
+  </tr><tr class="part-row"><td colspan="3">ภาคที่ 4 : Queue</td></tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=14184" target="_blank" rel="noopener">03:56:24</a></td>
+    <td><strong>คิว (Queue)</strong><div class="muted">แนวคิด FIFO</div></td>
+    <td class="muted small">02-data-structure-linear/queue/Queue.js</td>
+  </tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=14333" target="_blank" rel="noopener">03:58:53</a></td>
+    <td><strong>สร้างคิว (Constructor)</strong><div class="muted">สร้างคลาส Queue ที่มี first และ last</div></td>
+    <td class="muted small">Queue.js : constructor</td>
+  </tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=14592" target="_blank" rel="noopener">04:03:12</a></td>
+    <td><strong>Enqueue (Queue)</strong><div class="muted">เข้าคิวท้ายแถว</div></td>
+    <td class="muted small">Queue.js : enqueue</td>
+  </tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=14931" target="_blank" rel="noopener">04:08:51</a></td>
+    <td><strong>Dequeue (Queue)</strong><div class="muted">ออกจากคิวหัวแถว</div></td>
+    <td class="muted small">Queue.js : dequeue</td>
+  </tr><tr class="part-row"><td colspan="3">ภาคที่ 5 : Tree และ Binary Search Tree</td></tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=15282" target="_blank" rel="noopener">04:14:42</a></td>
+    <td><strong>ทรี (Tree)</strong><div class="muted">แนวคิดโครงสร้างต้นไม้ root, parent, child</div></td>
+    <td class="muted small">&ndash;</td>
+  </tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=15606" target="_blank" rel="noopener">04:20:06</a></td>
+    <td><strong>ไบนารีทรี (Binary Tree)</strong><div class="muted">ทรีที่แต่ละโหนดมีลูกไม่เกิน 2</div></td>
+    <td class="muted small">&ndash;</td>
+  </tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=16191" target="_blank" rel="noopener">04:29:51</a></td>
+    <td><strong>Binary Search Tree (BST)</strong><div class="muted">ทรีที่ซ้ายน้อยกว่า ขวามากกว่า</div></td>
+    <td class="muted small">03-data-structure-non-linear/tree/BinarySearchTree.js</td>
+  </tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=16712" target="_blank" rel="noopener">04:38:32</a></td>
+    <td><strong>สร้าง BST (Constructor)</strong><div class="muted">สร้างคลาส Node และ BinarySearchTree</div></td>
+    <td class="muted small">BinarySearchTree.js : constructor</td>
+  </tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=17023" target="_blank" rel="noopener">04:43:43</a></td>
+    <td><strong>เพิ่มโหนดใน BST (Concept)</strong><div class="muted">อธิบายหลักการหาตำแหน่งที่จะวางโหนด</div></td>
+    <td class="muted small">&ndash;</td>
+  </tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=17768" target="_blank" rel="noopener">04:56:08</a></td>
+    <td><strong>เพิ่มโหนดใน BST (Insert)</strong><div class="muted">เขียนเมธอด insert</div></td>
+    <td class="muted small">BinarySearchTree.js : insert</td>
+  </tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=18253" target="_blank" rel="noopener">05:04:13</a></td>
+    <td><strong>ตรวจสอบข้อมูลใน BST</strong><div class="muted">เขียนเมธอด contains</div></td>
+    <td class="muted small">BinarySearchTree.js : contains</td>
+  </tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=18866" target="_blank" rel="noopener">05:14:26</a></td>
+    <td><strong>หาค่าต่ำสุดใน BST</strong><div class="muted">เขียนเมธอด minimumNode</div></td>
+    <td class="muted small">BinarySearchTree.js : minimumNode</td>
+  </tr><tr class="part-row"><td colspan="3">ภาคที่ 6 : Graph</td></tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=19316" target="_blank" rel="noopener">05:21:56</a></td>
+    <td><strong>กราฟ (Graph)</strong><div class="muted">แนวคิด Vertex และ Edge</div></td>
+    <td class="muted small">03-data-structure-non-linear/graph/Graph.js</td>
+  </tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=19629" target="_blank" rel="noopener">05:27:09</a></td>
+    <td><strong>Adjacency Matrix</strong><div class="muted">เก็บกราฟด้วยตารางเมทริกซ์</div></td>
+    <td class="muted small">&ndash;</td>
+  </tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=20049" target="_blank" rel="noopener">05:34:09</a></td>
+    <td><strong>Adjacency List</strong><div class="muted">เก็บกราฟด้วยรายการเพื่อนบ้าน</div></td>
+    <td class="muted small">&ndash;</td>
+  </tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=20244" target="_blank" rel="noopener">05:37:24</a></td>
+    <td><strong>สร้างกราฟ (Graph &amp; Vertex)</strong><div class="muted">สร้างคลาส Graph และ addVertex</div></td>
+    <td class="muted small">Graph.js : addVertex</td>
+  </tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=20564" target="_blank" rel="noopener">05:42:44</a></td>
+    <td><strong>เพิ่มเอดจ์ (Edge)</strong><div class="muted">เชื่อมจุดยอดสองจุด</div></td>
+    <td class="muted small">Graph.js : addEdge</td>
+  </tr><tr>
+    <td class="ts"><a href="https://youtu.be/Kpj1xzi1IFw?t=20849" target="_blank" rel="noopener">05:47:29</a></td>
+    <td><strong>ลบเอดจ์ (Edge)</strong><div class="muted">ลบเส้นเชื่อมระหว่างจุดยอด</div></td>
+    <td class="muted small">Graph.js : removeEdge</td>
+  </tr></tbody>
+  </table></div>
+</section>
+
+<section id="concepts">
+  <h2>3. Core Concepts &amp; Usage</h2>
+
+  <h3 id="c-measure">3.1 วัดประสิทธิภาพอัลกอริทึม</h3>
+  <p>ปัญหาเดียวกันแก้ได้หลายวิธี ตัวอย่างคือหาผลรวม 1 + 2 + ... + n เมื่อ n = 300 ล้าน ลองเปรียบเทียบสองวิธี</p>
+  <div class="code-wrap">
+  <div class="code-head"><span class="code-file">01-algorithm/01-summation-loop.js</span>
+    <button class="copy-btn" data-target="code1" type="button">Copy</button></div>
+  <pre><code id="code1"><span class="tk-c">// =====================================================</span>
+<span class="tk-c">// ตัวอย่างที่ 1: หาผลรวม 1 + 2 + 3 + ... + n ด้วยลูป</span>
+<span class="tk-c">// บทเรียน: การวัดประสิทธิภาพอัลกอริทึม / เขียนโปรแกรมจับเวลา</span>
+<span class="tk-c">// =====================================================</span>
+
+<span class="tk-k">function</span> <span class="tk-f">summation</span>(n) {
+  <span class="tk-k">let</span> total = <span class="tk-n">0</span>; <span class="tk-c">// ตัวแปรเก็บผลรวม</span>
+  <span class="tk-k">for</span> (<span class="tk-k">let</span> i = <span class="tk-n">1</span>; i &lt;= n; i++) {
+    total += i; <span class="tk-c">// บวกเลขทีละตัว จึงทำงานทั้งหมด n รอบ</span>
+  }
+  <span class="tk-k">return</span> total;
+}
+
+<span class="tk-k">const</span> n = <span class="tk-n">300_000_000</span>; <span class="tk-c">// สามร้อยล้าน</span>
+
+console.<span class="tk-f">time</span>(<span class="tk-s">"summation (loop)"</span>); <span class="tk-c">// เริ่มจับเวลา</span>
+<span class="tk-f">summation</span>(n);
+console.<span class="tk-f">timeEnd</span>(<span class="tk-s">"summation (loop)"</span>); <span class="tk-c">// หยุดจับเวลาและแสดงผล</span>
+</code></pre>
+</div>
+  <div class="code-wrap">
+  <div class="code-head"><span class="code-file">01-algorithm/02-summation-formula.js</span>
+    <button class="copy-btn" data-target="code2" type="button">Copy</button></div>
+  <pre><code id="code2"><span class="tk-c">// =====================================================</span>
+<span class="tk-c">// ตัวอย่างที่ 2: หาผลรวม 1 + 2 + ... + n ด้วยสูตรคณิตศาสตร์</span>
+<span class="tk-c">// เปรียบเทียบกับ 01-summation-loop.js : ผลลัพธ์เท่ากัน แต่เร็วกว่ามาก</span>
+<span class="tk-c">// =====================================================</span>
+
+<span class="tk-k">function</span> <span class="tk-f">summation</span>(n) {
+  <span class="tk-c">// สูตรผลรวมอนุกรม n(n+1)/2 คำนวณครั้งเดียวไม่ต้องวนลูป</span>
+  <span class="tk-k">return</span> (n * (n + <span class="tk-n">1</span>)) / <span class="tk-n">2</span>;
+}
+
+<span class="tk-k">const</span> n = <span class="tk-n">300_000_000</span>; <span class="tk-c">// สามร้อยล้าน</span>
+
+console.<span class="tk-f">time</span>(<span class="tk-s">"summation (formula)"</span>);
+<span class="tk-f">summation</span>(n);
+console.<span class="tk-f">timeEnd</span>(<span class="tk-s">"summation (formula)"</span>);
+</code></pre>
+</div>
+  <ul>
+    <li><code>console.time(label)</code> เริ่มจับเวลา และ <code>console.timeEnd(label)</code> หยุดแล้วพิมพ์เวลาออกทางหน้าจอ (label ต้องตรงกัน)</li>
+    <li>วิธีลูปทำงาน n รอบ ส่วนวิธีสูตรคำนวณครั้งเดียว ตัวอย่างผลที่ทดลองรันได้คือลูปราว 0.2 วินาที เทียบกับสูตรราว 0.02 มิลลิวินาที (ตัวเลขจริงต่างกันไปตามเครื่อง)</li>
+    <li>เวลาจริงขึ้นกับเครื่องและโหลดขณะรัน จึงต้องมีตัววัดที่ไม่ขึ้นกับเครื่อง คือ <strong>Big-O</strong></li>
+  </ul>
+
+  <h3 id="c-bigo">3.2 Big-O และอัตราการเติบโต</h3>
+  <p>Big-O บอกว่าเวลาทำงาน (หรือจำนวนขั้นตอน) <em>โตเร็วแค่ไหน</em> เมื่อจำนวนข้อมูล n เพิ่มขึ้น โดยดูกรณีแย่สุดและสนใจเฉพาะเทอมที่โตเร็วที่สุด</p>
+  <div class="callout"><strong>วิธีลดรูป:</strong> นับตัวดำเนินการได้ T(n) = 3n + 4 แล้ว (1) ตัดค่าคงที่ (2) ตัดสัมประสิทธิ์หน้า n ได้ <span class="badge">O(n)</span> ส่วนวิธีสูตรได้ T(n) = ค่าคงที่ จึงเป็น <span class="badge">O(1)</span></div>
+  <details class="fold"><summary>ตัวอย่างเสริม: นับตัวดำเนินการและลดรูป (ไฟล์ 09-big-o-counting.js)</summary><div class="code-wrap">
+  <div class="code-head"><span class="code-file">01-algorithm/09-big-o-counting.js</span>
+    <button class="copy-btn" data-target="code3" type="button">Copy</button></div>
+  <pre><code id="code3"><span class="tk-c">// =====================================================</span>
+<span class="tk-c">// ตัวอย่างเสริม: การนับตัวดำเนินการ และการลดรูปเป็น Big-O</span>
+<span class="tk-c">// (เขียนเพิ่มเพื่อทบทวนบท "การนับตัวดำเนินการ" และ "การเขียนลดรูปฟังก์ชั่น"</span>
+<span class="tk-c">//  ไม่ได้อยู่ใน repo โค้ดต้นฉบับของคลิป)</span>
+<span class="tk-c">// =====================================================</span>
+
+<span class="tk-c">// แบบลูป : นับว่าแต่ละบรรทัดทำงานกี่ครั้ง</span>
+<span class="tk-k">function</span> <span class="tk-f">summationLoopCount</span>(n) {
+  <span class="tk-k">let</span> ops = <span class="tk-n">0</span>;
+
+  <span class="tk-k">let</span> total = <span class="tk-n">0</span>;
+  ops++; <span class="tk-c">// total = 0           -&gt; 1 ครั้ง</span>
+  <span class="tk-k">let</span> i = <span class="tk-n">1</span>;
+  ops++; <span class="tk-c">// i = 1               -&gt; 1 ครั้ง</span>
+  <span class="tk-k">while</span> (<span class="tk-k">true</span>) {
+    ops++; <span class="tk-c">// i &lt;= n            -&gt; n + 1 ครั้ง (รวมรอบที่เงื่อนไขเป็นเท็จ)</span>
+    <span class="tk-k">if</span> (!(i &lt;= n)) <span class="tk-k">break</span>;
+    total += i;
+    ops++; <span class="tk-c">// total += i        -&gt; n ครั้ง</span>
+    i++;
+    ops++; <span class="tk-c">// i++               -&gt; n ครั้ง</span>
+  }
+  ops++; <span class="tk-c">// return total       -&gt; 1 ครั้ง</span>
+
+  <span class="tk-k">return</span> { total, ops };
+}
+
+<span class="tk-c">// แบบสูตร : จำนวนครั้งคงที่ ไม่ขึ้นกับ n</span>
+<span class="tk-k">function</span> <span class="tk-f">summationFormulaCount</span>(n) {
+  <span class="tk-k">let</span> ops = <span class="tk-n">0</span>;
+  <span class="tk-k">const</span> total = (n * (n + <span class="tk-n">1</span>)) / <span class="tk-n">2</span>;
+  ops += <span class="tk-n">3</span>; <span class="tk-c">// คูณ 1, บวก 1, หาร 1</span>
+  ops++; <span class="tk-c">// return</span>
+  <span class="tk-k">return</span> { total, ops };
+}
+
+<span class="tk-k">for</span> (<span class="tk-k">const</span> n <span class="tk-k">of</span> [<span class="tk-n">10</span>, <span class="tk-n">100</span>, <span class="tk-n">1000</span>]) {
+  <span class="tk-k">const</span> loop = <span class="tk-f">summationLoopCount</span>(n);
+  <span class="tk-k">const</span> formula = <span class="tk-f">summationFormulaCount</span>(n);
+  console.<span class="tk-f">log</span>(
+    <span class="tk-s">`n=${n}  loop: ${loop.ops} ops (3n+4 = ${3 * n + 4})  |  formula: ${formula.ops} ops`</span>
+  );
+}
+
+<span class="tk-c">// ลดรูป: T(n) = 3n + 4</span>
+<span class="tk-c">//   1) ตัดค่าคงที่ที่ไม่โตตาม n      -&gt; 3n</span>
+<span class="tk-c">//   2) ตัดสัมประสิทธิ์หน้า n          -&gt; n</span>
+<span class="tk-c">//   สรุป O(n)</span>
+<span class="tk-c">// ส่วนแบบสูตร T(n) = 4 (ค่าคงที่)     -&gt; O(1)</span>
+</code></pre>
+</div></details>
+
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>Big-O</th><th>ชื่อ</th><th>ตัวอย่างในคลิป</th><th>ความหมาย</th></tr></thead>
+    <tbody>
+      <tr><td><span class="badge">O(1)</span></td><td>Constant</td><td>เข้าถึง <code>array[0]</code></td><td>เวลาเท่าเดิมไม่ว่าข้อมูลกี่ตัว</td></tr>
+      <tr><td><span class="badge">O(log n)</span></td><td>Logarithm</td><td>Binary Search</td><td>ตัดข้อมูลทิ้งครึ่งหนึ่งทุกรอบ (ต้องเรียงลำดับก่อน)</td></tr>
+      <tr><td><span class="badge">O(n)</span></td><td>Linear</td><td>Linear Search</td><td>ข้อมูลเพิ่มกี่เท่า เวลาเพิ่มกี่เท่า</td></tr>
+      <tr><td><span class="badge">O(n²)</span></td><td>Quadratic</td><td>ลูปซ้อนลูป หาค่าซ้ำ</td><td>ข้อมูลเพิ่ม 10 เท่า เวลาเพิ่ม 100 เท่า</td></tr>
+      <tr><td><span class="badge">O(2ⁿ)</span></td><td>Exponential</td><td>Fibonacci แบบ Recursion</td><td>เพิ่ม n ทีละ 1 เวลาเพิ่มเป็น 2 เท่า</td></tr>
+      <tr><td><span class="badge">O(n!)</span></td><td>Factorial</td><td>Factorial / Permutation</td><td>โตเร็วที่สุดในรายการ ใช้ได้เฉพาะ n เล็กมาก</td></tr>
+    </tbody>
+  </table></div>
+  <p class="muted small">เรียงจากเร็วไปช้า: O(1) &lt; O(log n) &lt; O(n) &lt; O(n²) &lt; O(2ⁿ) &lt; O(n!)</p>
+
+  <details class="fold"><summary>O(1) Constant Time</summary><div class="code-wrap">
+  <div class="code-head"><span class="code-file">01-algorithm/03-constant-time.js</span>
+    <button class="copy-btn" data-target="code4" type="button">Copy</button></div>
+  <pre><code id="code4"><span class="tk-c">// =====================================================</span>
+<span class="tk-c">// Constant Time : O(1)</span>
+<span class="tk-c">// ใช้เวลาเท่าเดิมเสมอ ไม่ว่าข้อมูลจะมีกี่ตัว</span>
+<span class="tk-c">// =====================================================</span>
+
+<span class="tk-k">function</span> <span class="tk-f">firstElement</span>(array) {
+  <span class="tk-k">return</span> array[<span class="tk-n">0</span>]; <span class="tk-c">// เข้าถึงตำแหน่งที่ 0 ได้ทันที = O(1)</span>
+}
+
+<span class="tk-k">const</span> score = [<span class="tk-n">70</span>, <span class="tk-n">30</span>, <span class="tk-n">15</span>, <span class="tk-n">90</span>, <span class="tk-n">50</span>];
+console.<span class="tk-f">log</span>(<span class="tk-f">firstElement</span>(score)); <span class="tk-c">// 70</span>
+</code></pre>
+</div></details>
+  <details class="fold"><summary>O(log n) Logarithm Time : Binary Search</summary><div class="code-wrap">
+  <div class="code-head"><span class="code-file">01-algorithm/04-logarithm-time.js</span>
+    <button class="copy-btn" data-target="code5" type="button">Copy</button></div>
+  <pre><code id="code5"><span class="tk-c">// =====================================================</span>
+<span class="tk-c">// Logarithm Time : O(log n)</span>
+<span class="tk-c">// ตัวอย่าง: Binary Search (ใช้กับอาร์เรย์ที่เรียงลำดับแล้วเท่านั้น)</span>
+<span class="tk-c">// แต่ละรอบตัดข้อมูลทิ้งครึ่งหนึ่ง</span>
+<span class="tk-c">// =====================================================</span>
+
+<span class="tk-k">function</span> <span class="tk-f">binarySearch</span>(array, value) {
+  <span class="tk-k">let</span> firstIndex = <span class="tk-n">0</span>; <span class="tk-c">// ขอบซ้ายของช่วงที่ค้นหา</span>
+  <span class="tk-k">let</span> lastIndex = array.length - <span class="tk-n">1</span>; <span class="tk-c">// ขอบขวาของช่วงที่ค้นหา</span>
+
+  <span class="tk-k">while</span> (firstIndex &lt;= lastIndex) {
+    <span class="tk-c">// หาตำแหน่งตรงกลางของช่วงปัจจุบัน</span>
+    <span class="tk-k">const</span> middleIndex = <span class="tk-t">Math</span>.<span class="tk-f">floor</span>((firstIndex + lastIndex) / <span class="tk-n">2</span>);
+
+    <span class="tk-c">// เจอค่าที่ต้องการ -&gt; คืนตำแหน่ง</span>
+    <span class="tk-k">if</span> (array[middleIndex] === value) {
+      <span class="tk-k">return</span> middleIndex;
+    }
+
+    <span class="tk-k">if</span> (array[middleIndex] &gt; value) {
+      lastIndex = middleIndex - <span class="tk-n">1</span>; <span class="tk-c">// ค่าที่หาอยู่ฝั่งซ้าย ตัดฝั่งขวาทิ้ง</span>
+    } <span class="tk-k">else</span> {
+      firstIndex = middleIndex + <span class="tk-n">1</span>; <span class="tk-c">// ค่าที่หาอยู่ฝั่งขวา ตัดฝั่งซ้ายทิ้ง</span>
+    }
+  }
+  <span class="tk-k">return</span> -<span class="tk-n">1</span>; <span class="tk-c">// หาไม่เจอ</span>
+}
+
+<span class="tk-k">const</span> score = [<span class="tk-n">1</span>, <span class="tk-n">3</span>, <span class="tk-n">5</span>, <span class="tk-n">7</span>, <span class="tk-n">11</span>, <span class="tk-n">13</span>, <span class="tk-n">17</span>, <span class="tk-n">19</span>, <span class="tk-n">23</span>, <span class="tk-n">29</span>, <span class="tk-n">31</span>, <span class="tk-n">37</span>, <span class="tk-n">41</span>, <span class="tk-n">43</span>, <span class="tk-n">47</span>, <span class="tk-n">53</span>, <span class="tk-n">59</span>];
+console.<span class="tk-f">log</span>(<span class="tk-f">binarySearch</span>(score, <span class="tk-n">37</span>)); <span class="tk-c">// 11 (ตำแหน่งของเลข 37)</span>
+console.<span class="tk-f">log</span>(<span class="tk-f">binarySearch</span>(score, <span class="tk-n">100</span>)); <span class="tk-c">// -1 (ไม่พบ)</span>
+</code></pre>
+</div></details>
+  <details class="fold"><summary>O(n) Linear Time : Linear Search</summary><div class="code-wrap">
+  <div class="code-head"><span class="code-file">01-algorithm/05-linear-time.js</span>
+    <button class="copy-btn" data-target="code6" type="button">Copy</button></div>
+  <pre><code id="code6"><span class="tk-c">// =====================================================</span>
+<span class="tk-c">// Linear Time : O(n)</span>
+<span class="tk-c">// ตัวอย่าง: Linear Search ไล่ดูทีละตัว</span>
+<span class="tk-c">// ข้อมูลเพิ่มขึ้นกี่เท่า เวลาก็เพิ่มตามกี่เท่า</span>
+<span class="tk-c">// =====================================================</span>
+
+<span class="tk-k">function</span> <span class="tk-f">search</span>(array, value) {
+  <span class="tk-k">for</span> (<span class="tk-k">let</span> i = <span class="tk-n">0</span>; i &lt; array.length; i++) {
+    <span class="tk-k">if</span> (array[i] === value) {
+      <span class="tk-k">return</span> i; <span class="tk-c">// เจอแล้วคืนตำแหน่ง</span>
+    }
+  }
+  <span class="tk-k">return</span> -<span class="tk-n">1</span>; <span class="tk-c">// วนครบแล้วไม่เจอ (กรณีแย่สุดต้องดูครบ n ตัว)</span>
+}
+
+<span class="tk-k">const</span> score = [<span class="tk-n">12</span>, <span class="tk-n">22</span>, <span class="tk-n">45</span>, <span class="tk-n">67</span>, <span class="tk-n">96</span>];
+console.<span class="tk-f">log</span>(<span class="tk-f">search</span>(score, <span class="tk-n">45</span>)); <span class="tk-c">// 2</span>
+console.<span class="tk-f">log</span>(<span class="tk-f">search</span>(score, <span class="tk-n">100</span>)); <span class="tk-c">// -1</span>
+</code></pre>
+</div></details>
+  <details class="fold"><summary>O(n²) Quadratic Time : ลูปซ้อนลูป</summary><div class="code-wrap">
+  <div class="code-head"><span class="code-file">01-algorithm/06-quadratic-time.js</span>
+    <button class="copy-btn" data-target="code7" type="button">Copy</button></div>
+  <pre><code id="code7"><span class="tk-c">// =====================================================</span>
+<span class="tk-c">// Quadratic Time : O(n^2)</span>
+<span class="tk-c">// ตัวอย่าง: หาค่าซ้ำในอาร์เรย์ด้วยลูปซ้อนลูป</span>
+<span class="tk-c">// =====================================================</span>
+
+<span class="tk-k">function</span> <span class="tk-f">matchElement</span>(array) {
+  <span class="tk-k">for</span> (<span class="tk-k">let</span> i = <span class="tk-n">0</span>; i &lt; array.length; i++) {
+    <span class="tk-c">// ลูปนอก n รอบ</span>
+    <span class="tk-k">for</span> (<span class="tk-k">let</span> j = <span class="tk-n">0</span>; j &lt; array.length; j++) {
+      <span class="tk-c">// ลูปใน n รอบ รวมเป็น n x n</span>
+      <span class="tk-k">if</span> (i !== j &amp;&amp; array[i] === array[j]) {
+        <span class="tk-k">return</span> <span class="tk-s">`ตำแหน่งซ้ำกัน คือ ${i} และ ${j}`</span>;
+      }
+    }
+  }
+  <span class="tk-k">return</span> <span class="tk-s">"ไม่มีค่าซ้ำกันเลย"</span>;
+}
+
+<span class="tk-k">const</span> fruit = [<span class="tk-s">"ส้ม"</span>, <span class="tk-s">"มะละกอ"</span>, <span class="tk-s">"มังคุด"</span>, <span class="tk-s">"ทุเรียน"</span>, <span class="tk-s">"ส้ม"</span>, <span class="tk-s">"แตงกวา"</span>];
+console.<span class="tk-f">log</span>(<span class="tk-f">matchElement</span>(fruit)); <span class="tk-c">// ตำแหน่งซ้ำกัน คือ 0 และ 4</span>
+console.<span class="tk-f">log</span>(<span class="tk-f">matchElement</span>([<span class="tk-s">"ส้ม"</span>, <span class="tk-s">"องุ่น"</span>])); <span class="tk-c">// ไม่มีค่าซ้ำกันเลย</span>
+</code></pre>
+</div></details>
+  <details class="fold"><summary>O(2ⁿ) Exponential Time : Fibonacci</summary><div class="code-wrap">
+  <div class="code-head"><span class="code-file">01-algorithm/07-exponential-time.js</span>
+    <button class="copy-btn" data-target="code8" type="button">Copy</button></div>
+  <pre><code id="code8"><span class="tk-c">// =====================================================</span>
+<span class="tk-c">// Exponential Time : O(2^n)</span>
+<span class="tk-c">// ตัวอย่าง: ฟีโบนัชชีแบบเรียกตัวเอง (Recursion)</span>
+<span class="tk-c">// แต่ละครั้งแตกออกเป็น 2 การเรียก จำนวนครั้งโตเป็นเท่าตัว</span>
+<span class="tk-c">// =====================================================</span>
+
+<span class="tk-k">function</span> <span class="tk-f">fibonacci</span>(n) {
+  <span class="tk-k">if</span> (n &lt;= <span class="tk-n">1</span>) {
+    <span class="tk-k">return</span> n; <span class="tk-c">// เงื่อนไขหยุดการเรียกตัวเอง (Base case)</span>
+  }
+  <span class="tk-k">return</span> <span class="tk-f">fibonacci</span>(n - <span class="tk-n">2</span>) + <span class="tk-f">fibonacci</span>(n - <span class="tk-n">1</span>);
+}
+
+console.<span class="tk-f">log</span>(<span class="tk-f">fibonacci</span>(<span class="tk-n">6</span>)); <span class="tk-c">// 8</span>
+<span class="tk-c">// ลองเพิ่มเป็น fibonacci(40) จะเห็นว่าช้าลงมาก</span>
+</code></pre>
+</div></details>
+  <details class="fold"><summary>O(n!) Factorial Time</summary><div class="code-wrap">
+  <div class="code-head"><span class="code-file">01-algorithm/08-factorial-time.js</span>
+    <button class="copy-btn" data-target="code9" type="button">Copy</button></div>
+  <pre><code id="code9"><span class="tk-c">// =====================================================</span>
+<span class="tk-c">// Factorial Time : O(n!)</span>
+<span class="tk-c">// ตัวอย่าง: คำนวณแฟกทอเรียลด้วย Recursion ตามที่สอนในคลิป</span>
+<span class="tk-c">//</span>
+<span class="tk-c">// ข้อควรรู้: ตัวฟังก์ชัน factorial ด้านล่างเรียกตัวเองครั้งละ 1 ครั้ง</span>
+<span class="tk-c">// จึงทำงานประมาณ n ครั้ง (เวลาจริงของฟังก์ชันนี้เป็น O(n))</span>
+<span class="tk-c">// ส่วนคลาส O(n!) หมายถึงงานที่จำนวนขั้นตอนโตตาม n! เช่น</span>
+<span class="tk-c">// การไล่สร้างการเรียงสับเปลี่ยน (Permutation) ทุกแบบ ดูตัวอย่างท้ายไฟล์</span>
+<span class="tk-c">// =====================================================</span>
+
+<span class="tk-k">function</span> <span class="tk-f">factorial</span>(n) {
+  <span class="tk-k">if</span> (n &lt;= <span class="tk-n">1</span>) {
+    <span class="tk-k">return</span> <span class="tk-n">1</span>; <span class="tk-c">// Base case (ใช้ &lt;= 1 เพื่อกัน n = 0 วนไม่รู้จบ)</span>
+  }
+  <span class="tk-k">return</span> n * <span class="tk-f">factorial</span>(n - <span class="tk-n">1</span>);
+}
+
+console.<span class="tk-f">log</span>(<span class="tk-f">factorial</span>(<span class="tk-n">5</span>)); <span class="tk-c">// 120  (5 x 4 x 3 x 2 x 1)</span>
+
+<span class="tk-c">// ตัวอย่างเสริม: Permutation ของ n ตัว มี n! แบบ จึงเป็น O(n!)</span>
+<span class="tk-k">function</span> <span class="tk-f">permutations</span>(items) {
+  <span class="tk-k">if</span> (items.length &lt;= <span class="tk-n">1</span>) <span class="tk-k">return</span> [items];
+  <span class="tk-k">const</span> result = [];
+  <span class="tk-k">for</span> (<span class="tk-k">let</span> i = <span class="tk-n">0</span>; i &lt; items.length; i++) {
+    <span class="tk-k">const</span> rest = [...items.<span class="tk-f">slice</span>(<span class="tk-n">0</span>, i), ...items.<span class="tk-f">slice</span>(i + <span class="tk-n">1</span>)];
+    <span class="tk-k">for</span> (<span class="tk-k">const</span> p <span class="tk-k">of</span> <span class="tk-f">permutations</span>(rest)) {
+      result.<span class="tk-f">push</span>([items[i], ...p]);
+    }
+  }
+  <span class="tk-k">return</span> result;
+}
+
+console.<span class="tk-f">log</span>(<span class="tk-f">permutations</span>([<span class="tk-n">1</span>, <span class="tk-n">2</span>, <span class="tk-n">3</span>]).length); <span class="tk-c">// 6 (= 3!)</span>
+</code></pre>
+</div></details>
+
+  <h3 id="c-ll">3.3 Linked List</h3>
+  <p>ลิสต์ที่โหนดแต่ละตัวเก็บ <code>value</code> และตัวชี้ <code>next</code> ไปยังโหนดถัดไป มีตัวชี้ <code>head</code> (โหนดแรก) และ <code>tail</code> (โหนดสุดท้าย) ข้อดีคือเพิ่ม/ลบหน้าลิสต์ได้เร็วโดยไม่ต้องขยับข้อมูลอื่น ข้อเสียคือเข้าถึงตามตำแหน่งต้องไล่จาก head</p>
+  <div class="tbl-scroll"><table>
+    <thead><tr><th>เมธอด</th><th>หน้าที่</th><th>Big-O</th></tr></thead>
+    <tbody>
+      <tr><td><code>push(value)</code></td><td>เพิ่มท้ายลิสต์</td><td><span class="badge">O(1)</span></td></tr>
+      <tr><td><code>pop()</code></td><td>ลบท้ายลิสต์ (ต้องไล่หาโหนดก่อน tail)</td><td><span class="badge">O(n)</span></td></tr>
+      <tr><td><code>unshift(value)</code></td><td>เพิ่มหน้าลิสต์</td><td><span class="badge">O(1)</span></td></tr>
+      <tr><td><code>shift()</code></td><td>ลบหน้าลิสต์</td><td><span class="badge">O(1)</span></td></tr>
+      <tr><td><code>get(index)</code></td><td>ดึงโหนดตามตำแหน่ง</td><td><span class="badge">O(n)</span></td></tr>
+      <tr><td><code>set(index, value)</code></td><td>แก้ค่าโหนดตามตำแหน่ง</td><td><span class="badge">O(n)</span></td></tr>
+      <tr><td><code>insert(index, value)</code></td><td>แทรกโหนด</td><td><span class="badge">O(n)</span></td></tr>
+      <tr><td><code>remove(index)</code></td><td>ลบโหนดตามตำแหน่ง</td><td><span class="badge">O(n)</span></td></tr>
+      <tr><td><code>reverse()</code></td><td>กลับด้านลิสต์</td><td><span class="badge">O(n)</span></td></tr>
+    </tbody>
+  </table></div>
+  <div class="callout"><strong>จุดที่ต้องระวัง:</strong> ทุกเมธอดที่ลบหรือเพิ่มต้องดูกรณีลิสต์ว่าง/เหลือโหนดเดียว เพราะต้องอัปเดตทั้ง <code>head</code> และ <code>tail</code> ให้ตรงกัน</div>
+  <details class="fold"><summary>LinkedList.js (คลาสเต็ม)</summary><div class="code-wrap">
+  <div class="code-head"><span class="code-file">02-data-structure-linear/linked-list/LinkedList.js</span>
+    <button class="copy-btn" data-target="code10" type="button">Copy</button></div>
+  <pre><code id="code10"><span class="tk-c">// =====================================================</span>
+<span class="tk-c">// Linked List (ลิงค์ลิสต์ทางเดียว)</span>
+<span class="tk-c">// แต่ละ Node เก็บ value และชี้ไปยัง Node ถัดไป (next)</span>
+<span class="tk-c">// มี head = โหนดแรก, tail = โหนดสุดท้าย, length = จำนวนโหนด</span>
+<span class="tk-c">// =====================================================</span>
+
+<span class="tk-k">class</span> <span class="tk-t">Node</span> {
+  <span class="tk-k">constructor</span>(value) {
+    <span class="tk-k">this</span>.value = value; <span class="tk-c">// ข้อมูลที่เก็บ</span>
+    <span class="tk-k">this</span>.next = <span class="tk-k">null</span>; <span class="tk-c">// ตัวชี้ไปโหนดถัดไป (ตอนแรกยังไม่มี)</span>
+  }
+}
+
+<span class="tk-k">class</span> <span class="tk-t">LinkedList</span> {
+  <span class="tk-c">// สร้างลิสต์พร้อมโหนดแรก 1 โหนด</span>
+  <span class="tk-k">constructor</span>(value) {
+    <span class="tk-k">const</span> newNode = <span class="tk-k">new</span> <span class="tk-f">Node</span>(value);
+    <span class="tk-k">this</span>.head = newNode;
+    <span class="tk-k">this</span>.tail = <span class="tk-k">this</span>.head;
+    <span class="tk-k">this</span>.length = <span class="tk-n">1</span>;
+  }
+
+  <span class="tk-c">// แสดงค่าทุกโหนดตั้งแต่ head ถึง tail</span>
+  <span class="tk-f">showList</span>() {
+    <span class="tk-k">let</span> temp = <span class="tk-k">this</span>.head;
+    <span class="tk-k">while</span> (temp !== <span class="tk-k">null</span>) {
+      console.<span class="tk-f">log</span>(temp.value);
+      temp = temp.next;
+    }
+  }
+
+  <span class="tk-c">// push: เพิ่มโหนดต่อท้าย O(1)</span>
+  <span class="tk-f">push</span>(value) {
+    <span class="tk-k">const</span> newNode = <span class="tk-k">new</span> <span class="tk-f">Node</span>(value);
+    <span class="tk-k">if</span> (!<span class="tk-k">this</span>.head) {
+      <span class="tk-c">// ลิสต์ว่าง -&gt; โหนดใหม่เป็นทั้ง head และ tail</span>
+      <span class="tk-k">this</span>.head = newNode;
+      <span class="tk-k">this</span>.tail = newNode;
+    } <span class="tk-k">else</span> {
+      <span class="tk-k">this</span>.tail.next = newNode; <span class="tk-c">// ให้ tail เดิมชี้ไปโหนดใหม่</span>
+      <span class="tk-k">this</span>.tail = newNode; <span class="tk-c">// ย้าย tail มาที่โหนดใหม่</span>
+    }
+    <span class="tk-k">this</span>.length++;
+    <span class="tk-k">return</span> <span class="tk-k">this</span>;
+  }
+
+  <span class="tk-c">// pop: ลบโหนดท้ายสุด O(n) เพราะต้องไล่หาโหนดก่อนหน้า tail</span>
+  <span class="tk-f">pop</span>() {
+    <span class="tk-k">if</span> (<span class="tk-k">this</span>.length === <span class="tk-n">0</span>) <span class="tk-k">return</span> <span class="tk-k">undefined</span>;
+    <span class="tk-k">let</span> temp = <span class="tk-k">this</span>.head;
+    <span class="tk-k">let</span> pre = <span class="tk-k">this</span>.head;
+    <span class="tk-k">while</span> (temp.next) {
+      pre = temp; <span class="tk-c">// pre ตามหลัง temp อยู่ 1 โหนด</span>
+      temp = temp.next;
+    }
+    <span class="tk-k">this</span>.tail = pre; <span class="tk-c">// ถอย tail ไปโหนดก่อนหน้า</span>
+    <span class="tk-k">this</span>.tail.next = <span class="tk-k">null</span>; <span class="tk-c">// ตัดโหนดท้ายออก</span>
+    <span class="tk-k">this</span>.length--;
+    <span class="tk-k">if</span> (<span class="tk-k">this</span>.length === <span class="tk-n">0</span>) {
+      <span class="tk-c">// ลบจนหมดลิสต์ ต้องเคลียร์ head/tail ด้วย</span>
+      <span class="tk-k">this</span>.head = <span class="tk-k">null</span>;
+      <span class="tk-k">this</span>.tail = <span class="tk-k">null</span>;
+    }
+    <span class="tk-k">return</span> temp;
+  }
+
+  <span class="tk-c">// unshift: เพิ่มโหนดไว้หน้าสุด O(1)</span>
+  <span class="tk-f">unshift</span>(value) {
+    <span class="tk-k">const</span> newNode = <span class="tk-k">new</span> <span class="tk-f">Node</span>(value);
+    <span class="tk-k">if</span> (!<span class="tk-k">this</span>.head) {
+      <span class="tk-k">this</span>.head = newNode;
+      <span class="tk-k">this</span>.tail = newNode;
+    } <span class="tk-k">else</span> {
+      newNode.next = <span class="tk-k">this</span>.head; <span class="tk-c">// โหนดใหม่ชี้ไป head เดิม</span>
+      <span class="tk-k">this</span>.head = newNode; <span class="tk-c">// ย้าย head มาที่โหนดใหม่</span>
+    }
+    <span class="tk-k">this</span>.length++;
+    <span class="tk-k">return</span> <span class="tk-k">this</span>;
+  }
+
+  <span class="tk-c">// shift: ลบโหนดหน้าสุด O(1)</span>
+  <span class="tk-f">shift</span>() {
+    <span class="tk-k">if</span> (<span class="tk-k">this</span>.length === <span class="tk-n">0</span>) <span class="tk-k">return</span> <span class="tk-k">undefined</span>;
+    <span class="tk-k">let</span> temp = <span class="tk-k">this</span>.head;
+    <span class="tk-k">this</span>.head = <span class="tk-k">this</span>.head.next; <span class="tk-c">// ขยับ head ไปโหนดถัดไป</span>
+    <span class="tk-k">this</span>.length--;
+    <span class="tk-k">if</span> (<span class="tk-k">this</span>.length === <span class="tk-n">0</span>) {
+      <span class="tk-k">this</span>.tail = <span class="tk-k">null</span>;
+    }
+    temp.next = <span class="tk-k">null</span>; <span class="tk-c">// ตัดโหนดที่ลบออกจากลิสต์</span>
+    <span class="tk-k">return</span> temp;
+  }
+
+  <span class="tk-c">// get: ดึงโหนดตามตำแหน่ง index O(n)</span>
+  <span class="tk-f">get</span>(index) {
+    <span class="tk-k">if</span> (index &lt; <span class="tk-n">0</span> || index &gt;= <span class="tk-k">this</span>.length) <span class="tk-k">return</span> <span class="tk-k">undefined</span>;
+    <span class="tk-k">let</span> temp = <span class="tk-k">this</span>.head;
+    <span class="tk-k">for</span> (<span class="tk-k">let</span> i = <span class="tk-n">0</span>; i &lt; index; i++) {
+      temp = temp.next;
+    }
+    <span class="tk-k">return</span> temp;
+  }
+
+  <span class="tk-c">// set: เปลี่ยนค่าของโหนดที่ตำแหน่ง index</span>
+  <span class="tk-f">set</span>(index, value) {
+    <span class="tk-k">const</span> temp = <span class="tk-k">this</span>.<span class="tk-f">get</span>(index);
+    <span class="tk-k">if</span> (temp) {
+      temp.value = value;
+      <span class="tk-k">return</span> <span class="tk-k">true</span>;
+    }
+    <span class="tk-k">return</span> <span class="tk-k">false</span>;
+  }
+
+  <span class="tk-c">// insert: แทรกโหนดใหม่ที่ตำแหน่ง index</span>
+  <span class="tk-f">insert</span>(index, value) {
+    <span class="tk-k">if</span> (index &lt; <span class="tk-n">0</span> || index &gt; <span class="tk-k">this</span>.length) <span class="tk-k">return</span> <span class="tk-k">false</span>;
+    <span class="tk-k">if</span> (index === <span class="tk-k">this</span>.length) <span class="tk-k">return</span> <span class="tk-k">this</span>.<span class="tk-f">push</span>(value); <span class="tk-c">// แทรกท้ายสุด</span>
+    <span class="tk-k">if</span> (index === <span class="tk-n">0</span>) <span class="tk-k">return</span> <span class="tk-k">this</span>.<span class="tk-f">unshift</span>(value); <span class="tk-c">// แทรกหน้าสุด</span>
+
+    <span class="tk-k">const</span> newNode = <span class="tk-k">new</span> <span class="tk-f">Node</span>(value);
+    <span class="tk-k">const</span> temp = <span class="tk-k">this</span>.<span class="tk-f">get</span>(index - <span class="tk-n">1</span>); <span class="tk-c">// โหนดก่อนตำแหน่งที่จะแทรก</span>
+    newNode.next = temp.next; <span class="tk-c">// โหนดใหม่ชี้ไปโหนดเดิมที่ตำแหน่งนั้น</span>
+    temp.next = newNode; <span class="tk-c">// โหนดก่อนหน้าชี้มาที่โหนดใหม่</span>
+    <span class="tk-k">this</span>.length++;
+    <span class="tk-k">return</span> <span class="tk-k">true</span>;
+  }
+
+  <span class="tk-c">// remove: ลบโหนดที่ตำแหน่ง index</span>
+  <span class="tk-f">remove</span>(index) {
+    <span class="tk-k">if</span> (index &lt; <span class="tk-n">0</span> || index &gt;= <span class="tk-k">this</span>.length) <span class="tk-k">return</span> <span class="tk-k">undefined</span>;
+    <span class="tk-k">if</span> (index === <span class="tk-n">0</span>) <span class="tk-k">return</span> <span class="tk-k">this</span>.<span class="tk-f">shift</span>();
+    <span class="tk-k">if</span> (index === <span class="tk-k">this</span>.length - <span class="tk-n">1</span>) <span class="tk-k">return</span> <span class="tk-k">this</span>.<span class="tk-f">pop</span>();
+
+    <span class="tk-k">const</span> before = <span class="tk-k">this</span>.<span class="tk-f">get</span>(index - <span class="tk-n">1</span>);
+    <span class="tk-k">const</span> temp = before.next; <span class="tk-c">// โหนดที่จะลบ</span>
+    before.next = temp.next; <span class="tk-c">// ข้ามโหนดที่ลบไป</span>
+    temp.next = <span class="tk-k">null</span>;
+    <span class="tk-k">this</span>.length--;
+    <span class="tk-k">return</span> temp;
+  }
+
+  <span class="tk-c">// reverse: กลับด้านลิสต์ O(n)</span>
+  <span class="tk-f">reverse</span>() {
+    <span class="tk-k">let</span> temp = <span class="tk-k">this</span>.head;
+    <span class="tk-k">this</span>.head = <span class="tk-k">this</span>.tail; <span class="tk-c">// สลับ head กับ tail</span>
+    <span class="tk-k">this</span>.tail = temp;
+
+    <span class="tk-k">let</span> next = temp.next;
+    <span class="tk-k">let</span> prev = <span class="tk-k">null</span>;
+    <span class="tk-k">for</span> (<span class="tk-k">let</span> i = <span class="tk-n">0</span>; i &lt; <span class="tk-k">this</span>.length; i++) {
+      next = temp.next; <span class="tk-c">// จำโหนดถัดไปไว้ก่อน</span>
+      temp.next = prev; <span class="tk-c">// กลับทิศลูกศรให้ชี้ไปโหนดก่อนหน้า</span>
+      prev = temp; <span class="tk-c">// ขยับ prev และ temp ไปข้างหน้า</span>
+      temp = next;
+    }
+    <span class="tk-k">return</span> <span class="tk-k">this</span>;
+  }
+}
+
+<span class="tk-k">module</span>.<span class="tk-k">exports</span> = { <span class="tk-t">Node</span>, <span class="tk-t">LinkedList</span> };
+</code></pre>
+</div></details>
+  <details class="fold"><summary>demo.js (วิธีเรียกใช้)</summary><div class="code-wrap">
+  <div class="code-head"><span class="code-file">02-data-structure-linear/linked-list/demo.js</span>
+    <button class="copy-btn" data-target="code11" type="button">Copy</button></div>
+  <pre><code id="code11"><span class="tk-c">// ตัวอย่างการใช้งาน LinkedList ไล่ตามลำดับในคลิป</span>
+<span class="tk-c">// รันด้วย: node demo.js</span>
+
+<span class="tk-k">const</span> { <span class="tk-t">LinkedList</span> } = <span class="tk-k">require</span>(<span class="tk-s">"./LinkedList"</span>);
+
+<span class="tk-c">// 1) Constructor</span>
+<span class="tk-k">const</span> myLinkedList = <span class="tk-k">new</span> <span class="tk-f">LinkedList</span>(<span class="tk-n">1</span>);
+console.<span class="tk-f">log</span>(<span class="tk-s">"1) constructor:"</span>, myLinkedList);
+
+<span class="tk-c">// 2) Push</span>
+myLinkedList.<span class="tk-f">push</span>(<span class="tk-n">2</span>);
+myLinkedList.<span class="tk-f">push</span>(<span class="tk-n">3</span>);
+console.<span class="tk-f">log</span>(<span class="tk-s">"2) push 2, 3:"</span>);
+myLinkedList.<span class="tk-f">showList</span>(); <span class="tk-c">// 1 2 3</span>
+
+<span class="tk-c">// 3) Pop</span>
+console.<span class="tk-f">log</span>(<span class="tk-s">"3) pop -&gt;"</span>, myLinkedList.<span class="tk-f">pop</span>().value); <span class="tk-c">// 3</span>
+myLinkedList.<span class="tk-f">showList</span>(); <span class="tk-c">// 1 2</span>
+
+<span class="tk-c">// 4) Unshift</span>
+myLinkedList.<span class="tk-f">unshift</span>(<span class="tk-n">4</span>);
+console.<span class="tk-f">log</span>(<span class="tk-s">"4) unshift 4:"</span>);
+myLinkedList.<span class="tk-f">showList</span>(); <span class="tk-c">// 4 1 2</span>
+
+<span class="tk-c">// 5) Shift</span>
+console.<span class="tk-f">log</span>(<span class="tk-s">"5) shift -&gt;"</span>, myLinkedList.<span class="tk-f">shift</span>().value); <span class="tk-c">// 4</span>
+myLinkedList.<span class="tk-f">showList</span>(); <span class="tk-c">// 1 2</span>
+
+<span class="tk-c">// 6) Get</span>
+console.<span class="tk-f">log</span>(<span class="tk-s">"6) get(0) -&gt;"</span>, myLinkedList.<span class="tk-f">get</span>(<span class="tk-n">0</span>).value); <span class="tk-c">// 1</span>
+console.<span class="tk-f">log</span>(<span class="tk-s">"   get(1) -&gt;"</span>, myLinkedList.<span class="tk-f">get</span>(<span class="tk-n">1</span>).value); <span class="tk-c">// 2</span>
+console.<span class="tk-f">log</span>(<span class="tk-s">"   get(-1) -&gt;"</span>, myLinkedList.<span class="tk-f">get</span>(-<span class="tk-n">1</span>)); <span class="tk-c">// undefined</span>
+console.<span class="tk-f">log</span>(<span class="tk-s">"   get(10) -&gt;"</span>, myLinkedList.<span class="tk-f">get</span>(<span class="tk-n">10</span>)); <span class="tk-c">// undefined</span>
+
+<span class="tk-c">// 7) Set</span>
+console.<span class="tk-f">log</span>(<span class="tk-s">"7) set(1, 5) -&gt;"</span>, myLinkedList.<span class="tk-f">set</span>(<span class="tk-n">1</span>, <span class="tk-n">5</span>)); <span class="tk-c">// true</span>
+myLinkedList.<span class="tk-f">showList</span>(); <span class="tk-c">// 1 5</span>
+
+<span class="tk-c">// 8) Insert</span>
+myLinkedList.<span class="tk-f">insert</span>(<span class="tk-n">1</span>, <span class="tk-n">4</span>);
+console.<span class="tk-f">log</span>(<span class="tk-s">"8) insert(1, 4):"</span>);
+myLinkedList.<span class="tk-f">showList</span>(); <span class="tk-c">// 1 4 5</span>
+
+<span class="tk-c">// 9) Remove</span>
+console.<span class="tk-f">log</span>(<span class="tk-s">"9) remove(1) -&gt;"</span>, myLinkedList.<span class="tk-f">remove</span>(<span class="tk-n">1</span>).value); <span class="tk-c">// 4</span>
+myLinkedList.<span class="tk-f">showList</span>(); <span class="tk-c">// 1 5</span>
+
+<span class="tk-c">// 10) Reverse</span>
+myLinkedList.<span class="tk-f">push</span>(<span class="tk-n">6</span>);
+console.<span class="tk-f">log</span>(<span class="tk-s">"10) before reverse:"</span>);
+myLinkedList.<span class="tk-f">showList</span>(); <span class="tk-c">// 1 5 6</span>
+myLinkedList.<span class="tk-f">reverse</span>();
+console.<span class="tk-f">log</span>(<span class="tk-s">"    after reverse:"</span>);
+myLinkedList.<span class="tk-f">showList</span>(); <span class="tk-c">// 6 5 1</span>
+</code></pre>
+</div></details>
+
+  <h3 id="c-stack">3.4 Stack</h3>
+  <p>หลักการ <strong>LIFO</strong> (เข้าทีหลังออกก่อน) เหมือนกองจาน ใช้ตัวชี้ <code>top</code> ชี้ข้อมูลบนสุด ทั้ง <code>push</code> และ <code>pop</code> เป็น <span class="badge">O(1)</span> ตัวอย่างการใช้งานจริงคือปุ่ม Undo, ประวัติการย้อนกลับของเบราว์เซอร์ และ Call Stack ของโปรแกรม</p>
+  <details class="fold"><summary>Stack.js</summary><div class="code-wrap">
+  <div class="code-head"><span class="code-file">02-data-structure-linear/stack/Stack.js</span>
+    <button class="copy-btn" data-target="code12" type="button">Copy</button></div>
+  <pre><code id="code12"><span class="tk-c">// =====================================================</span>
+<span class="tk-c">// Stack (สแต็ก) : หลักการ LIFO (Last In, First Out)</span>
+<span class="tk-c">// เข้าทีหลังออกก่อน เหมือนกองจาน</span>
+<span class="tk-c">// ใช้โครงสร้างแบบ Linked List โดยมีตัวชี้ top ที่ข้างบนสุด</span>
+<span class="tk-c">// =====================================================</span>
+
+<span class="tk-k">class</span> <span class="tk-t">Node</span> {
+  <span class="tk-k">constructor</span>(value) {
+    <span class="tk-k">this</span>.value = value;
+    <span class="tk-k">this</span>.next = <span class="tk-k">null</span>; <span class="tk-c">// ชี้ไปโหนดที่อยู่ใต้มันลงไป</span>
+  }
+}
+
+<span class="tk-k">class</span> <span class="tk-t">Stack</span> {
+  <span class="tk-k">constructor</span>(value) {
+    <span class="tk-k">const</span> newNode = <span class="tk-k">new</span> <span class="tk-f">Node</span>(value);
+    <span class="tk-k">this</span>.top = newNode; <span class="tk-c">// โหนดบนสุดของสแต็ก</span>
+    <span class="tk-k">this</span>.length = <span class="tk-n">1</span>;
+  }
+
+  <span class="tk-c">// แสดงข้อมูลจากบนสุดลงล่าง</span>
+  <span class="tk-f">printStack</span>() {
+    <span class="tk-k">let</span> temp = <span class="tk-k">this</span>.top;
+    <span class="tk-k">while</span> (temp !== <span class="tk-k">null</span>) {
+      console.<span class="tk-f">log</span>(temp.value);
+      temp = temp.next;
+    }
+  }
+
+  <span class="tk-c">// push: ใส่ข้อมูลบนสุด O(1)</span>
+  <span class="tk-f">push</span>(value) {
+    <span class="tk-k">const</span> newNode = <span class="tk-k">new</span> <span class="tk-f">Node</span>(value);
+    <span class="tk-k">if</span> (<span class="tk-k">this</span>.length === <span class="tk-n">0</span>) {
+      <span class="tk-k">this</span>.top = newNode;
+    } <span class="tk-k">else</span> {
+      newNode.next = <span class="tk-k">this</span>.top; <span class="tk-c">// โหนดใหม่ชี้ไปที่ top เดิม</span>
+      <span class="tk-k">this</span>.top = newNode; <span class="tk-c">// ให้โหนดใหม่เป็น top</span>
+    }
+    <span class="tk-k">this</span>.length++;
+    <span class="tk-k">return</span> <span class="tk-k">this</span>;
+  }
+
+  <span class="tk-c">// pop: เอาข้อมูลบนสุดออก O(1)</span>
+  <span class="tk-f">pop</span>() {
+    <span class="tk-k">if</span> (<span class="tk-k">this</span>.length === <span class="tk-n">0</span>) <span class="tk-k">return</span> <span class="tk-k">undefined</span>;
+    <span class="tk-k">const</span> temp = <span class="tk-k">this</span>.top;
+    <span class="tk-k">this</span>.top = <span class="tk-k">this</span>.top.next; <span class="tk-c">// ย้าย top ลงไป 1 ชั้น</span>
+    temp.next = <span class="tk-k">null</span>;
+    <span class="tk-k">this</span>.length--;
+    <span class="tk-k">return</span> temp;
+  }
+}
+
+<span class="tk-k">module</span>.<span class="tk-k">exports</span> = { <span class="tk-t">Node</span>, <span class="tk-t">Stack</span> };
+</code></pre>
+</div></details>
+
+  <h3 id="c-queue">3.5 Queue</h3>
+  <p>หลักการ <strong>FIFO</strong> (เข้าก่อนออกก่อน) เหมือนต่อแถว มี <code>first</code> (หัวคิว) และ <code>last</code> (ท้ายคิว) ทั้ง <code>enqueue</code> และ <code>dequeue</code> เป็น <span class="badge">O(1)</span> ตัวอย่างการใช้งานจริงคือคิวงานพิมพ์ คิวข้อความ และการประมวลผลตามลำดับ</p>
+  <details class="fold"><summary>Queue.js</summary><div class="code-wrap">
+  <div class="code-head"><span class="code-file">02-data-structure-linear/queue/Queue.js</span>
+    <button class="copy-btn" data-target="code13" type="button">Copy</button></div>
+  <pre><code id="code13"><span class="tk-c">// =====================================================</span>
+<span class="tk-c">// Queue (คิว) : หลักการ FIFO (First In, First Out)</span>
+<span class="tk-c">// เข้าก่อนออกก่อน เหมือนต่อแถวซื้อของ</span>
+<span class="tk-c">// first = หัวคิว (ออกจากตรงนี้), last = ท้ายคิว (เข้าตรงนี้)</span>
+<span class="tk-c">// =====================================================</span>
+
+<span class="tk-k">class</span> <span class="tk-t">Node</span> {
+  <span class="tk-k">constructor</span>(value) {
+    <span class="tk-k">this</span>.value = value;
+    <span class="tk-k">this</span>.next = <span class="tk-k">null</span>;
+  }
+}
+
+<span class="tk-k">class</span> <span class="tk-t">Queue</span> {
+  <span class="tk-k">constructor</span>(value) {
+    <span class="tk-k">const</span> newNode = <span class="tk-k">new</span> <span class="tk-f">Node</span>(value);
+    <span class="tk-k">this</span>.first = newNode;
+    <span class="tk-k">this</span>.last = newNode;
+    <span class="tk-k">this</span>.length = <span class="tk-n">1</span>;
+  }
+
+  <span class="tk-c">// แสดงข้อมูลจากหัวคิวไปท้ายคิว</span>
+  <span class="tk-f">printQueue</span>() {
+    <span class="tk-k">let</span> temp = <span class="tk-k">this</span>.first;
+    <span class="tk-k">while</span> (temp !== <span class="tk-k">null</span>) {
+      console.<span class="tk-f">log</span>(temp.value);
+      temp = temp.next;
+    }
+  }
+
+  <span class="tk-c">// enqueue: เข้าคิวที่ท้ายแถว O(1)</span>
+  <span class="tk-f">enqueue</span>(value) {
+    <span class="tk-k">const</span> newNode = <span class="tk-k">new</span> <span class="tk-f">Node</span>(value);
+    <span class="tk-k">if</span> (<span class="tk-k">this</span>.length === <span class="tk-n">0</span>) {
+      <span class="tk-k">this</span>.first = newNode;
+      <span class="tk-k">this</span>.last = newNode;
+    } <span class="tk-k">else</span> {
+      <span class="tk-k">this</span>.last.next = newNode;
+      <span class="tk-k">this</span>.last = newNode;
+    }
+    <span class="tk-k">this</span>.length++;
+    <span class="tk-k">return</span> <span class="tk-k">this</span>;
+  }
+
+  <span class="tk-c">// dequeue: ออกจากคิวที่หัวแถว O(1)</span>
+  <span class="tk-f">dequeue</span>() {
+    <span class="tk-k">if</span> (<span class="tk-k">this</span>.length === <span class="tk-n">0</span>) <span class="tk-k">return</span> <span class="tk-k">undefined</span>;
+    <span class="tk-k">const</span> temp = <span class="tk-k">this</span>.first;
+    <span class="tk-k">if</span> (<span class="tk-k">this</span>.length === <span class="tk-n">1</span>) {
+      <span class="tk-c">// เหลือคนสุดท้าย คิวจะว่าง</span>
+      <span class="tk-k">this</span>.first = <span class="tk-k">null</span>;
+      <span class="tk-k">this</span>.last = <span class="tk-k">null</span>;
+    } <span class="tk-k">else</span> {
+      <span class="tk-k">this</span>.first = <span class="tk-k">this</span>.first.next; <span class="tk-c">// ขยับหัวคิวไปคนถัดไป</span>
+      temp.next = <span class="tk-k">null</span>;
+    }
+    <span class="tk-k">this</span>.length--;
+    <span class="tk-k">return</span> temp;
+  }
+}
+
+<span class="tk-k">module</span>.<span class="tk-k">exports</span> = { <span class="tk-t">Node</span>, <span class="tk-t">Queue</span> };
+</code></pre>
+</div></details>
+
+  <h3 id="c-bst">3.6 Tree และ Binary Search Tree</h3>
+  <p>Tree เป็นโครงสร้างแบบลำดับชั้น มี root เป็นจุดเริ่มและแต่ละโหนดมีลูกได้ Binary Tree จำกัดลูกไม่เกิน 2 (<code>left</code>, <code>right</code>) ส่วน <strong>BST</strong> เพิ่มกฎว่าค่าน้อยกว่าอยู่ซ้าย ค่ามากกว่าอยู่ขวา ทำให้ค้นหาได้เร็วแบบตัดครึ่งทีละชั้น</p>
+  <div class="code-wrap"><div class="code-head"><span class="code-file">แผนภาพ BST ตัวอย่าง</span></div><pre><code>            47
+          /    \
+        21      76
+       /  \    /  \
+     18   27  52   82</code></pre></div>
+  <ul>
+    <li><code>insert</code> และ <code>contains</code> : เฉลี่ย <span class="badge">O(log n)</span> แต่ถ้าทรีเอียงข้างเดียว (เช่น ใส่ข้อมูลเรียงลำดับ) จะแย่ลงเป็น <span class="badge">O(n)</span></li>
+    <li><code>minimumNode</code> : ไปทางซ้ายสุดเสมอ</li>
+    <li>ไม่เก็บค่าซ้ำ ถ้า insert ค่าที่มีอยู่แล้วจะได้ <code>undefined</code></li>
+  </ul>
+  <details class="fold"><summary>BinarySearchTree.js</summary><div class="code-wrap">
+  <div class="code-head"><span class="code-file">03-data-structure-non-linear/tree/BinarySearchTree.js</span>
+    <button class="copy-btn" data-target="code14" type="button">Copy</button></div>
+  <pre><code id="code14"><span class="tk-c">// =====================================================</span>
+<span class="tk-c">// Binary Search Tree (BST)</span>
+<span class="tk-c">// กฎ: ค่าที่น้อยกว่าโหนดแม่ไปทางซ้าย, ค่าที่มากกว่าไปทางขวา</span>
+<span class="tk-c">// แต่ละโหนดมีลูกได้ไม่เกิน 2 โหนด (left, right)</span>
+<span class="tk-c">// =====================================================</span>
+
+<span class="tk-k">class</span> <span class="tk-t">Node</span> {
+  <span class="tk-k">constructor</span>(value) {
+    <span class="tk-k">this</span>.value = value;
+    <span class="tk-k">this</span>.left = <span class="tk-k">null</span>; <span class="tk-c">// ลูกฝั่งซ้าย (ค่าน้อยกว่า)</span>
+    <span class="tk-k">this</span>.right = <span class="tk-k">null</span>; <span class="tk-c">// ลูกฝั่งขวา (ค่ามากกว่า)</span>
+  }
+}
+
+<span class="tk-k">class</span> <span class="tk-t">BinarySearchTree</span> {
+  <span class="tk-k">constructor</span>() {
+    <span class="tk-k">this</span>.root = <span class="tk-k">null</span>; <span class="tk-c">// เริ่มต้นเป็นทรีว่าง</span>
+  }
+
+  <span class="tk-c">// insert: เพิ่มโหนดใหม่ลงในตำแหน่งที่ถูกต้อง</span>
+  <span class="tk-f">insert</span>(value) {
+    <span class="tk-k">const</span> newNode = <span class="tk-k">new</span> <span class="tk-f">Node</span>(value);
+    <span class="tk-k">if</span> (<span class="tk-k">this</span>.root === <span class="tk-k">null</span>) {
+      <span class="tk-k">this</span>.root = newNode; <span class="tk-c">// ทรีว่าง -&gt; เป็น root</span>
+      <span class="tk-k">return</span> <span class="tk-k">this</span>;
+    }
+    <span class="tk-k">let</span> temp = <span class="tk-k">this</span>.root;
+    <span class="tk-k">while</span> (<span class="tk-k">true</span>) {
+      <span class="tk-k">if</span> (newNode.value === temp.value) <span class="tk-k">return</span> <span class="tk-k">undefined</span>; <span class="tk-c">// ไม่เก็บค่าซ้ำ</span>
+      <span class="tk-k">if</span> (newNode.value &lt; temp.value) {
+        <span class="tk-c">// ไปทางซ้าย</span>
+        <span class="tk-k">if</span> (temp.left === <span class="tk-k">null</span>) {
+          temp.left = newNode;
+          <span class="tk-k">return</span> <span class="tk-k">this</span>;
+        }
+        temp = temp.left;
+      } <span class="tk-k">else</span> {
+        <span class="tk-c">// ไปทางขวา</span>
+        <span class="tk-k">if</span> (temp.right === <span class="tk-k">null</span>) {
+          temp.right = newNode;
+          <span class="tk-k">return</span> <span class="tk-k">this</span>;
+        }
+        temp = temp.right;
+      }
+    }
+  }
+
+  <span class="tk-c">// contains: ตรวจสอบว่ามีค่านี้อยู่ในทรีหรือไม่</span>
+  <span class="tk-f">contains</span>(value) {
+    <span class="tk-k">if</span> (<span class="tk-k">this</span>.root === <span class="tk-k">null</span>) <span class="tk-k">return</span> <span class="tk-k">false</span>;
+    <span class="tk-k">let</span> temp = <span class="tk-k">this</span>.root;
+    <span class="tk-k">while</span> (temp) {
+      <span class="tk-k">if</span> (value &lt; temp.value) {
+        temp = temp.left;
+      } <span class="tk-k">else</span> <span class="tk-k">if</span> (value &gt; temp.value) {
+        temp = temp.right;
+      } <span class="tk-k">else</span> {
+        <span class="tk-k">return</span> <span class="tk-k">true</span>; <span class="tk-c">// เจอค่าที่ต้องการ</span>
+      }
+    }
+    <span class="tk-k">return</span> <span class="tk-k">false</span>;
+  }
+
+  <span class="tk-c">// minimumNode: หาโหนดที่ค่าต่ำสุดของทรี (หรือของทรีย่อย) คือโหนดซ้ายสุด</span>
+  <span class="tk-f">minimumNode</span>(currentNode) {
+    <span class="tk-k">while</span> (currentNode.left !== <span class="tk-k">null</span>) {
+      currentNode = currentNode.left;
+    }
+    <span class="tk-k">return</span> currentNode;
+  }
+}
+
+<span class="tk-k">module</span>.<span class="tk-k">exports</span> = { <span class="tk-t">Node</span>, <span class="tk-t">BinarySearchTree</span> };
+</code></pre>
+</div></details>
+
+  <h3 id="c-graph">3.7 Graph</h3>
+  <p>กราฟประกอบด้วย <strong>Vertex</strong> (จุดยอด) และ <strong>Edge</strong> (เส้นเชื่อม) มีวิธีเก็บสองแบบคือ Adjacency Matrix (ตารางสี่เหลี่ยม เร็วในการเช็กว่าเชื่อมกันไหมแต่กินที่) และ Adjacency List (เก็บเฉพาะเพื่อนบ้าน ประหยัดที่) ในคลิปเลือกใช้ Adjacency List ด้วยออบเจ็กต์ที่ key คือจุดยอด และ value คืออาร์เรย์ของเพื่อนบ้าน</p>
+  <ul>
+    <li><code>addVertex</code>, <code>addEdge</code> : <span class="badge">O(1)</span> (addEdge เชื่อมทั้งสองทิศ เพราะเป็นกราฟไม่มีทิศทาง)</li>
+    <li><code>removeEdge</code> : ใช้ <code>filter</code> สร้างอาร์เรย์เพื่อนบ้านใหม่ที่ไม่มีจุดยอดนั้น ใช้เวลาตามจำนวนเพื่อนบ้านของสองจุดยอด</li>
+  </ul>
+  <details class="fold"><summary>Graph.js</summary><div class="code-wrap">
+  <div class="code-head"><span class="code-file">03-data-structure-non-linear/graph/Graph.js</span>
+    <button class="copy-btn" data-target="code15" type="button">Copy</button></div>
+  <pre><code id="code15"><span class="tk-c">// =====================================================</span>
+<span class="tk-c">// Graph (กราฟ) แบบ Adjacency List ชนิดไม่มีทิศทาง</span>
+<span class="tk-c">// เก็บเป็นออบเจ็กต์: key = จุดยอด (Vertex), value = รายชื่อจุดยอดที่เชื่อมอยู่</span>
+<span class="tk-c">// ตัวอย่าง: { A: ["B", "C"], B: ["A"], C: ["A"] }</span>
+<span class="tk-c">// =====================================================</span>
+
+<span class="tk-k">class</span> <span class="tk-t">Graph</span> {
+  <span class="tk-k">constructor</span>() {
+    <span class="tk-k">this</span>.adjacencyList = {};
+  }
+
+  <span class="tk-c">// addVertex: เพิ่มจุดยอดใหม่ (ถ้ามีอยู่แล้วคืน false)</span>
+  <span class="tk-f">addVertex</span>(vertex) {
+    <span class="tk-k">if</span> (!<span class="tk-k">this</span>.adjacencyList[vertex]) {
+      <span class="tk-k">this</span>.adjacencyList[vertex] = [];
+      <span class="tk-k">return</span> <span class="tk-k">true</span>;
+    }
+    <span class="tk-k">return</span> <span class="tk-k">false</span>;
+  }
+
+  <span class="tk-c">// addEdge: เพิ่มเส้นเชื่อมระหว่าง 2 จุดยอด (เชื่อมทั้งสองทาง)</span>
+  <span class="tk-f">addEdge</span>(vertex1, vertex2) {
+    <span class="tk-k">if</span> (<span class="tk-k">this</span>.adjacencyList[vertex1] &amp;&amp; <span class="tk-k">this</span>.adjacencyList[vertex2]) {
+      <span class="tk-k">this</span>.adjacencyList[vertex1].<span class="tk-f">push</span>(vertex2);
+      <span class="tk-k">this</span>.adjacencyList[vertex2].<span class="tk-f">push</span>(vertex1);
+      <span class="tk-k">return</span> <span class="tk-k">true</span>;
+    }
+    <span class="tk-k">return</span> <span class="tk-k">false</span>;
+  }
+
+  <span class="tk-c">// removeEdge: ลบเส้นเชื่อมระหว่าง 2 จุดยอด (ลบทั้งสองทาง)</span>
+  <span class="tk-f">removeEdge</span>(vertex1, vertex2) {
+    <span class="tk-k">if</span> (<span class="tk-k">this</span>.adjacencyList[vertex1] &amp;&amp; <span class="tk-k">this</span>.adjacencyList[vertex2]) {
+      <span class="tk-k">this</span>.adjacencyList[vertex1] = <span class="tk-k">this</span>.adjacencyList[vertex1].<span class="tk-f">filter</span>(
+        (v) =&gt; v !== vertex2
+      );
+      <span class="tk-k">this</span>.adjacencyList[vertex2] = <span class="tk-k">this</span>.adjacencyList[vertex2].<span class="tk-f">filter</span>(
+        (v) =&gt; v !== vertex1
+      );
+      <span class="tk-k">return</span> <span class="tk-k">true</span>;
+    }
+    <span class="tk-k">return</span> <span class="tk-k">false</span>;
+  }
+}
+
+<span class="tk-k">module</span>.<span class="tk-k">exports</span> = { <span class="tk-t">Graph</span> };
+</code></pre>
+</div></details>
+
+  <h3>วิธีรันโค้ด</h3>
+  <details class="fold"><summary>package.json</summary><div class="code-wrap">
+  <div class="code-head"><span class="code-file">package.json</span>
+    <button class="copy-btn" data-target="code16" type="button">Copy</button></div>
+  <pre><code id="code16">{
+  <span class="tk-s">"name"</span>: <span class="tk-s">"js-data-structure-algorithm-lesson"</span>,
+  <span class="tk-s">"version"</span>: <span class="tk-s">"1.0.0"</span>,
+  <span class="tk-s">"description"</span>: <span class="tk-s">"โค้ดประกอบบทเรียน Data Structure &amp; Algorithm ด้วย JavaScript"</span>,
+  <span class="tk-s">"private"</span>: <span class="tk-k">true</span>,
+  <span class="tk-s">"scripts"</span>: {
+    <span class="tk-s">"start"</span>: <span class="tk-s">"node run-all.js"</span>,
+    <span class="tk-s">"algorithm"</span>: <span class="tk-s">"node run-all.js 01-algorithm"</span>,
+    <span class="tk-s">"linear"</span>: <span class="tk-s">"node run-all.js 02-data-structure-linear"</span>,
+    <span class="tk-s">"non-linear"</span>: <span class="tk-s">"node run-all.js 03-data-structure-non-linear"</span>
+  },
+  <span class="tk-s">"engines"</span>: {
+    <span class="tk-s">"node"</span>: <span class="tk-s">"&gt;=14"</span>
+  },
+  <span class="tk-s">"license"</span>: <span class="tk-s">"MIT"</span>
+}
+</code></pre>
+</div></details>
+  <div class="code-wrap">
+    <div class="code-head"><span class="code-file">Terminal</span><button class="copy-btn" data-target="cmd1" type="button">Copy</button></div>
+    <pre><code id="cmd1">cd js-data-structure-algorithm
+node run-all.js                 # รันทุกไฟล์
+node 01-algorithm/04-logarithm-time.js
+node 02-data-structure-linear/linked-list/demo.js</code></pre>
+  </div>
+</section>
+
+<section id="structure">
+  <h2>4. Project Structure</h2>
+  <p>โครงสร้างโฟลเดอร์และไฟล์ของโปรเจกต์ตัวอย่างทั้งหมด (ต้องใช้ Node.js 14 ขึ้นไป ไม่ต้องติดตั้งแพ็กเกจเพิ่ม)</p>
+  <div class="code-wrap tree-box">
+    <div class="code-head"><span class="code-file">js-data-structure-algorithm/</span><button class="copy-btn" data-target="treeText" type="button">Copy</button></div>
+    <pre><code id="treeText">js-data-structure-algorithm/
+├── package.json
+├── run-all.js                      # รันทุกไฟล์ตัวอย่างตามลำดับ
+├── 01-algorithm/
+│   ├── 01-summation-loop.js        # ผลรวมด้วยลูป + จับเวลา
+│   ├── 02-summation-formula.js     # ผลรวมด้วยสูตร + จับเวลา
+│   ├── 03-constant-time.js         # O(1)
+│   ├── 04-logarithm-time.js        # O(log n) Binary Search
+│   ├── 05-linear-time.js           # O(n) Linear Search
+│   ├── 06-quadratic-time.js        # O(n^2) ลูปซ้อนลูป
+│   ├── 07-exponential-time.js      # O(2^n) Fibonacci
+│   ├── 08-factorial-time.js        # Factorial / O(n!)
+│   └── 09-big-o-counting.js        # ตัวอย่างเสริม นับตัวดำเนินการ
+├── 02-data-structure-linear/
+│   ├── linked-list/
+│   │   ├── LinkedList.js           # push pop unshift shift get set insert remove reverse
+│   │   └── demo.js
+│   ├── stack/
+│   │   ├── Stack.js                # push pop
+│   │   └── demo.js
+│   └── queue/
+│       ├── Queue.js                # enqueue dequeue
+│       └── demo.js
+└── 03-data-structure-non-linear/
+    ├── tree/
+    │   ├── BinarySearchTree.js     # insert contains minimumNode
+    │   └── demo.js
+    └── graph/
+        ├── Graph.js                # addVertex addEdge removeEdge
+        └── demo.js</code></pre>
+  </div>
+  <div class="callout">ไฟล์ <code>09-big-o-counting.js</code> เป็นตัวอย่างเสริมสำหรับทบทวนเรื่องการนับตัวดำเนินการ ส่วนไฟล์อื่นสอดคล้องกับโค้ดประกอบการสอนของคลิป</div>
+</section>
+
+<footer>บันทึกการเรียนรู้ Data Structure &amp; Algorithm ด้วย JavaScript</footer>
+</main>
+</div>
+
+<script>
+(function () {
+  var root = document.documentElement;
+  var btn = document.getElementById("themeBtn");
+  var saved = null;
+  try { saved = localStorage.getItem("lesson-theme"); } catch (e) {}
+  var prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+  function apply(t) {
+    root.setAttribute("data-theme", t);
+    btn.textContent = t === "dark" ? "โหมดสว่าง" : "โหมดมืด";
+  }
+  apply(saved || (prefersDark ? "dark" : "light"));
+  btn.addEventListener("click", function () {
+    var next = root.getAttribute("data-theme") === "dark" ? "light" : "dark";
+    apply(next);
+    try { localStorage.setItem("lesson-theme", next); } catch (e) {}
+  });
+
+  function fallbackCopy(text) {
+    var ta = document.createElement("textarea");
+    ta.value = text; ta.style.position = "fixed"; ta.style.opacity = "0";
+    document.body.appendChild(ta); ta.select();
+    try { document.execCommand("copy"); } catch (e) {}
+    document.body.removeChild(ta);
+  }
+  document.querySelectorAll(".copy-btn").forEach(function (b) {
+    b.addEventListener("click", function () {
+      var el = document.getElementById(b.getAttribute("data-target"));
+      var text = el.innerText;
+      var done = function () {
+        b.textContent = "Copied"; b.classList.add("done");
+        setTimeout(function () { b.textContent = "Copy"; b.classList.remove("done"); }, 1500);
+      };
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(done, function () { fallbackCopy(text); done(); });
+      } else { fallbackCopy(text); done(); }
+    });
+  });
+
+  var links = Array.prototype.slice.call(document.querySelectorAll("#toc a"));
+  var targets = links.map(function (a) { return document.querySelector(a.getAttribute("href")); });
+  function onScroll() {
+    var y = window.scrollY + 100, idx = 0;
+    targets.forEach(function (t, i) { if (t && t.offsetTop <= y) idx = i; });
+    links.forEach(function (a, i) { a.classList.toggle("active", i === idx); });
+  }
+  window.addEventListener("scroll", onScroll, { passive: true });
+  onScroll();
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,252 @@
+/*
+ * ==========================================================================
+ * base.css : พื้นฐานของทั้งเว็บ (โหลดเป็นไฟล์แรก)
+ * ==========================================================================
+ * 1. Design tokens   ตัวแปร CSS (Custom Properties) สี ระยะ ขนาด ใช้ซ้ำทั้งเว็บ
+ * 2. Dark theme      เปลี่ยนค่าตัวแปรเมื่อ <html data-theme="dark"> (JS สลับให้)
+ * 3. Reset           ล้างค่าเริ่มต้นของเบราว์เซอร์ให้เหมือนกันทุกเบราว์เซอร์
+ * 4. Typography      ฟอนต์ ขนาดตัวอักษร หัวข้อ ลิงก์
+ * 5. Utilities       class ช่วยเหลือเล็ก ๆ เช่น .visually-hidden, .muted
+ *
+ * วิธีอ่าน CSS:   selector { property: value; }
+ *                 เช่น  body { color: red; }  = ข้อความใน body เป็นสีแดง
+ * ==========================================================================
+ */
+
+/* ---------- 1) Design tokens: ประกาศตัวแปรที่ :root (= <html>) ใช้ได้ทุกที่ ---------- */
+/* เรียกใช้ด้วย var(--ชื่อ) เช่น color: var(--color-text); แก้สีที่เดียว เปลี่ยนทั้งเว็บ */
+:root {
+	/* สีพื้นและข้อความ */
+	--color-bg: #f1f5f9;
+	--color-surface: #ffffff;
+	--color-surface-alt: #f8fafc;
+	--color-text: #0f172a;
+	--color-muted: #64748b;
+	--color-border: #e2e8f0;
+
+	/* สีหลัก (แบรนด์) */
+	--color-primary: #2563eb;
+	--color-primary-hover: #1d4ed8;
+	--color-on-primary: #ffffff;
+	--color-focus: #93c5fd;
+
+	/* สีสถานะ: ข้อความ (fg) + พื้นหลังอ่อน (bg) */
+	--color-success: #15803d;
+	--color-success-bg: #dcfce7;
+	--color-danger: #b91c1c;
+	--color-danger-bg: #fee2e2;
+	--color-warning: #a16207;
+	--color-warning-bg: #fef9c3;
+	--color-neutral: #475569;
+	--color-neutral-bg: #e2e8f0;
+
+	/* ระยะห่าง (spacing scale) ใช้ค่าคงที่ชุดเดียว หน้าตาจะเป็นระเบียบ */
+	--space-1: 0.25rem; /* 4px  (1rem = ขนาดฟอนต์ของ html ปกติ 16px) */
+	--space-2: 0.5rem; /* 8px */
+	--space-3: 0.75rem; /* 12px */
+	--space-4: 1rem; /* 16px */
+	--space-5: 1.5rem; /* 24px */
+	--space-6: 2rem; /* 32px */
+
+	/* มุมโค้ง เงา ฟอนต์ */
+	--radius-sm: 6px;
+	--radius-md: 10px;
+	--radius-lg: 16px;
+	--shadow-sm: 0 1px 2px rgb(15 23 42 / 0.06);
+	--shadow-md: 0 8px 24px -8px rgb(15 23 42 / 0.15);
+	--font-sans: "Sarabun", "Leelawadee UI", "Segoe UI", Tahoma, sans-serif; /* ตัวแรกไม่มี ใช้ตัวถัดไป */
+	--font-mono: Consolas, "Courier New", monospace;
+
+	/* ความเร็ว transition */
+	--transition-fast: 150ms ease;
+	--transition: 250ms ease;
+
+	/* บอกเบราว์เซอร์ว่าเป็นธีมสว่าง (scrollbar, ปฏิทิน input date จะใช้สีสว่าง) */
+	color-scheme: light;
+}
+
+/* ---------- 2) Dark theme: Attribute selector [ชื่อ="ค่า"] ---------- */
+/* เปลี่ยนแค่ "ค่าตัวแปร" ส่วนอื่นที่ใช้ var() จะเปลี่ยนสีตามเองทั้งหมด */
+:root[data-theme="dark"] {
+	--color-bg: #0b1120;
+	--color-surface: #111827;
+	--color-surface-alt: #1e293b;
+	--color-text: #e2e8f0;
+	--color-muted: #94a3b8;
+	--color-border: #334155;
+
+	--color-primary: #3b82f6;
+	--color-primary-hover: #60a5fa;
+	--color-focus: #1d4ed8;
+
+	--color-success: #4ade80;
+	--color-success-bg: #14532d;
+	--color-danger: #f87171;
+	--color-danger-bg: #450a0a;
+	--color-warning: #facc15;
+	--color-warning-bg: #422006;
+	--color-neutral: #cbd5e1;
+	--color-neutral-bg: #334155;
+
+	--shadow-md: 0 8px 24px -8px rgb(0 0 0 / 0.6);
+	color-scheme: dark;
+}
+
+/* ---------- 3) Reset ---------- */
+
+/* * = universal selector (ทุก element), ::before/::after = pseudo-element */
+/* border-box: width รวม padding + border แล้ว คำนวณขนาดง่ายขึ้นมาก */
+*,
+*::before,
+*::after {
+	box-sizing: border-box;
+}
+
+/* ล้าง margin เริ่มต้นของ element ที่พบบ่อย */
+body,
+h1,
+h2,
+h3,
+p,
+dl,
+dd,
+figure {
+	margin: 0;
+}
+
+html {
+	scroll-behavior: smooth; /* คลิกลิงก์ #anchor แล้วเลื่อนนุ่ม ๆ */
+	scroll-padding-top: 5rem; /* เว้นที่ให้ header ที่ sticky อยู่ด้านบน ไม่บังหัวข้อ */
+}
+
+body {
+	min-height: 100vh; /* vh = % ของความสูงหน้าจอ */
+	font-family: var(--font-sans);
+	font-size: 1rem;
+	line-height: 1.6;
+	color: var(--color-text);
+	background-color: var(--color-bg);
+	transition: background-color var(--transition), color var(--transition);
+	-webkit-font-smoothing: antialiased;
+}
+
+/* ให้ฟอร์มใช้ฟอนต์เดียวกับหน้า (ปกติเบราว์เซอร์ใช้ฟอนต์ระบบ) */
+input,
+button,
+select,
+textarea {
+	font: inherit;
+	color: inherit;
+}
+
+img,
+svg {
+	display: block;
+	max-width: 100%;
+}
+
+/* สำคัญ: attribute hidden ถูก CSS display:flex/grid ทับได้ จึงบังคับด้วย !important */
+[hidden] {
+	display: none !important;
+}
+
+/* ---------- 4) Typography ---------- */
+
+/* clamp(ต่ำสุด, ค่าที่อยากได้, สูงสุด): ขนาดตัวอักษรยืดหดตามความกว้างจอ */
+h1 {
+	font-size: clamp(1.5rem, 1.2rem + 1.5vw, 2rem);
+}
+
+h2 {
+	font-size: clamp(1.15rem, 1rem + 0.6vw, 1.35rem);
+	line-height: 1.3;
+}
+
+h3 {
+	font-size: 1rem;
+}
+
+a {
+	color: var(--color-primary);
+	text-underline-offset: 3px;
+}
+
+a:hover {
+	color: var(--color-primary-hover);
+}
+
+kbd {
+	display: inline-block;
+	min-width: 1.6em;
+	padding: 0 var(--space-1);
+	font-family: var(--font-mono);
+	font-size: 0.85em;
+	text-align: center;
+	background: var(--color-surface-alt);
+	border: 1px solid var(--color-border);
+	border-bottom-width: 2px;
+	border-radius: var(--radius-sm);
+}
+
+/*
+ * :focus-visible = แสดงกรอบ focus เฉพาะตอนใช้คีย์บอร์ด (กด Tab)
+ * คลิกเมาส์จะไม่ขึ้นกรอบ แต่ผู้ใช้คีย์บอร์ดยังเห็นว่าอยู่ตรงไหน (สำคัญต่อ accessibility)
+ */
+:focus-visible {
+	outline: 3px solid var(--color-focus);
+	outline-offset: 2px;
+}
+
+/* ::selection = สีพื้นตอนลากเลือกข้อความ */
+::selection {
+	background: var(--color-primary);
+	color: var(--color-on-primary);
+}
+
+/* ---------- 5) Utilities ---------- */
+
+/* ซ่อนจากสายตา แต่โปรแกรมอ่านหน้าจอยังอ่านได้ (ต่างจาก display:none ที่ซ่อนจากทุกคน) */
+.visually-hidden {
+	position: absolute !important;
+	width: 1px;
+	height: 1px;
+	padding: 0;
+	margin: -1px;
+	overflow: hidden;
+	clip: rect(0 0 0 0);
+	white-space: nowrap;
+	border: 0;
+}
+
+.muted {
+	color: var(--color-muted);
+}
+
+/* คงการขึ้นบรรทัดใหม่ (\n) ตามที่ผู้ใช้พิมพ์ใน textarea */
+.preserve-lines {
+	white-space: pre-line;
+}
+
+/* Skip link: ซ่อนไว้นอกจอ เลื่อนลงมาเมื่อได้รับ focus */
+.skip-link {
+	position: absolute;
+	top: -100px;
+	left: var(--space-4);
+	z-index: 100;
+	padding: var(--space-2) var(--space-4);
+	color: var(--color-on-primary);
+	background: var(--color-primary);
+	border-radius: var(--radius-sm);
+	transition: top var(--transition-fast);
+}
+
+.skip-link:focus {
+	top: var(--space-2);
+}
+
+.noscript-warning {
+	padding: var(--space-4);
+	text-align: center;
+	color: var(--color-danger);
+	background: var(--color-danger-bg);
+}

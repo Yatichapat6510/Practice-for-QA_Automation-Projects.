@@ -9,7 +9,7 @@
 | โฟลเดอร์ | เนื้อหา | รันใน CI |
 | --- | --- | :---: |
 | [`01_Python/`](01_Python/) | แบบฝึกหัด Python: function, OOP, exception, assignment | – |
-| [`02_JavaScript/`](02_JavaScript/) | แบบฝึกหัด JavaScript: array, object, async/await, HTML/CSS เบื้องต้น | – |
+| [`02_JavaScript/`](02_JavaScript/) | แบบฝึกหัด JavaScript: array, object, async/await, OOP, HTML/CSS เบื้องต้น และเว็บตัวอย่าง QA Test Tracker (ดู [README](02_JavaScript/README.md)) | – |
 | [`03_HTML-Resources/`](03_HTML-Resources/) | หน้า HTML สรุป roadmap และเตรียมสัมภาษณ์งาน QA | – |
 | [`04_Playwright/`](04_Playwright/) | Playwright (JavaScript) ชุดทดสอบหลักบน Sauce Demo + แบบฝึกหัด | ✅ |
 | [`05_Robot-Framework/`](05_Robot-Framework/) | Robot Framework + SeleniumLibrary/RequestsLibrary ทดสอบ UI และ API | ✅ |

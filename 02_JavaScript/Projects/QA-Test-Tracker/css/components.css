@@ -1,0 +1,828 @@
+/*
+ * ==========================================================================
+ * components.css : ชิ้นส่วน UI ที่ใช้ซ้ำ
+ * ==========================================================================
+ *  1. Panel          กล่องพื้นขาวของแต่ละส่วน
+ *  2. Button         .btn + modifier (--primary, --danger, --icon ...)
+ *  3. Form           .field, .input, สถานะ error, radio chip, checkbox
+ *  4. Toolbar        แถบค้นหา/กรอง
+ *  5. Table          ตารางเคส + แปลงเป็นการ์ดบนมือถือ
+ *  6. Badge / Tag    ป้ายความสำคัญ สถานะ แท็ก
+ *  7. Empty state    ข้อความตอนไม่มีข้อมูล
+ *  8. Stats          การ์ดตัวเลข, progress bar, กราฟแท่ง
+ *  9. Dialog         หน้าต่าง modal
+ * 10. Toast          กล่องแจ้งเตือน
+ * 11. Shortcuts      ส่วน details/summary
+ *
+ * Selector ที่ใช้ในไฟล์นี้ (เรียงจาก specificity ต่ำไปสูง)
+ *   element   td               class     .btn            attribute  [data-status="pass"]
+ *   pseudo-class  :hover :focus :checked :disabled :nth-child() :not() :has() :user-invalid
+ *   pseudo-element  ::before ::after ::placeholder ::backdrop ::-webkit-progress-value
+ *   combinator  A B (ลูกหลาน)  A > B (ลูกตรง)  A + B (ตัวถัดไป)
+ * ==========================================================================
+ */
+
+/* ---------- 1) Panel ---------- */
+.panel {
+	padding: var(--space-5);
+	background: var(--color-surface);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-lg);
+	box-shadow: var(--shadow-sm);
+}
+
+.panel__header {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: var(--space-2);
+	margin-bottom: var(--space-4);
+}
+
+/* ถ้า title อยู่ใน header แล้ว ไม่ต้องมี margin ล่างซ้ำ */
+.panel__title {
+	margin-bottom: var(--space-4);
+}
+
+.panel__header > .panel__title {
+	margin-bottom: 0;
+}
+
+.panel__subtitle {
+	margin: var(--space-5) 0 var(--space-3);
+}
+
+/* ---------- 2) Button ---------- */
+.btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: var(--space-2);
+	padding: var(--space-2) var(--space-4);
+	font-weight: 600;
+	line-height: 1.4;
+	text-decoration: none;
+	white-space: nowrap;
+	cursor: pointer; /* เมาส์เป็นรูปมือ */
+	border: 1px solid transparent;
+	border-radius: var(--radius-md);
+	transition: background-color var(--transition-fast), border-color var(--transition-fast),
+		transform var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+/* :active = ขณะกดค้าง ให้ปุ่มยุบลงเล็กน้อย */
+.btn:active {
+	transform: translateY(1px) scale(0.98);
+}
+
+/* :disabled = ปุ่มที่ถูกปิด (JS ตั้ง button.disabled = true ตอนกำลังโหลด) */
+.btn:disabled,
+.btn[aria-busy="true"] {
+	cursor: not-allowed;
+	opacity: 0.6;
+	transform: none;
+}
+
+.btn--primary {
+	color: var(--color-on-primary);
+	background: var(--color-primary);
+	box-shadow: 0 4px 12px -4px var(--color-primary);
+}
+
+/* :not(:disabled) = hover ได้เฉพาะปุ่มที่ยังกดได้ */
+.btn--primary:hover:not(:disabled) {
+	background: var(--color-primary-hover);
+}
+
+.btn--secondary {
+	color: var(--color-text);
+	background: var(--color-surface-alt);
+	border-color: var(--color-border);
+}
+
+.btn--secondary:hover:not(:disabled) {
+	border-color: var(--color-muted);
+}
+
+.btn--danger {
+	color: var(--color-danger);
+	background: var(--color-danger-bg);
+}
+
+.btn--danger:hover:not(:disabled) {
+	border-color: var(--color-danger);
+}
+
+.btn--ghost {
+	color: var(--color-text);
+	background: transparent;
+	border-color: var(--color-border);
+}
+
+.btn--ghost:hover {
+	background: var(--color-surface-alt);
+}
+
+/* ปุ่มไอคอนสี่เหลี่ยมจัตุรัส */
+.btn--icon {
+	width: 2.25rem;
+	height: 2.25rem;
+	padding: 0;
+	background: transparent;
+}
+
+.btn--icon:hover {
+	background: var(--color-surface-alt);
+}
+
+.btn--icon-danger:hover {
+	background: var(--color-danger-bg);
+}
+
+/* label ที่ทำตัวเป็นปุ่ม (นำเข้า JSON): เมื่อ input ที่ซ่อนอยู่ได้ focus ให้ label ขึ้นกรอบแทน */
+/* A + B = B ที่อยู่ "ถัดจาก" A ทันที แต่ที่นี่ label อยู่ก่อน input จึงใช้ :has() ที่ parent */
+.data-actions:has(#import-file:focus-visible) label[for="import-file"] {
+	outline: 3px solid var(--color-focus);
+	outline-offset: 2px;
+}
+
+/* ---------- 3) Form ---------- */
+.case-form {
+	display: grid;
+	gap: var(--space-4);
+}
+
+.field {
+	display: grid;
+	gap: var(--space-1);
+}
+
+/* fieldset มีกรอบและ padding ติดมา ล้างออกให้หน้าตาเหมือน .field อื่น */
+.field--fieldset {
+	min-width: 0;
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
+
+.field__label {
+	padding: 0;
+	font-weight: 600;
+	font-size: 0.95rem;
+}
+
+.field__required {
+	color: var(--color-danger);
+}
+
+.field__meta {
+	display: flex;
+	justify-content: space-between;
+	font-size: 0.8rem;
+	color: var(--color-muted);
+}
+
+/* ตัวนับตัวอักษร: JS เพิ่ม class is-near-limit เมื่อใกล้เต็ม */
+.field__counter.is-near-limit {
+	color: var(--color-warning);
+	font-weight: 600;
+}
+
+/* :empty = element ที่ไม่มีเนื้อหาเลย -> ซ่อนกล่อง error ที่ยังว่าง */
+.field__error {
+	font-size: 0.85rem;
+	color: var(--color-danger);
+}
+
+.field__error:empty {
+	display: none;
+}
+
+.field__error::before {
+	content: "⚠ "; /* content ใน ::before = ใส่ข้อความ/ไอคอนด้วย CSS */
+}
+
+/* ช่องกรอกข้อมูลทุกชนิดใช้ class .input เดียวกัน */
+.input {
+	width: 100%;
+	padding: var(--space-2) var(--space-3);
+	background: var(--color-surface-alt);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-md);
+	transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+.input--sm {
+	padding: var(--space-1) var(--space-2);
+	font-size: 0.9rem;
+}
+
+textarea.input {
+	resize: vertical; /* ยืดได้เฉพาะแนวตั้ง */
+	min-height: 3rem;
+}
+
+.input::placeholder {
+	color: var(--color-muted);
+	opacity: 0.8;
+}
+
+.input:hover {
+	border-color: var(--color-muted);
+}
+
+.input:focus {
+	outline: none;
+	border-color: var(--color-primary);
+	box-shadow: 0 0 0 3px color-mix(in srgb, var(--color-primary) 25%, transparent);
+}
+
+/*
+ * สถานะ error มี 2 แหล่ง
+ * 1) .is-invalid           JS ใส่ให้ .field หลังกด submit แล้วตรวจไม่ผ่าน (validation.js)
+ * 2) :user-invalid         CSS ล้วน: เบราว์เซอร์ตรวจ required/minlength หลังผู้ใช้แก้ช่องนั้นแล้ว
+ *                          (ต่างจาก :invalid ที่แดงตั้งแต่ยังไม่ได้พิมพ์)
+ */
+.field.is-invalid .input,
+.input:user-invalid {
+	border-color: var(--color-danger);
+	background: color-mix(in srgb, var(--color-danger-bg) 40%, var(--color-surface-alt));
+}
+
+/* Radio แบบ chip: ซ่อนวงกลม radio แล้วตกแต่ง label แทน */
+.chip-group {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-2);
+}
+
+.chip {
+	position: relative;
+	display: inline-flex;
+	align-items: center;
+	padding: var(--space-1) var(--space-4);
+	font-weight: 600;
+	cursor: pointer;
+	border: 1px solid var(--color-border);
+	border-radius: 999px; /* ค่ามาก ๆ = มุมโค้งเป็นแคปซูล */
+	transition: all var(--transition-fast);
+}
+
+/* ซ่อน radio แต่ยังกด Tab/ลูกศรเลือกได้ (ไม่ใช้ display:none เพราะจะ focus ไม่ได้) */
+.chip input {
+	position: absolute;
+	opacity: 0;
+	pointer-events: none;
+}
+
+/* :has() = "parent ที่มีลูกตรงเงื่อนไข" -> label ที่ข้างในมี radio ถูกเลือก */
+.chip:has(input:checked) {
+	color: var(--chip-color);
+	background: var(--chip-bg);
+	border-color: var(--chip-color);
+}
+
+.chip:has(input:focus-visible) {
+	outline: 3px solid var(--color-focus);
+	outline-offset: 2px;
+}
+
+/* แต่ละ chip กำหนดตัวแปรสีของตัวเอง กฎ :has() ด้านบนใช้ตัวแปรเดียวกัน */
+.chip--high {
+	--chip-color: var(--color-danger);
+	--chip-bg: var(--color-danger-bg);
+}
+
+.chip--medium {
+	--chip-color: var(--color-warning);
+	--chip-bg: var(--color-warning-bg);
+}
+
+.chip--low {
+	--chip-color: var(--color-success);
+	--chip-bg: var(--color-success-bg);
+}
+
+.checkbox {
+	display: flex;
+	align-items: center;
+	gap: var(--space-2);
+	cursor: pointer;
+}
+
+/* accent-color: เปลี่ยนสี checkbox/radio/progress ของเบราว์เซอร์ด้วยบรรทัดเดียว */
+.checkbox input {
+	width: 1.15rem;
+	height: 1.15rem;
+	accent-color: var(--color-primary);
+}
+
+.form-actions {
+	display: grid;
+	grid-template-columns: 2fr 1fr; /* ปุ่มบันทึกกว้างกว่าปุ่มล้าง 2 เท่า */
+	gap: var(--space-2);
+}
+
+.form-mode-hint {
+	padding: var(--space-2) var(--space-3);
+	font-size: 0.85rem;
+	color: var(--color-warning);
+	background: var(--color-warning-bg);
+	border-radius: var(--radius-md);
+}
+
+/* โหมดแก้ไข: JS ตั้ง data-mode="edit" ให้ form -> panel มีกรอบสีเหลือง */
+.panel--form:has(form[data-mode="edit"]) {
+	border-color: var(--color-warning);
+	box-shadow: 0 0 0 3px var(--color-warning-bg);
+}
+
+/* ---------- 4) Toolbar ---------- */
+.toolbar {
+	display: grid;
+	grid-template-columns: 1fr repeat(3, auto); /* ช่องค้นหายืด + select 3 ตัวกว้างตามเนื้อหา */
+	gap: var(--space-2);
+	margin-bottom: var(--space-4);
+}
+
+/* ---------- 5) Table ---------- */
+.table-wrapper {
+	overflow-x: auto; /* ตารางกว้างเกินจอ ให้เลื่อนแนวนอนได้ในกล่องนี้ (หน้าไม่ล้น) */
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-md);
+}
+
+.case-table {
+	width: 100%;
+	border-collapse: collapse; /* รวมเส้นขอบที่ติดกันให้เหลือเส้นเดียว */
+	font-size: 0.95rem;
+}
+
+.case-table th,
+.case-table td {
+	padding: var(--space-3);
+	text-align: left;
+	vertical-align: top;
+	border-bottom: 1px solid var(--color-border);
+}
+
+.case-table th {
+	font-size: 0.8rem;
+	font-weight: 600;
+	color: var(--color-muted);
+	text-transform: uppercase;
+	letter-spacing: 0.04em;
+	background: var(--color-surface-alt);
+}
+
+/* :nth-child(even) = แถวคู่ -> ทำลายทางม้าลาย (zebra) อ่านง่าย */
+.case-table tbody tr:nth-child(even) {
+	background: color-mix(in srgb, var(--color-surface-alt) 60%, transparent);
+}
+
+.case-table tbody tr:hover {
+	background: var(--color-surface-alt);
+}
+
+/* :last-child = แถวสุดท้าย ไม่ต้องมีเส้นล่าง (กรอบ wrapper มีแล้ว) */
+.case-table tbody tr:last-child td {
+	border-bottom: 0;
+}
+
+/* แถบสีด้านซ้ายตามสถานะ: JS ตั้ง data-status บน <tr> */
+.case-row td:first-child {
+	border-left: 4px solid var(--row-accent, transparent);
+}
+
+.case-row[data-status="pass"] { --row-accent: var(--color-success); }
+.case-row[data-status="fail"] { --row-accent: var(--color-danger); }
+.case-row[data-status="blocked"] { --row-accent: var(--color-warning); }
+
+.case-row__main {
+	min-width: 16rem;
+}
+
+.case-row__meta {
+	display: block;
+	margin-top: var(--space-1);
+	font-size: 0.8rem;
+}
+
+.case-row__actions {
+	white-space: nowrap;
+	text-align: right;
+}
+
+/* details/summary ในแถว: คลิกชื่อเพื่อกางดูขั้นตอน */
+.case-detail__title {
+	font-weight: 600;
+	cursor: pointer;
+	list-style-position: inside;
+}
+
+.case-detail__title:hover {
+	color: var(--color-primary);
+}
+
+/* [open] = details ที่กางอยู่ */
+.case-detail[open] .case-detail__title {
+	margin-bottom: var(--space-2);
+}
+
+.case-detail__body {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	gap: var(--space-1) var(--space-3);
+	padding: var(--space-3);
+	font-size: 0.9rem;
+	background: var(--color-surface-alt);
+	border-radius: var(--radius-sm);
+}
+
+.case-detail__body dt {
+	font-weight: 600;
+	color: var(--color-muted);
+}
+
+/* Select สถานะเปลี่ยนสีตามค่า (JS อัปเดต data-status ทุกครั้งที่เปลี่ยน) */
+.status-select {
+	min-width: 8.5rem;
+	font-weight: 600;
+}
+
+.status-select[data-status="pass"] { color: var(--color-success); background: var(--color-success-bg); }
+.status-select[data-status="fail"] { color: var(--color-danger); background: var(--color-danger-bg); }
+.status-select[data-status="blocked"] { color: var(--color-warning); background: var(--color-warning-bg); }
+.status-select[data-status="not-run"] { color: var(--color-neutral); background: var(--color-neutral-bg); }
+
+/* Mobile: แปลงตารางเป็นการ์ด เพราะตาราง 5 คอลัมน์อ่านยากบนจอแคบ */
+@media (max-width: 640px) {
+	.case-table thead {
+		display: none;
+	}
+
+	.case-table,
+	.case-table tbody,
+	.case-table tr,
+	.case-table td {
+		display: block;
+		width: 100%;
+	}
+
+	.case-table tr {
+		padding: var(--space-2) 0;
+		border-bottom: 1px solid var(--color-border);
+		border-left: 4px solid var(--row-accent, transparent);
+	}
+
+	.case-table td {
+		display: grid;
+		grid-template-columns: 6.5rem 1fr;
+		align-items: center;
+		padding: var(--space-1) var(--space-3);
+		border: 0;
+	}
+
+	.case-row td:first-child {
+		border-left: 0;
+	}
+
+	/* attr(data-label) = ดึงค่าจาก attribute มาแสดงเป็นข้อความ (หัวคอลัมน์) */
+	.case-table td::before {
+		content: attr(data-label);
+		font-size: 0.8rem;
+		font-weight: 600;
+		color: var(--color-muted);
+	}
+
+	/* ช่องอื่นเป็น grid 2 คอลัมน์ ลูกจะยืดเต็มช่อง -> justify-self: start ให้ badge/select กว้างตามเนื้อหา */
+	.case-table td > * {
+		justify-self: start;
+	}
+
+	/* ช่องแรกมีลูกหลายตัว (ชื่อ, แท็ก, วันที่) ใช้ block ธรรมดา และไม่ต้องแสดงป้าย "เคส" */
+	.case-table td.case-row__main {
+		display: block;
+		min-width: 0;
+		padding-bottom: var(--space-2);
+	}
+
+	/* ต้องเขียน selector ให้ specificity สูงกว่า ".case-table td::before" ด้านบน ไม่งั้นแพ้ */
+	/* td.case-row__main (0,2,2) ชนะ td (0,1,2) */
+	.case-table td.case-row__main::before {
+		content: none;
+	}
+
+	/* ปุ่มแก้ไข/ลบอยู่บรรทัดเดียวกัน: เปลี่ยนจาก grid เป็น flex */
+	.case-table td.case-row__actions {
+		display: flex;
+		align-items: center;
+		gap: var(--space-2);
+	}
+
+	.case-table td.case-row__actions::before {
+		width: 6.5rem;
+	}
+
+	/* Toolbar: ช่องค้นหาเต็มแถวบน select 3 ตัวแบ่งแถวล่างเท่า ๆ กัน */
+	.toolbar {
+		grid-template-columns: repeat(3, minmax(0, 1fr));
+	}
+
+	.toolbar__search {
+		grid-column: 1 / -1; /* ตั้งแต่เส้นแรกถึงเส้นสุดท้าย = เต็มแถว */
+	}
+}
+
+/* ---------- 6) Badge / Tag ---------- */
+.badge {
+	display: inline-block;
+	padding: 0.1rem var(--space-3);
+	font-size: 0.8rem;
+	font-weight: 700;
+	border-radius: 999px;
+	color: var(--color-neutral);
+	background: var(--color-neutral-bg);
+}
+
+.badge--high { color: var(--color-danger); background: var(--color-danger-bg); }
+.badge--medium { color: var(--color-warning); background: var(--color-warning-bg); }
+.badge--low { color: var(--color-success); background: var(--color-success-bg); }
+
+.tag-list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-1);
+	margin-top: var(--space-1);
+}
+
+/* .tag-list:empty ซ่อนเมื่อไม่มีแท็ก */
+.tag-list:empty {
+	display: none;
+}
+
+.tag {
+	padding: 0 var(--space-2);
+	font-family: var(--font-mono);
+	font-size: 0.75rem;
+	color: var(--color-primary);
+	background: color-mix(in srgb, var(--color-primary) 12%, transparent);
+	border-radius: var(--radius-sm);
+}
+
+.tag::before {
+	content: "#";
+	opacity: 0.6;
+}
+
+/* ---------- 7) Empty state ---------- */
+.empty-state {
+	padding: var(--space-6) var(--space-4);
+	text-align: center;
+	color: var(--color-muted);
+	animation: fade-in 400ms ease both; /* @keyframes อยู่ใน animations.css */
+}
+
+.empty-state__icon {
+	font-size: 2.5rem;
+	animation: float 3s ease-in-out infinite;
+}
+
+/* ---------- 8) Stats ---------- */
+
+/* repeat(auto-fit, minmax(130px, 1fr)) = ใส่การ์ดให้มากที่สุดที่พอดี กว้างอย่างน้อย 130px */
+/* responsive อัตโนมัติโดยไม่ต้องเขียน media query */
+.stats-grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+	gap: var(--space-3);
+}
+
+.stat-card {
+	position: relative;
+	padding: var(--space-4);
+	overflow: hidden;
+	background: var(--color-surface-alt);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-md);
+	transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.stat-card:hover {
+	transform: translateY(-3px);
+	box-shadow: var(--shadow-md);
+}
+
+/* ::before สร้างแถบสีด้านบนการ์ด โดยไม่ต้องเพิ่ม element ใน HTML */
+.stat-card::before {
+	content: "";
+	position: absolute; /* อ้างอิงตำแหน่งจาก .stat-card (position: relative) */
+	inset: 0 0 auto; /* top:0 right:0 bottom:auto left:0 */
+	height: 4px;
+	background: var(--stat-color, var(--color-primary));
+}
+
+.stat-card[data-stat="pass"] { --stat-color: var(--color-success); }
+.stat-card[data-stat="fail"] { --stat-color: var(--color-danger); }
+.stat-card[data-stat="blocked"] { --stat-color: var(--color-warning); }
+.stat-card[data-stat="not-run"] { --stat-color: var(--color-neutral); }
+
+.stat-card__label {
+	font-size: 0.85rem;
+	font-weight: 600;
+	color: var(--color-muted);
+}
+
+.stat-card__value {
+	font-size: 2rem;
+	font-weight: 700;
+	line-height: 1.2;
+	color: var(--stat-color, var(--color-text));
+	font-variant-numeric: tabular-nums; /* ตัวเลขกว้างเท่ากัน ไม่กระตุกตอนเปลี่ยนค่า */
+}
+
+/* JS ใส่ class นี้ชั่วคราวเมื่อค่าเปลี่ยน -> เล่นแอนิเมชัน pop */
+.stat-card__value.is-updated {
+	animation: pop 400ms ease;
+}
+
+.meter-group {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+	gap: var(--space-4);
+	margin-top: var(--space-5);
+}
+
+.meter {
+	display: grid;
+	grid-template-columns: 1fr auto;
+	align-items: center;
+	gap: var(--space-1) var(--space-3);
+}
+
+.meter label {
+	grid-column: 1 / -1; /* ยาวเต็มทุกคอลัมน์ */
+	font-size: 0.9rem;
+	font-weight: 600;
+}
+
+.meter output {
+	font-weight: 700;
+	font-variant-numeric: tabular-nums;
+}
+
+/* ตกแต่ง <progress>: ต้องล้างหน้าตาเดิม แล้วใช้ pseudo-element ของแต่ละเบราว์เซอร์ */
+progress {
+	width: 100%;
+	height: 0.75rem;
+	appearance: none;
+	border: 0;
+	border-radius: 999px;
+	overflow: hidden;
+	background: var(--color-neutral-bg);
+	--bar-color: var(--color-primary);
+}
+
+.meter--pass progress {
+	--bar-color: var(--color-success);
+}
+
+progress::-webkit-progress-bar { background: var(--color-neutral-bg); } /* Chrome, Edge, Safari: พื้นราง */
+progress::-webkit-progress-value { background: var(--bar-color); border-radius: 999px; transition: width var(--transition); } /* แถบค่า */
+progress::-moz-progress-bar { background: var(--bar-color); border-radius: 999px; } /* Firefox */
+
+/* กราฟแท่งด้วย CSS ล้วน: JS ตั้งตัวแปร --value (0-100) ให้แต่ละ li */
+.bar-chart {
+	display: grid;
+	gap: var(--space-2);
+	padding: 0;
+	margin: 0;
+	list-style: none;
+}
+
+.bar-chart__item {
+	display: grid;
+	grid-template-columns: 6rem 1fr 2.5rem;
+	align-items: center;
+	gap: var(--space-3);
+	font-size: 0.9rem;
+}
+
+.bar-chart__track {
+	height: 0.9rem;
+	background: var(--color-surface-alt);
+	border-radius: var(--radius-sm);
+	overflow: hidden;
+}
+
+/* calc(): คำนวณใน CSS  --value: 40  ->  width: 40% */
+.bar-chart__fill {
+	display: block;
+	height: 100%;
+	width: calc(var(--value, 0) * 1%);
+	background: linear-gradient(90deg, var(--color-primary), color-mix(in srgb, var(--color-primary) 60%, var(--color-success)));
+	border-radius: inherit;
+	transition: width 600ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.bar-chart__value {
+	text-align: right;
+	font-weight: 700;
+	font-variant-numeric: tabular-nums;
+}
+
+.bar-chart__empty {
+	color: var(--color-muted);
+}
+
+/* ---------- 9) Dialog ---------- */
+.dialog {
+	width: min(100% - 2rem, 420px);
+	padding: 0;
+	color: var(--color-text);
+	background: var(--color-surface);
+	border: 1px solid var(--color-border);
+	border-radius: var(--radius-lg);
+	box-shadow: var(--shadow-md);
+}
+
+/* [open] = ตอน dialog แสดงอยู่ */
+.dialog[open] {
+	animation: dialog-in 200ms ease-out;
+}
+
+/* ::backdrop = ฉากหลังมืดด้านหลัง modal (มีเฉพาะตอนเปิดด้วย showModal()) */
+.dialog::backdrop {
+	background: rgb(15 23 42 / 0.55);
+	backdrop-filter: blur(2px);
+}
+
+.dialog__form {
+	display: grid;
+	gap: var(--space-3);
+	padding: var(--space-5);
+}
+
+.dialog__actions {
+	display: flex;
+	justify-content: flex-end;
+	gap: var(--space-2);
+	margin-top: var(--space-2);
+}
+
+/* ---------- 10) Toast ---------- */
+.toast-container {
+	position: fixed; /* ติดกับหน้าจอ ไม่เลื่อนตามหน้า */
+	right: var(--space-4);
+	bottom: var(--space-4);
+	z-index: 50;
+	display: flex;
+	flex-direction: column;
+	gap: var(--space-2);
+	width: min(100% - 2rem, 360px);
+	pointer-events: none; /* ไม่บังการคลิกสิ่งที่อยู่ด้านหลัง */
+}
+
+.toast {
+	display: flex;
+	align-items: flex-start;
+	gap: var(--space-2);
+	padding: var(--space-3) var(--space-4);
+	font-weight: 600;
+	color: var(--color-text);
+	background: var(--color-surface);
+	border: 1px solid var(--color-border);
+	border-left: 5px solid var(--toast-color, var(--color-primary));
+	border-radius: var(--radius-md);
+	box-shadow: var(--shadow-md);
+	pointer-events: auto;
+	animation: toast-in 300ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.toast::before {
+	content: var(--toast-icon, "ℹ️");
+}
+
+.toast--success { --toast-color: var(--color-success); --toast-icon: "✅"; }
+.toast--error { --toast-color: var(--color-danger); --toast-icon: "❌"; }
+.toast--warning { --toast-color: var(--color-warning); --toast-icon: "⚠️"; }
+
+/* JS ใส่ class นี้ก่อนลบ เพื่อเล่นแอนิเมชันออก */
+.toast.is-leaving {
+	animation: toast-out 250ms ease forwards;
+}
+
+/* ---------- 11) Shortcuts (details/summary) ---------- */
+.shortcuts summary {
+	font-weight: 600;
+	cursor: pointer;
+}
+
+.shortcuts__list {
+	display: grid;
+	grid-template-columns: auto 1fr;
+	gap: var(--space-1) var(--space-3);
+	margin-top: var(--space-2);
+	font-size: 0.9rem;
+}

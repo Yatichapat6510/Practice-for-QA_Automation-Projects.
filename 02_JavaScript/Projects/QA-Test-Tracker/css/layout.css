@@ -1,0 +1,188 @@
+/*
+ * ==========================================================================
+ * layout.css : โครงสร้างหน้า (วางอะไรไว้ตรงไหน)
+ * ==========================================================================
+ * 1. Container     จำกัดความกว้างเนื้อหาและจัดกึ่งกลาง
+ * 2. Header        position: sticky ติดด้านบนเวลาเลื่อน + Flexbox
+ * 3. App layout    CSS Grid + grid-template-areas แบ่งพื้นที่ form / list / stats
+ * 4. Footer
+ * 5. Responsive    @media ปรับ layout ตามขนาดจอ (mobile / tablet / desktop)
+ * 6. Print         @media print หน้าตาตอนสั่งพิมพ์
+ *
+ * Flexbox vs Grid
+ * - Flexbox: จัดของ "แถวเดียว" (แนวนอนหรือแนวตั้ง) เช่น เมนู, ปุ่มเรียงกัน
+ * - Grid:    จัดของ "สองมิติ" (แถว + คอลัมน์) เช่น layout ทั้งหน้า, การ์ดหลายใบ
+ *
+ * การตั้งชื่อ class ใช้แนว BEM:  block__element--modifier
+ *   .site-header          = block (ชิ้นใหญ่)
+ *   .site-header__inner   = element (ส่วนย่อยข้างใน)
+ *   .btn--primary         = modifier (รูปแบบอื่นของ block)
+ * ==========================================================================
+ */
+
+/* ---------- 1) Container ---------- */
+.container {
+	width: min(100% - 2rem, 1200px); /* min(): เลือกค่าที่น้อยกว่า = ไม่เกิน 1200px และเว้นขอบ 1rem */
+	margin-inline: auto; /* margin ซ้าย-ขวา auto = จัดกึ่งกลาง */
+}
+
+/* ---------- 2) Header ---------- */
+.site-header {
+	position: sticky; /* เลื่อนตามปกติ จนถึง top: 0 แล้วติดอยู่ */
+	top: 0;
+	z-index: 10; /* ซ้อนอยู่เหนือเนื้อหาอื่น */
+	background: color-mix(in srgb, var(--color-surface) 85%, transparent); /* ผสมสีให้โปร่งแสง */
+	backdrop-filter: blur(8px); /* เบลอเนื้อหาที่อยู่ด้านหลัง */
+	border-bottom: 1px solid var(--color-border);
+}
+
+.site-header__inner {
+	display: flex;
+	align-items: center; /* จัดกึ่งกลางแนวตั้ง */
+	justify-content: space-between; /* กระจายซ้าย-กลาง-ขวา */
+	gap: var(--space-4); /* ระยะห่างระหว่างลูก */
+	min-height: 4rem;
+}
+
+.brand {
+	display: inline-flex;
+	align-items: center;
+	gap: var(--space-2);
+	font-weight: 700;
+	font-size: 1.15rem;
+	color: var(--color-text);
+	text-decoration: none;
+}
+
+.brand__logo {
+	color: var(--color-primary); /* SVG ใช้ currentColor จึงเปลี่ยนสีตามนี้ */
+}
+
+.site-nav__list {
+	display: flex;
+	gap: var(--space-1);
+	padding: 0;
+	margin: 0;
+	list-style: none; /* เอาจุดหน้า li ออก */
+}
+
+/* Descendant selector: a ที่อยู่ข้างใน .site-nav__list */
+.site-nav__list a {
+	display: block;
+	padding: var(--space-2) var(--space-3);
+	color: var(--color-muted);
+	font-weight: 600;
+	text-decoration: none;
+	border-radius: var(--radius-sm);
+	transition: background-color var(--transition-fast), color var(--transition-fast);
+}
+
+.site-nav__list a:hover {
+	color: var(--color-text);
+	background: var(--color-surface-alt);
+}
+
+/* ---------- 3) App layout: CSS Grid ---------- */
+.app-layout {
+	display: grid;
+	/* คอลัมน์ซ้ายกว้าง 300-380px คอลัมน์ขวากินที่เหลือ (1fr = 1 ส่วนของพื้นที่ว่าง) */
+	grid-template-columns: minmax(300px, 380px) 1fr;
+	/* ตั้งชื่อพื้นที่ แล้วให้แต่ละ panel ไปวางตามชื่อ อ่านง่ายเหมือนวาดแผนผัง */
+	grid-template-areas:
+		"form list"
+		"form stats";
+	align-items: start;
+	gap: var(--space-5);
+	padding-block: var(--space-5) var(--space-6);
+}
+
+.panel--form {
+	grid-area: form;
+	position: sticky; /* ฟอร์มติดอยู่ขณะเลื่อนดูรายการ */
+	top: 5rem;
+}
+
+.panel--list {
+	grid-area: list;
+	min-width: 0; /* ป้องกัน grid item ถูกเนื้อหาข้างใน (ตาราง) ดันจนล้น */
+}
+
+.panel--stats {
+	grid-area: stats;
+}
+
+/* ---------- 4) Footer ---------- */
+.site-footer {
+	padding-block: var(--space-5);
+	background: var(--color-surface);
+	border-top: 1px solid var(--color-border);
+}
+
+.site-footer__inner {
+	display: flex;
+	flex-wrap: wrap; /* ที่ไม่พอให้ขึ้นบรรทัดใหม่ */
+	align-items: center;
+	justify-content: space-between;
+	gap: var(--space-4);
+}
+
+.data-actions {
+	display: flex;
+	flex-wrap: wrap;
+	gap: var(--space-2);
+}
+
+/* ---------- 5) Responsive: Media queries ---------- */
+
+/* จอไม่เกิน 960px (tablet): ทุก panel เรียงเป็นคอลัมน์เดียว */
+@media (max-width: 960px) {
+	.app-layout {
+		grid-template-columns: 1fr;
+		grid-template-areas:
+			"form"
+			"list"
+			"stats";
+	}
+
+	.panel--form {
+		position: static; /* เลิก sticky เพราะฟอร์มอยู่ด้านบนแล้ว */
+	}
+}
+
+/* จอไม่เกิน 640px (mobile): ซ่อนเมนู ย่อปุ่ม */
+@media (max-width: 640px) {
+	.site-nav {
+		display: none;
+	}
+
+	.brand__name {
+		font-size: 1rem;
+	}
+
+	.site-footer__inner {
+		flex-direction: column; /* เปลี่ยนจากแนวนอนเป็นแนวตั้ง */
+		align-items: stretch;
+	}
+}
+
+/* ---------- 6) Print: ตอนกด Ctrl+P พิมพ์เฉพาะรายการและสรุปผล ---------- */
+@media print {
+	.site-header,
+	.site-footer,
+	.panel--form,
+	.toolbar,
+	.case-row__actions,
+	.toast-container {
+		display: none !important;
+	}
+
+	.app-layout {
+		display: block;
+	}
+
+	.panel {
+		box-shadow: none;
+		border: 1px solid #ccc;
+		break-inside: avoid; /* ไม่ตัด panel ครึ่งหน้า */
+	}
+}
