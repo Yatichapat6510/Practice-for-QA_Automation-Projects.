@@ -1,0 +1,16 @@
+{
+  "name": "js-data-structure-algorithm-lesson",
+  "version": "1.0.0",
+  "description": "โค้ดประกอบบทเรียน Data Structure & Algorithm ด้วย JavaScript",
+  "private": true,
+  "scripts": {
+    "start": "node run-all.js",
+    "algorithm": "node run-all.js 01-algorithm",
+    "linear": "node run-all.js 02-data-structure-linear",
+    "non-linear": "node run-all.js 03-data-structure-non-linear"
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "license": "MIT"
+}

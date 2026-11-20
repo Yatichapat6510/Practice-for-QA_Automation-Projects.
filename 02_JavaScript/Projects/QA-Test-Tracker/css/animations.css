@@ -1,0 +1,94 @@
+/*
+ * ==========================================================================
+ * animations.css : แอนิเมชันทั้งหมด (โหลดเป็นไฟล์สุดท้าย)
+ * ==========================================================================
+ * transition vs animation
+ * - transition: เปลี่ยนค่า "จาก A ไป B" แบบนุ่มนวล เมื่อค่าเปลี่ยน (เช่น :hover)
+ *               เขียนใน selector ปกติ เช่น transition: color 200ms ease;
+ * - animation:  เล่นตามลำดับขั้นที่กำหนดใน @keyframes เล่นซ้ำ/วนได้ ไม่ต้องรอค่าเปลี่ยน
+ *               เช่น animation: fade-in 400ms ease both;
+ *
+ * @keyframes ชื่อ { from {...} to {...} }  หรือใช้เปอร์เซ็นต์ 0% 50% 100%
+ * แนะนำให้ animate เฉพาะ transform และ opacity เพราะเบราว์เซอร์ทำได้ลื่นที่สุด
+ * ==========================================================================
+ */
+
+@keyframes fade-in {
+	from {
+		opacity: 0;
+		transform: translateY(8px);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
+/* ลอยขึ้นลง ใช้กับไอคอน empty state (infinite = วนไม่หยุด) */
+@keyframes float {
+	0%,
+	100% {
+		transform: translateY(0);
+	}
+	50% {
+		transform: translateY(-6px);
+	}
+}
+
+/* ขยายแล้วหดกลับ ใช้ตอนตัวเลขสถิติเปลี่ยน */
+@keyframes pop {
+	0% {
+		transform: scale(1);
+	}
+	40% {
+		transform: scale(1.25);
+	}
+	100% {
+		transform: scale(1);
+	}
+}
+
+@keyframes dialog-in {
+	from {
+		opacity: 0;
+		transform: translateY(12px) scale(0.96);
+	}
+	to {
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+}
+
+@keyframes toast-in {
+	from {
+		opacity: 0;
+		transform: translateX(110%);
+	}
+	to {
+		opacity: 1;
+		transform: translateX(0);
+	}
+}
+
+@keyframes toast-out {
+	to {
+		opacity: 0;
+		transform: translateX(110%);
+	}
+}
+
+/*
+ * prefers-reduced-motion: ผู้ใช้ตั้งค่าในระบบปฏิบัติการว่า "ลดการเคลื่อนไหว"
+ * (บางคนเวียนหัวกับแอนิเมชัน) -> ทำให้แอนิเมชันสั้นจนแทบไม่เห็น
+ * ใช้ 0.01ms แทน none เพื่อให้ event animationend ยังเกิด (toast ใน ui.js รอ event นี้ก่อนลบ)
+ */
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.01ms !important;
+		animation-iteration-count: 1 !important;
+		transition-duration: 0.01ms !important;
+		scroll-behavior: auto !important;
+	}
+}

@@ -16,7 +16,7 @@
 //     console.log("กำลังดาวน์โหลดข้อมูลจาก:", `${url}`);
 //     setTimeout(() => {
 //         const data = `ข้อมูลจาก ${url}`;
-//         callback(url);
+//         callback(data);
 //     }, 3000);
 // }
 
@@ -118,20 +118,20 @@ async function downloadData(url){
 
 // เรียกใช้งาน
 
-downloadData(url1);
+const successRun = downloadData(url1); // คืน Promise ที่จบเมื่อดาวน์โหลดเสร็จ (ใช้รอก่อนรันเคสถัดไป)
 
 
 
 
 // การใช้ Async / Await (Failed Case)
 
-const connect = false; // เปลี่ยนเป็น false เพื่อทดสอบ Error
+const isConnected = false; // เปลี่ยนเป็น false เพื่อทดสอบ Error
 
 
-const url1 = "kong.dev/file3.json";
+const failedUrl = "kong.dev/file3.json";
 
 
-function downloadingPromise(url) {
+function downloadingFailedPromise(url) {
 
     return new Promise(function(resolve, reject) {
 
@@ -140,7 +140,7 @@ function downloadingPromise(url) {
 
         setTimeout(() => {
 
-            if(connect){
+            if(isConnected){
 
                 resolve({
                     status: "success",
@@ -164,11 +164,11 @@ function downloadingPromise(url) {
 }
 
 
-async function downloadData(url){
+async function downloadFailedData(url){
 
     try {
 
-        const result = await downloadingPromise(url);
+        const result = await downloadingFailedPromise(url);
 
 
         console.log("===== RESULT =====");
@@ -197,4 +197,5 @@ async function downloadData(url){
 
 // เรียกใช้งาน
 
-downloadData(url1);
+// รอเคส Success จบก่อน ค่อยรันเคส Failed เพื่อให้ผลลัพธ์ไม่ปนกัน
+successRun.then(() => downloadFailedData(failedUrl));

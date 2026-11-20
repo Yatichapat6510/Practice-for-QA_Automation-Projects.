@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<!--
+	==========================================================================
+	QA Test Tracker : index.html (ไฟล์ HTML หลัก)
+	==========================================================================
+	หน้าที่ของแต่ละภาษาในโปรเจกต์นี้
+	- HTML (ไฟล์นี้)    = "โครงสร้างและเนื้อหา" บอกว่าหน้ามีอะไรบ้าง
+	- CSS (css/*.css)   = "หน้าตา" สี ขนาด ตำแหน่ง แอนิเมชัน
+	- JS  (js/*.js)     = "พฤติกรรม" ตอบสนองเมื่อผู้ใช้คลิก/พิมพ์ และอัปเดตหน้าเว็บ
+
+	สิ่งที่ JS ใช้เชื่อมกับ HTML
+	- id="..."           JS หา element ที่มีตัวเดียว เช่น document.querySelector("#case-form")
+	- class="..."        ใช้ทั้ง CSS (จัดสไตล์) และ JS (หาหลายตัว)
+	- data-*="..."       เก็บข้อมูลเพิ่มใน element เช่น data-action="edit" (JS อ่านผ่าน element.dataset)
+	- data-testid="..."  ชื่อสำหรับเขียน automated test (Playwright/Cypress) ไม่ผูกกับสไตล์
+
+	วิธีเปิด: ต้องเปิดผ่าน local server (เช่น VS Code Live Server) ดูเหตุผลใน README.md
+	==========================================================================
+-->
+<html lang="th">
+<head>
+	<!-- ===== 1) Meta: ข้อมูลของหน้า (ไม่แสดงบนจอ) ===== -->
+	<meta charset="UTF-8"> <!-- รองรับภาษาไทย ต้องอยู่บนสุดของ head -->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- ทำให้แสดงผลบนมือถือถูกขนาด -->
+	<meta name="description" content="ตัวอย่างระบบจัดการ Test Case ด้วย HTML, CSS และ JavaScript">
+	<title>QA Test Tracker</title>
+	<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+
+	<!-- ===== 2) Web font: preconnect ช่วยให้เชื่อมต่อเซิร์ฟเวอร์ฟอนต์เร็วขึ้น ===== -->
+	<!-- ถ้าออฟไลน์ ฟอนต์ไม่โหลด เบราว์เซอร์จะใช้ฟอนต์สำรองใน --font-sans (base.css) -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Sarabun:wght@400;600;700&display=swap">
+
+	<!-- ===== 3) CSS: ลำดับสำคัญ ไฟล์ที่โหลดทีหลังทับกฎของไฟล์ก่อนหน้าได้ (Cascade) ===== -->
+	<link rel="stylesheet" href="css/base.css">       <!-- ตัวแปรสี, reset, ธีมมืด -->
+	<link rel="stylesheet" href="css/layout.css">     <!-- โครงหน้า: header, grid, responsive -->
+	<link rel="stylesheet" href="css/components.css"> <!-- ชิ้นส่วน: ปุ่ม, ฟอร์ม, ตาราง, การ์ด -->
+	<link rel="stylesheet" href="css/animations.css"> <!-- @keyframes และ reduced motion -->
+
+	<!-- ===== 4) JavaScript ===== -->
+	<!--
+		type="module" ทำให้ใช้ import/export ได้ และมีผลเหมือน defer อัตโนมัติ
+		(รอ HTML โหลดครบก่อนจึงรัน) ดังนั้นวาง script ไว้ใน head ได้เลย
+	-->
+	<script type="module" src="js/main.js"></script>
+</head>
+
+<body>
+	<!-- Skip link: กด Tab ครั้งแรกจะเห็น ช่วยผู้ใช้คีย์บอร์ด/โปรแกรมอ่านหน้าจอข้ามเมนูไปเนื้อหาได้ -->
+	<a class="skip-link" href="#main">ข้ามไปเนื้อหาหลัก</a>
+
+	<!-- ===================== HEADER: ส่วนหัว (semantic tag) ===================== -->
+	<header class="site-header">
+		<div class="container site-header__inner">
+			<a class="brand" href="#main" aria-label="QA Test Tracker หน้าแรก">
+				<!-- SVG inline: รูปเวกเตอร์เขียนในโค้ด สีเปลี่ยนตาม CSS ได้ (stroke="currentColor") -->
+				<svg class="brand__logo" viewBox="0 0 24 24" width="28" height="28" aria-hidden="true" focusable="false">
+					<path d="M9 11l3 3 8-8" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+					<path d="M20 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+				</svg>
+				<span class="brand__name">QA Test Tracker</span>
+			</a>
+
+			<!-- nav + aria-label บอกโปรแกรมอ่านหน้าจอว่านี่คือเมนูอะไร -->
+			<nav class="site-nav" aria-label="เมนูหลัก">
+				<ul class="site-nav__list">
+					<li><a href="#form-section">เพิ่มเคส</a></li>
+					<li><a href="#list-section">รายการ</a></li>
+					<li><a href="#stats-section">สรุปผล</a></li>
+				</ul>
+			</nav>
+
+			<!-- aria-pressed บอกสถานะปุ่มแบบเปิด/ปิด JS จะเปลี่ยนค่านี้ (js/theme.js) -->
+			<button id="theme-toggle" class="btn btn--ghost" type="button" aria-pressed="false" data-testid="theme-toggle">
+				<span data-theme-icon aria-hidden="true">🌙</span>
+				<span data-theme-label>โหมดมืด</span>
+			</button>
+		</div>
+	</header>
+
+	<!-- noscript: แสดงเฉพาะเมื่อเบราว์เซอร์ปิด JavaScript -->
+	<noscript>
+		<p class="noscript-warning">หน้านี้ต้องเปิดใช้งาน JavaScript จึงจะทำงานได้</p>
+	</noscript>
+
+	<!-- ===================== MAIN: เนื้อหาหลัก (มีได้ 1 ตัวต่อหน้า) ===================== -->
+	<main id="main" class="container app-layout">
+
+		<!-- ---------- ส่วนที่ 1: ฟอร์มเพิ่ม/แก้ไข (aside = เนื้อหาเสริมด้านข้าง) ---------- -->
+		<aside id="form-section" class="panel panel--form" aria-labelledby="form-title">
+			<h2 id="form-title" class="panel__title">เพิ่ม Test Case</h2>
+
+			<!--
+				novalidate: ปิด popup ตรวจฟอร์มของเบราว์เซอร์ เพื่อให้ JS แสดงข้อความ error เอง
+				แต่ attribute required/minlength ยังใช้ได้กับ CSS :user-invalid
+				data-mode="create|edit" JS ใช้บอกว่าฟอร์มกำลังเพิ่มหรือแก้ไข
+			-->
+			<form id="case-form" class="case-form" novalidate data-mode="create" data-testid="case-form">
+				<!-- hidden: เก็บ id ของเคสที่กำลังแก้ไข (ว่าง = เพิ่มใหม่) -->
+				<input type="hidden" name="id" value="">
+
+				<!-- text input + label for="..." ผูกกับ id ของ input (คลิกที่ label แล้ว focus ช่องได้) -->
+				<div class="field">
+					<label class="field__label" for="title">
+						ชื่อเคส <span class="field__required" aria-hidden="true">*</span>
+					</label>
+					<input id="title" name="title" class="input" type="text"
+						required minlength="5" maxlength="100" autocomplete="off"
+						placeholder="เช่น Login ด้วยรหัสผ่านที่ถูกต้อง"
+						aria-describedby="title-hint title-error" data-testid="input-title">
+					<div class="field__meta">
+						<small id="title-hint" class="field__hint">5-100 ตัวอักษร</small>
+						<!-- output: แสดงผลลัพธ์ที่คำนวณได้ (JS นับจำนวนตัวอักษร) -->
+						<output id="title-counter" class="field__counter" for="title">0/100</output>
+					</div>
+					<p id="title-error" class="field__error" data-error-for="title"></p>
+				</div>
+
+				<!-- select: JS เติม option จาก constants.js (ดู populateSelect ใน ui.js) -->
+				<div class="field">
+					<label class="field__label" for="module">
+						โมดูล <span class="field__required" aria-hidden="true">*</span>
+					</label>
+					<select id="module" name="module" class="input" required aria-describedby="module-error" data-testid="select-module">
+						<option value="" disabled selected>-- เลือกโมดูล --</option>
+					</select>
+					<p id="module-error" class="field__error" data-error-for="module"></p>
+				</div>
+
+				<!-- fieldset + legend: จัดกลุ่ม radio ที่เกี่ยวข้องกัน (name เดียวกัน = เลือกได้ 1 ตัว) -->
+				<fieldset class="field field--fieldset" aria-describedby="priority-error">
+					<legend class="field__label">ความสำคัญ <span class="field__required" aria-hidden="true">*</span></legend>
+					<div class="chip-group">
+						<label class="chip chip--high">
+							<input type="radio" name="priority" value="high" required data-testid="priority-high"> สูง
+						</label>
+						<label class="chip chip--medium">
+							<input type="radio" name="priority" value="medium" checked data-testid="priority-medium"> กลาง
+						</label>
+						<label class="chip chip--low">
+							<input type="radio" name="priority" value="low" data-testid="priority-low"> ต่ำ
+						</label>
+					</div>
+					<p id="priority-error" class="field__error" data-error-for="priority"></p>
+				</fieldset>
+
+				<!-- textarea: ข้อความหลายบรรทัด -->
+				<div class="field">
+					<label class="field__label" for="steps">
+						ขั้นตอนการทดสอบ <span class="field__required" aria-hidden="true">*</span>
+					</label>
+					<textarea id="steps" name="steps" class="input" rows="4" required
+						placeholder="1. เปิดหน้า Login&#10;2. กรอก username / password&#10;3. กดปุ่ม Login"
+						aria-describedby="steps-error" data-testid="input-steps"></textarea>
+					<p id="steps-error" class="field__error" data-error-for="steps"></p>
+				</div>
+
+				<div class="field">
+					<label class="field__label" for="expected">
+						ผลลัพธ์ที่คาดหวัง <span class="field__required" aria-hidden="true">*</span>
+					</label>
+					<textarea id="expected" name="expected" class="input" rows="2" required
+						placeholder="เข้าสู่หน้ารายการสินค้า" aria-describedby="expected-error" data-testid="input-expected"></textarea>
+					<p id="expected-error" class="field__error" data-error-for="expected"></p>
+				</div>
+
+				<!-- list="..." ผูกกับ datalist: พิมพ์เองได้ หรือเลือกจากคำแนะนำ -->
+				<div class="field">
+					<label class="field__label" for="tags">แท็ก (คั่นด้วย ,)</label>
+					<input id="tags" name="tags" class="input" type="text" list="tag-suggestions"
+						placeholder="smoke, regression" aria-describedby="tags-error" data-testid="input-tags">
+					<datalist id="tag-suggestions">
+						<option value="smoke"></option>
+						<option value="regression"></option>
+						<option value="negative"></option>
+						<option value="ui"></option>
+						<option value="api"></option>
+					</datalist>
+					<p id="tags-error" class="field__error" data-error-for="tags"></p>
+				</div>
+
+				<!-- input type="date": เบราว์เซอร์มีปฏิทินให้เลือก ค่าที่ได้เป็นรูปแบบ YYYY-MM-DD -->
+				<div class="field">
+					<label class="field__label" for="plannedDate">วันที่วางแผนทดสอบ</label>
+					<input id="plannedDate" name="plannedDate" class="input" type="date" aria-describedby="plannedDate-error" data-testid="input-date">
+					<p id="plannedDate-error" class="field__error" data-error-for="plannedDate"></p>
+				</div>
+
+				<!-- checkbox: ถ้าไม่ติ๊ก FormData จะไม่มีค่านี้เลย JS จึงอ่านจาก .checked แทน -->
+				<label class="checkbox">
+					<input type="checkbox" name="automated" data-testid="input-automated">
+					<span>มี Automated test แล้ว</span>
+				</label>
+
+				<!-- type="submit" ส่งฟอร์ม / type="reset" ล้างค่ากลับเป็นค่าเริ่มต้น / type="button" ไม่ทำอะไรเอง -->
+				<div class="form-actions">
+					<button type="submit" class="btn btn--primary" data-submit-label data-testid="submit-case">เพิ่มเคส</button>
+					<button type="reset" class="btn btn--secondary" data-testid="reset-form">ล้างฟอร์ม</button>
+				</div>
+				<p class="form-mode-hint" data-edit-hint hidden>
+					กำลังแก้ไข กด <kbd>Esc</kbd> หรือ "ล้างฟอร์ม" เพื่อยกเลิก
+				</p>
+			</form>
+		</aside>
+
+		<!-- ---------- ส่วนที่ 2: รายการเคส (section = กลุ่มเนื้อหาที่มีหัวข้อ) ---------- -->
+		<section id="list-section" class="panel panel--list" aria-labelledby="list-title">
+			<div class="panel__header">
+				<h2 id="list-title" class="panel__title">รายการ Test Case</h2>
+				<!-- aria-live="polite": โปรแกรมอ่านหน้าจอจะอ่านข้อความเมื่อ JS เปลี่ยนค่า -->
+				<span id="result-count" class="muted" aria-live="polite" data-testid="result-count"></span>
+			</div>
+
+			<!-- role="search": บอกว่าส่วนนี้คือเครื่องมือค้นหา -->
+			<div class="toolbar" role="search">
+				<div class="toolbar__search">
+					<label for="search" class="visually-hidden">ค้นหา Test Case</label>
+					<input id="search" class="input" type="search" placeholder="ค้นหาชื่อ ขั้นตอน แท็ก... (กด / )" data-testid="search-input">
+				</div>
+				<label class="visually-hidden" for="filter-status">กรองตามสถานะ</label>
+				<select id="filter-status" class="input" data-testid="filter-status">
+					<option value="all">ทุกสถานะ</option>
+				</select>
+				<label class="visually-hidden" for="filter-priority">กรองตามความสำคัญ</label>
+				<select id="filter-priority" class="input" data-testid="filter-priority">
+					<option value="all">ทุกความสำคัญ</option>
+				</select>
+				<label class="visually-hidden" for="sort-by">เรียงลำดับ</label>
+				<select id="sort-by" class="input" data-testid="sort-by">
+					<option value="newest">ใหม่ล่าสุด</option>
+					<option value="oldest">เก่าที่สุด</option>
+					<option value="priority">ความสำคัญสูงก่อน</option>
+					<option value="title">ชื่อ ก-ฮ / A-Z</option>
+				</select>
+			</div>
+
+			<!-- table: ข้อมูลแบบตาราง thead = หัวตาราง, tbody = เนื้อหา (JS สร้างแถวให้) -->
+			<div class="table-wrapper">
+				<table class="case-table" data-testid="case-table">
+					<caption class="visually-hidden">รายการ Test Case ทั้งหมด</caption>
+					<thead>
+						<tr>
+							<th scope="col">เคส</th>
+							<th scope="col">โมดูล</th>
+							<th scope="col">ความสำคัญ</th>
+							<th scope="col">สถานะ</th>
+							<th scope="col"><span class="visually-hidden">จัดการ</span></th>
+						</tr>
+					</thead>
+					<tbody id="case-tbody"></tbody>
+				</table>
+			</div>
+
+			<!-- hidden: ซ่อน element (JS สลับค่า .hidden = true/false) -->
+			<div id="empty-state" class="empty-state" hidden data-testid="empty-state">
+				<p class="empty-state__icon" aria-hidden="true">🗂️</p>
+				<p class="empty-state__text" data-empty-text>ยังไม่มี Test Case</p>
+			</div>
+		</section>
+
+		<!-- ---------- ส่วนที่ 3: สรุปผล ---------- -->
+		<section id="stats-section" class="panel panel--stats" aria-labelledby="stats-title">
+			<h2 id="stats-title" class="panel__title">สรุปผลการทดสอบ</h2>
+
+			<!-- article: เนื้อหาที่สมบูรณ์ในตัวเอง (การ์ดแต่ละใบ) data-stat ให้ JS รู้ว่าใส่ตัวเลขอะไร -->
+			<div class="stats-grid">
+				<article class="stat-card" data-stat="total">
+					<h3 class="stat-card__label">ทั้งหมด</h3>
+					<p class="stat-card__value" data-testid="stat-total">0</p>
+				</article>
+				<article class="stat-card" data-stat="pass">
+					<h3 class="stat-card__label">ผ่าน</h3>
+					<p class="stat-card__value" data-testid="stat-pass">0</p>
+				</article>
+				<article class="stat-card" data-stat="fail">
+					<h3 class="stat-card__label">ไม่ผ่าน</h3>
+					<p class="stat-card__value" data-testid="stat-fail">0</p>
+				</article>
+				<article class="stat-card" data-stat="blocked">
+					<h3 class="stat-card__label">ติดปัญหา</h3>
+					<p class="stat-card__value" data-testid="stat-blocked">0</p>
+				</article>
+				<article class="stat-card" data-stat="not-run">
+					<h3 class="stat-card__label">ยังไม่ทดสอบ</h3>
+					<p class="stat-card__value" data-testid="stat-not-run">0</p>
+				</article>
+			</div>
+
+			<!-- progress: แถบความคืบหน้า (value/max) ข้อความด้านในแสดงเมื่อเบราว์เซอร์ไม่รองรับ -->
+			<div class="meter-group">
+				<div class="meter">
+					<label for="progress-bar">ความคืบหน้า (ทดสอบแล้ว / ทั้งหมด)</label>
+					<progress id="progress-bar" max="100" value="0">0%</progress>
+					<output id="progress-text" for="progress-bar" data-testid="progress-text">0%</output>
+				</div>
+				<div class="meter meter--pass">
+					<label for="pass-rate-bar">อัตราผ่าน (จากเคสที่ทดสอบแล้ว)</label>
+					<progress id="pass-rate-bar" max="100" value="0">0%</progress>
+					<output id="pass-rate-text" for="pass-rate-bar" data-testid="pass-rate-text">0%</output>
+				</div>
+			</div>
+
+			<h3 class="panel__subtitle">จำนวนเคสตามโมดูล</h3>
+			<!-- ul ว่าง: JS สร้าง li เป็นกราฟแท่งด้วย CSS (ไม่ใช้ library) -->
+			<ul id="module-chart" class="bar-chart" data-testid="module-chart"></ul>
+		</section>
+	</main>
+
+	<!-- ===================== FOOTER: ส่วนท้าย ===================== -->
+	<footer class="site-footer">
+		<div class="container site-footer__inner">
+			<div class="data-actions">
+				<button id="load-sample" class="btn btn--secondary" type="button" data-testid="load-sample">โหลดข้อมูลตัวอย่าง</button>
+				<button id="export-json" class="btn btn--secondary" type="button" data-testid="export-json">ส่งออก JSON</button>
+				<!-- ซ่อน input file จริง แล้วใช้ label แทนปุ่ม (คลิก label = คลิก input) -->
+				<label class="btn btn--secondary" for="import-file">นำเข้า JSON</label>
+				<input id="import-file" class="visually-hidden" type="file" accept=".json,application/json" data-testid="import-file">
+				<button id="clear-all" class="btn btn--danger" type="button" data-testid="clear-all">ลบทั้งหมด</button>
+			</div>
+
+			<!-- details/summary: ส่วนพับ/กางได้ ไม่ต้องเขียน JS -->
+			<details class="shortcuts">
+				<summary>คีย์ลัด</summary>
+				<!-- dl/dt/dd: รายการคำและคำอธิบาย / kbd: ปุ่มบนคีย์บอร์ด -->
+				<dl class="shortcuts__list">
+					<dt><kbd>/</kbd></dt><dd>ไปที่ช่องค้นหา</dd>
+					<dt><kbd>N</kbd></dt><dd>ไปที่ช่องชื่อเคสใหม่</dd>
+					<dt><kbd>Esc</kbd></dt><dd>ยกเลิกการแก้ไข / ปิดหน้าต่าง</dd>
+				</dl>
+			</details>
+
+			<p class="muted"><small>&copy; <span id="year"></span> QA Test Tracker ตัวอย่างฝึก HTML / CSS / JavaScript</small></p>
+		</div>
+	</footer>
+
+	<!--
+		===================== TEMPLATE: แม่แบบแถวตาราง =====================
+		<template> ไม่แสดงบนหน้า JS จะ clone ไปใช้ (ดู createRow ใน ui.js)
+		data-label บน td ใช้กับ CSS attr() เพื่อแสดงหัวคอลัมน์ตอนจอเล็ก
+	-->
+	<template id="case-row-template">
+		<tr class="case-row" data-testid="case-row">
+			<td class="case-row__main" data-label="เคส">
+				<details class="case-detail">
+					<summary class="case-detail__title" data-field="title"></summary>
+					<dl class="case-detail__body">
+						<dt>ขั้นตอน</dt>
+						<dd class="preserve-lines" data-field="steps"></dd>
+						<dt>ผลที่คาดหวัง</dt>
+						<dd class="preserve-lines" data-field="expected"></dd>
+					</dl>
+				</details>
+				<div class="tag-list" data-field="tags"></div>
+				<small class="case-row__meta muted" data-field="meta"></small>
+			</td>
+			<td data-label="โมดูล" data-field="module"></td>
+			<td data-label="ความสำคัญ"><span class="badge" data-field="priority"></span></td>
+			<td data-label="สถานะ">
+				<select class="input input--sm status-select" data-action="status" aria-label="เปลี่ยนสถานะ" data-testid="row-status"></select>
+			</td>
+			<td class="case-row__actions" data-label="จัดการ">
+				<button type="button" class="btn btn--icon" data-action="edit" aria-label="แก้ไข" title="แก้ไข" data-testid="row-edit">✏️</button>
+				<button type="button" class="btn btn--icon btn--icon-danger" data-action="delete" aria-label="ลบ" title="ลบ" data-testid="row-delete">🗑️</button>
+			</td>
+		</tr>
+	</template>
+
+	<!--
+		===================== DIALOG: หน้าต่างยืนยัน =====================
+		<dialog> + showModal() = modal ที่บล็อกหน้าเบื้องหลัง และปิดด้วย Esc ได้ในตัว
+		form method="dialog": กดปุ่มใน form แล้ว dialog ปิดเอง และ dialog.returnValue = value ของปุ่ม
+	-->
+	<dialog id="confirm-dialog" class="dialog" aria-labelledby="confirm-title" data-testid="confirm-dialog">
+		<form method="dialog" class="dialog__form">
+			<h2 id="confirm-title" class="dialog__title">ยืนยันการทำรายการ</h2>
+			<p id="confirm-message" class="dialog__message"></p>
+			<div class="dialog__actions">
+				<button value="cancel" class="btn btn--secondary" data-testid="confirm-cancel">ยกเลิก</button>
+				<button value="confirm" class="btn btn--danger" data-testid="confirm-ok">ยืนยัน</button>
+			</div>
+		</form>
+	</dialog>
+
+	<!-- Toast: กล่องข้อความแจ้งเตือนมุมจอ role="status" ให้โปรแกรมอ่านหน้าจออ่านให้ -->
+	<div id="toast-container" class="toast-container" role="status" aria-live="polite" data-testid="toast-container"></div>
+</body>
+</html>
